@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Albero decisionale interattivo per l'orientamento diagnostico delle lesioni della mucosa orale in età pediatrica.">
+<meta name="theme-color" content="#2C5F5D">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Albero decisionale — Lesioni della mucosa orale">
+<meta property="og:description" content="Strumento interattivo per l'orientamento diagnostico delle lesioni orali in pediatria.">
+<meta property="og:type" content="website">
+<title>Albero decisionale — Lesioni della mucosa orale in pediatria</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%232C5F5D'/%3E%3Cpath d='M30 30 L30 70 M30 30 L50 30 M30 50 L45 50 M60 30 L60 70 M60 30 L80 30 M60 70 L80 70' stroke='white' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1A1F2E;
+    --ink-soft: #4A5163;
+    --ink-mute: #7B8296;
+    --paper: #FAFAF7;
+    --paper-tint: #F2F0E9;
+    --rule: #E5E2D8;
+    --rule-strong: #C9C4B4;
+    --accent: #2C5F5D;
+    --accent-dark: #1E4544;
+    --accent-tint: #E6EFEE;
+    --amber: #B45309;
+    --amber-tint: #FEF3C7;
+    --amber-rule: #F0D89A;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, 'URW Palladio L', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --tap: 44px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #EDECE4;
+      --ink-soft: #B8B5AA;
+      --ink-mute: #7E7B70;
+      --paper: #14171E;
+      --paper-tint: #1C2028;
+      --rule: #2B2F38;
+      --rule-strong: #3B4049;
+      --accent: #7BB5B3;
+      --accent-dark: #A0CFCD;
+      --accent-tint: #1E3231;
+      --amber: #F0B056;
+      --amber-tint: #3B2A0F;
+      --amber-rule: #6E4E1B;
+    }
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper);
+    min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  header.site {
+    padding: 22px 0 18px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  header.site .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  header.site h1 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  header.site .sub {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-top: 6px;
+    max-width: 56ch;
+  }
+  @media (min-width: 640px) {
+    header.site { padding: 32px 0 26px; }
+    header.site h1 { font-size: 30px; }
+    header.site .sub { font-size: 15px; }
+  }
+
+  main { padding: 24px 0 60px; }
+
+  nav.crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 4px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin-bottom: 22px;
+    min-height: 24px;
+  }
+  nav.crumbs .step {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: default;
+    font-family: var(--sans);
+    font-size: 13px;
+  }
+  nav.crumbs .step.done { cursor: pointer; color: var(--accent); }
+  nav.crumbs .step.done:hover { background: var(--accent-tint); }
+  nav.crumbs .step.current {
+    color: var(--ink);
+    background: var(--paper-tint);
+    border-color: var(--rule);
+  }
+  nav.crumbs .sep {
+    color: var(--rule-strong);
+    font-size: 11px;
+    padding: 0 2px;
+  }
+
+  .question {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.003em;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+  @media (min-width: 640px) {
+    .question { font-size: 26px; margin-bottom: 24px; }
+  }
+
+  ul.options {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  li.option {
+    display: block;
+  }
+  button.option-btn {
+    width: 100%;
+    text-align: left;
+    padding: 16px 46px 16px 18px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--rule-strong);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+    position: relative;
+    min-height: var(--tap);
+    transition: border-color 120ms, background 120ms, transform 120ms;
+    line-height: 1.4;
+  }
+  button.option-btn:hover, button.option-btn:focus-visible {
+    border-color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--accent-tint);
+    outline: none;
+  }
+  button.option-btn:active { transform: translateY(1px); }
+  button.option-btn .primary {
+    display: block;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  button.option-btn .secondary {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+  button.option-btn::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-top: 1.5px solid var(--ink-mute);
+    border-right: 1.5px solid var(--ink-mute);
+    transform: translateY(-50%) rotate(45deg);
+    transition: border-color 120ms, transform 120ms;
+  }
+  button.option-btn:hover::after,
+  button.option-btn:focus-visible::after {
+    border-color: var(--accent);
+    transform: translateY(-50%) translateX(3px) rotate(45deg);
+  }
+
+  .result {
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    background: var(--paper);
+    padding: 24px 22px;
+    border-radius: 4px;
+  }
+  .result .label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .result .dx {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.008em;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  @media (min-width: 640px) {
+    .result .dx { font-size: 36px; }
+  }
+  .path-table {
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 6px 16px;
+    font-size: 14px;
+  }
+  .path-table dt {
+    color: var(--ink-mute);
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+  .path-table dd {
+    color: var(--ink);
+    font-size: 15px;
+  }
+  .investigation {
+    margin-top: 18px;
+    padding: 14px 16px;
+    background: var(--amber-tint);
+    border: 1px solid var(--amber-rule);
+    border-radius: 4px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .investigation .icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    color: var(--amber);
+  }
+  .investigation .content { flex: 1; }
+  .investigation .content strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--amber);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .investigation .content span {
+    color: var(--ink);
+    font-size: 15px;
+  }
+  .clinical-note {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+  button.action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    cursor: pointer;
+    min-height: var(--tap);
+    transition: background 120ms, border-color 120ms, color 120ms;
+  }
+  button.action:hover, button.action:focus-visible {
+    background: var(--paper-tint);
+    border-color: var(--ink-mute);
+    color: var(--ink);
+    outline: none;
+  }
+  button.action.primary {
+    color: var(--paper);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  button.action.primary:hover, button.action.primary:focus-visible {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+    color: var(--paper);
+  }
+  button.action svg { width: 16px; height: 16px; }
+
+  footer.site {
+    border-top: 1px solid var(--rule);
+    padding: 22px 0 32px;
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+  }
+  footer.site p + p { margin-top: 6px; }
+
+  .hidden { display: none !important; }
+
+  @media print {
+    header.site, footer.site, nav.crumbs, .actions, button.option-btn::after { display: none; }
+    body { background: white; color: black; }
+    .result { border: 1px solid #333; break-inside: avoid; }
+    .investigation { background: #fef8e7; border: 1px solid #d4a45c; }
+    .question { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="eyebrow">Guida clinica interattiva</div>
+    <h1>Lesioni della mucosa orale in età pediatrica</h1>
+    <p class="sub">Orientamento diagnostico a partire dal tipo di lesione, dalla sede e dalle caratteristiche cliniche.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <nav class="crumbs" id="crumbs" aria-label="Percorso diagnostico"></nav>
+
+    <section id="stepView">
+      <h2 class="question" id="question"></h2>
+      <ul class="options" id="options"></ul>
+    </section>
+
+    <section id="resultView" class="hidden">
+      <div class="result">
+        <div class="label">Diagnosi ipotizzata</div>
+        <div class="dx" id="dxName"></div>
+        <dl class="path-table">
+          <dt>Lesione</dt><dd id="pLesion"></dd>
+          <dt>Sede</dt><dd id="pLoc"></dd>
+          <dt>Caratteristiche</dt><dd id="pChar"></dd>
+        </dl>
+        <div class="investigation hidden" id="invBox">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+          </svg>
+          <div class="content">
+            <strong>Indagine consigliata</strong>
+            <span id="invText"></span>
+          </div>
+        </div>
+        <p class="clinical-note">Strumento di orientamento didattico. Non sostituisce la valutazione clinica specialistica né gli approfondimenti diagnostici caso-specifici.</p>
+      </div>
+    </section>
+
+    <div class="actions" id="actions"></div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Adattato da: <em>Decision tree of pediatric infectious oral mucosal lesions</em> — Frontiers in Pediatrics (PMC9358008). Traduzione italiana.</p>
+    <p>Uso didattico-clinico. Verificare sempre le indicazioni con le linee guida più aggiornate.</p>
+  </div>
+</footer>
+
+<script>
+const TREE = {
+  "Macula": {
+    locs: {
+      "Giunzione uvulo-palato-glossale": [
+        { char: "Maculo-papule e ulcere", dx: "Roseola" }
+      ]
+    }
+  },
+  "Papula": {
+    locs: {
+      "Mucosa palatale o linguale": [
+        { char: "Esofitica, tipo cavolfiore", dx: "Papilloma" }
+      ],
+      "Mucosa masticatoria o di rivestimento labiale": [
+        { char: "Papule sessili, colore della mucosa", dx: "Mollusco contagioso" },
+        { char: "Papule non dolenti, bianche o colore della mucosa", dx: "Iperplasia epiteliale focale" }
+      ],
+      "Mucosa geniena (jugale)": [
+        { char: "Papule bianco/blu con alone eritematoso", dx: "Morbillo" }
+      ],
+      "Palato duro e molle": [
+        { char: "Papule bianco/blu con alone eritematoso", dx: "Eritema infettivo (V malattia)" }
+      ],
+      "Mucosa masticatoria palatale o gengivale": [
+        { char: "Papula pigmentata intravascolare", dx: "Sarcoma di Kaposi" }
+      ]
+    }
+  },
+  "Placche": {
+    locs: {
+      "Tonsillare": [
+        { char: "Associata a disfagia", dx: "Tonsillite batterica", test: "Tampone faringeo" },
+        { char: "Con gengivo-stomatite ulcerata", dx: "Mononucleosi infettiva", test: "Tampone faringeo" },
+        { char: "Con lingua a fragola", dx: "Scarlattina" }
+      ],
+      "Palato duro": [
+        { char: "Placca rosa dolente, unica", dx: "Aspergillosi primaria", test: "Biopsia + esame anatomo-patologico" }
+      ],
+      "Mucosa linguale o masticatoria": [
+        { char: "Placche dolenti con secrezione ematica", dx: "Actinomicosi orale", test: "Biopsia + esame anatomo-patologico" }
+      ],
+      "Mucosa di rivestimento": [
+        { char: "Placche eritematose depapillanti", dx: "Candidosi eritematosa", test: "Tampone mucoso" }
+      ],
+      "Lingua, guancia, palato": [
+        { char: "Placche bianche tipo \u201Cricotta\u201D, asportabili", dx: "Candidosi pseudomembranosa", test: "Tampone mucoso" }
+      ]
+    }
+  },
+  "Vescicole e bolle": {
+    locs: {
+      "Mucosa di rivestimento e masticatoria": [
+        { char: "Piccole, dolenti, con gengivo-stomatite", dx: "Primoinfezione erpetica" }
+      ],
+      "Mucosa masticatoria o labiale inferiore": [
+        { char: "Piccole, dolenti o non dolenti", dx: "Herpes labialis" }
+      ],
+      "Mucosa di rivestimento": [
+        { char: "Non dolenti, alone eritematoso", dx: "Varicella" },
+        { char: "Contenuto chiaro, base eritematosa", dx: "Malattia mano-piede-bocca" }
+      ],
+      "Decorso orale del nervo V2 o V3": [
+        { char: "Contenuto chiaro, alone eritematoso", dx: "Herpes zoster" }
+      ],
+      "Cavit\u00E0 tonsillare": [
+        { char: "Non dolenti, alone eritematoso", dx: "Herpangina" }
+      ],
+      "Mucosa di rivestimento, lingua, labbra": [
+        { char: "Bolle ulceranti con crosta labiale", dx: "Eritema multiforme" }
+      ]
+    }
+  },
+  "Ulcera": {
+    locs: {
+      "Mucosa masticatoria o di rivestimento": [
+        { char: "Non dolente, margini induriti", dx: "Sifilide" },
+        { char: "Dolente, con secrezione giallastra", dx: "Tubercolosi", test: "Biopsia + esame anatomo-patologico" }
+      ],
+      "Labbro o lingua": [
+        { char: "Tumefazione dolente seguita da necrosi", dx: "Mucormicosi", test: "Biopsia + esame anatomo-patologico" }
+      ],
+      "Palato duro": [
+        { char: "Tumefazione sanguinante", dx: "Aspergillosi invasiva", test: "Biopsia + esame anatomo-patologico" }
+      ]
+    }
+  },
+  "Nodulo": {
+    locs: {
+      "Mucosa palatale o labiale": [
+        { char: "Sessile, colore della mucosa", dx: "Condilomi acuminati" }
+      ]
+    }
+  },
+  "Tumefazione ghiandola salivare": {
+    locs: {
+      "Parotide \u2014 bilaterale": [
+        { char: "Tumefazione bilaterale", dx: "Parotite epidemica (Mumps)" }
+      ],
+      "Parotide \u2014 monolaterale": [
+        { char: "Tumefazione monolaterale", dx: "Infezione da Citomegalovirus" },
+        { char: "Tumefazione monolaterale", dx: "Tubercolosi primaria" },
+        { char: "Tumefazione monolaterale", dx: "Toxoplasmosi" },
+        { char: "Monolaterale, con granuli intralesionali di zolfo", dx: "Actinomicosi" }
+      ]
+    }
+  }
+};
+
+const state = { step: "lesion", lesion: null, loc: null, char: null };
+
+const $ = id => document.getElementById(id);
+const crumbs = $("crumbs"), question = $("question"), options = $("options");
+const stepView = $("stepView"), resultView = $("resultView"), actions = $("actions");
+
+function el(tag, props = {}, children = []) {
+  const e = document.createElement(tag);
+  Object.entries(props).forEach(([k, v]) => {
+    if (k === "class") e.className = v;
+    else if (k === "onclick") e.onclick = v;
+    else if (k === "html") e.innerHTML = v;
+    else if (k === "aria") Object.entries(v).forEach(([ak, av]) => e.setAttribute("aria-" + ak, av));
+    else e.setAttribute(k, v);
+  });
+  (Array.isArray(children) ? children : [children]).forEach(c => {
+    if (c == null) return;
+    e.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+  });
+  return e;
+}
+
+function renderCrumbs() {
+  crumbs.innerHTML = "";
+  const steps = [
+    { key: "lesion", label: "1. Lesione", value: state.lesion },
+    { key: "loc", label: "2. Sede", value: state.loc },
+    { key: "char", label: "3. Caratteristiche", value: state.step === "result" ? state.char : null }
+  ];
+  steps.forEach((s, i) => {
+    if (i > 0) crumbs.appendChild(el("span", { class: "sep" }, "\u203A"));
+    const isCurrent = state.step === s.key;
+    const isDone = s.value && !isCurrent;
+    const cls = "step" + (isCurrent ? " current" : "") + (isDone ? " done" : "");
+    const label = s.value ? s.label + ": " + s.value : s.label;
+    const attrs = { class: cls };
+    if (isDone) attrs.onclick = () => goTo(s.key);
+    crumbs.appendChild(el("span", attrs, label));
+  });
+}
+
+function renderActions() {
+  actions.innerHTML = "";
+  if (state.step === "lesion") return;
+  if (state.step === "result") {
+    actions.appendChild(el("button", {
+      class: "action primary",
+      onclick: reset
+    }, "Nuova ricerca"));
+    actions.appendChild(el("button", {
+      class: "action",
+      onclick: () => window.print()
+    }, [
+      (() => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor"); s.setAttribute("stroke-width", "2"); s.setAttribute("stroke-linecap", "round"); s.setAttribute("stroke-linejoin", "round"); s.innerHTML = '<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>'; return s; })(),
+      "Stampa risultato"
+    ]));
+    return;
+  }
+  actions.appendChild(el("button", { class: "action", onclick: back }, "\u2190 Indietro"));
+  actions.appendChild(el("button", { class: "action", onclick: reset }, "Ricomincia"));
+}
+
+function optionButton(primary, secondary, onClick) {
+  return el("li", { class: "option" }, [
+    el("button", { class: "option-btn", onclick: onClick, type: "button" }, [
+      el("span", { class: "primary" }, primary),
+      secondary ? el("span", { class: "secondary" }, secondary) : null
+    ])
+  ]);
+}
+
+function render() {
+  renderCrumbs();
+  renderActions();
+
+  if (state.step === "result") {
+    stepView.classList.add("hidden");
+    resultView.classList.remove("hidden");
+    return;
+  }
+  stepView.classList.remove("hidden");
+  resultView.classList.add("hidden");
+  options.innerHTML = "";
+
+  if (state.step === "lesion") {
+    question.textContent = "Che tipo di lesione elementare osservi?";
+    Object.keys(TREE).forEach(name => {
+      const locCount = Object.keys(TREE[name].locs).length;
+      const dxCount = Object.values(TREE[name].locs).flat().length;
+      const sub = locCount + (locCount === 1 ? " sede" : " sedi") + " \u00B7 " + dxCount + (dxCount === 1 ? " diagnosi" : " diagnosi");
+      options.appendChild(optionButton(name, sub, () => { state.lesion = name; state.step = "loc"; render(); }));
+    });
+  } else if (state.step === "loc") {
+    question.textContent = "Dove si trova la lesione?";
+    Object.entries(TREE[state.lesion].locs).forEach(([loc, chars]) => {
+      const dxNames = chars.map(c => c.dx).join(" \u00B7 ");
+      options.appendChild(optionButton(loc, dxNames, () => { state.loc = loc; state.step = "char"; render(); }));
+    });
+  } else if (state.step === "char") {
+    const chars = TREE[state.lesion].locs[state.loc];
+    if (chars.length === 1) {
+      showResult(chars[0]);
+      return;
+    }
+    question.textContent = "Quale caratteristica clinica corrisponde?";
+    chars.forEach(c => {
+      options.appendChild(optionButton(c.char, "\u2192 " + c.dx, () => showResult(c)));
+    });
+  }
+}
+
+function showResult(c) {
+  state.step = "result";
+  state.char = c.char;
+  $("dxName").textContent = c.dx;
+  $("pLesion").textContent = state.lesion;
+  $("pLoc").textContent = state.loc;
+  $("pChar").textContent = c.char;
+  const inv = $("invBox");
+  if (c.test) {
+    $("invText").textContent = c.test;
+    inv.classList.remove("hidden");
+  } else {
+    inv.classList.add("hidden");
+  }
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function goTo(step) {
+  if (step === "lesion") { state.lesion = null; state.loc = null; state.char = null; }
+  else if (step === "loc") { state.loc = null; state.char = null; }
+  else if (step === "char") { state.char = null; }
+  state.step = step;
+  render();
+}
+
+function back() {
+  if (state.step === "result") state.step = "char";
+  else if (state.step === "char") { state.step = "loc"; state.loc = null; }
+  else if (state.step === "loc") { state.step = "lesion"; state.lesion = null; }
+  render();
+}
+
+function reset() {
+  state.step = "lesion"; state.lesion = null; state.loc = null; state.char = null;
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+render();
+</script>
+
+</body>
+</html>
