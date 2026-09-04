@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Interactive visual map of chapter 6: autoimmune and immune-mediated disorders of the oral cavity.">
+<meta name="theme-color" content="#2C5F5D">
+<meta property="og:title" content="Chapter 6 — Visual map">
+<meta property="og:description" content="Interactive visual map of autoimmune and immune-mediated oral disorders.">
+<meta property="og:type" content="website">
+<title>Chapter 6 — Visual map</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%232C5F5D'/%3E%3Ctext x='50' y='68' font-family='Georgia' font-size='56' font-weight='500' text-anchor='middle' fill='white'%3E6%3C/text%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1A1F2E;
+    --ink-soft: #4A5163;
+    --ink-mute: #7B8296;
+    --paper: #FAFAF7;
+    --paper-tint: #F2F0E9;
+    --rule: #E5E2D8;
+    --rule-strong: #C9C4B4;
+    --accent: #2C5F5D;
+    --accent-dark: #1E4544;
+    --accent-tint: #E6EFEE;
+    --amber: #B45309;
+    --amber-tint: #FEF3C7;
+    --amber-rule: #F0D89A;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, 'URW Palladio L', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --p-striae:   #7C3AED; --p-striae-bg:   #EDE4FE;
+    --p-gingivitis: #DB2777; --p-gingivitis-bg: #FBE4EF;
+    --p-bullae:   #EA580C; --p-bullae-bg:   #FDE4CE;
+    --p-ulcers-a: #D97706; --p-ulcers-a-bg: #FEF0CB;
+    --p-ulcers-r: #DC2626; --p-ulcers-r-bg: #FDE0E0;
+    --p-erythemo: #0F766E; --p-erythemo-bg: #D2F0EC;
+    --p-xero:    #0284C7; --p-xero-bg:    #D6ECFB;
+    --m-tcell: #7C3AED; --m-desmo: #EA580C; --m-bmz: #DB2777;
+    --m-acute: #D97706; --m-systemic: #0F766E; --m-vasculitis: #DC2626; --m-other: #57534E;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #EDECE4; --ink-soft: #B8B5AA; --ink-mute: #7E7B70;
+      --paper: #14171E; --paper-tint: #1C2028;
+      --rule: #2B2F38; --rule-strong: #3B4049;
+      --accent: #7BB5B3; --accent-dark: #A0CFCD; --accent-tint: #1E3231;
+      --amber: #F0B056; --amber-tint: #3B2A0F; --amber-rule: #6E4E1B;
+      --p-striae:   #B197F0; --p-striae-bg:   #2B2440;
+      --p-gingivitis: #F0759F; --p-gingivitis-bg: #3D1E2A;
+      --p-bullae:   #F0A26E; --p-bullae-bg:   #3D2419;
+      --p-ulcers-a: #F0BC5F; --p-ulcers-a-bg: #3D2B0F;
+      --p-ulcers-r: #F08B8B; --p-ulcers-r-bg: #3A1818;
+      --p-erythemo: #7BC8C0; --p-erythemo-bg: #143231;
+      --p-xero:    #6FBEE8; --p-xero-bg:    #0F2A3D;
+      --m-tcell: #B197F0; --m-desmo: #F0A26E; --m-bmz: #F0759F;
+      --m-acute: #F0BC5F; --m-systemic: #7BC8C0; --m-vasculitis: #F08B8B; --m-other: #B8B5AA;
+    }
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper);
+    min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+  header.site {
+    padding: 20px 0 16px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    z-index: 10;
+  }
+  header.site .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  header.site h1 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+  header.site .sub {
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin-top: 6px;
+    max-width: 56ch;
+  }
+  @media (min-width: 640px) {
+    header.site h1 { font-size: 26px; }
+    header.site .sub { font-size: 14px; }
+  }
+
+  main { padding: 24px 0 40px; position: relative; }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 620px;
+    margin: 0 auto 24px;
+  }
+  @media (max-width: 500px) {
+    .stage { aspect-ratio: 3 / 4; }
+  }
+
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    text-align: center;
+    font-family: inherit;
+    color: inherit;
+    transition: transform 260ms cubic-bezier(.34,1.4,.64,1), box-shadow 200ms, opacity 400ms;
+    animation: float 8s ease-in-out infinite;
+    box-shadow: 0 4px 20px -8px rgba(0,0,0,0.15), inset 0 0 0 1.5px rgba(255,255,255,0.4);
+    will-change: transform;
+  }
+  @media (prefers-color-scheme: dark) {
+    .bubble { box-shadow: 0 4px 20px -8px rgba(0,0,0,0.5), inset 0 0 0 1.5px rgba(255,255,255,0.08); }
+  }
+  .bubble:hover, .bubble:focus-visible {
+    transform: scale(1.08);
+    box-shadow: 0 8px 30px -6px rgba(0,0,0,0.22), inset 0 0 0 1.5px rgba(255,255,255,0.5);
+    outline: none;
+    animation-play-state: paused;
+    z-index: 2;
+  }
+  .bubble:active { transform: scale(1.02); }
+  .bubble .count {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.75;
+    margin-bottom: 4px;
+    letter-spacing: 0.04em;
+  }
+  .bubble .label {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 0 4px;
+    max-width: 100%;
+  }
+  @media (min-width: 640px) {
+    .bubble .label { font-size: 14px; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(4px, -8px) rotate(0.4deg); }
+    66% { transform: translate(-3px, 5px) rotate(-0.3deg); }
+  }
+  @keyframes bubblein {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .bubble { animation: float 8s ease-in-out infinite, bubblein 0.55s cubic-bezier(.34,1.6,.64,1) both; }
+  @media (prefers-reduced-motion: reduce) {
+    .bubble { animation: bubblein 0.4s ease both; }
+  }
+
+  .stage.hidden { display: none; }
+
+  .cluster {
+    display: none;
+    animation: fadein 0.4s ease both;
+  }
+  .cluster.active { display: block; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .cluster-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .cluster-avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4);
+  }
+  .cluster-avatar svg { width: 28px; height: 28px; }
+  .cluster-info { flex: 1; min-width: 0; }
+  .cluster-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 3px;
+    letter-spacing: -0.005em;
+  }
+  .cluster-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .btn-back {
+    background: transparent;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    padding: 8px 12px 8px 8px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 18px;
+    min-height: 36px;
+    transition: background 120ms, color 120ms;
+  }
+  .btn-back:hover { background: var(--paper-tint); color: var(--ink); }
+  .btn-back svg { width: 14px; height: 14px; }
+
+  .disease-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .disease {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--rule-strong);
+    border-radius: 8px;
+    padding: 14px 14px 12px;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+    transition: transform 160ms, box-shadow 160ms, border-color 160ms;
+    animation: fadein 0.4s ease both;
+  }
+  .disease:hover, .disease:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -10px rgba(0,0,0,0.15);
+    outline: none;
+  }
+  .disease-name {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .disease-hint {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .disease-mech {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 3px;
+    margin-top: 2px;
+  }
+
+  .principle-strip {
+    padding: 12px 16px;
+    background: var(--accent-tint);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    margin-top: 28px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .principle-strip strong { color: var(--accent); font-weight: 500; }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,20,30,0.55);
+    z-index: 100;
+    display: none;
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: fadein 0.2s ease;
+  }
+  .modal-backdrop.open {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 40px;
+  }
+  .modal {
+    background: var(--paper);
+    border-radius: 12px;
+    max-width: 560px;
+    width: 100%;
+    padding: 24px 22px;
+    position: relative;
+    border-top: 4px solid var(--accent);
+    animation: modalin 0.3s cubic-bezier(.34,1.4,.64,1) both;
+  }
+  @keyframes modalin { from { opacity: 0; transform: scale(0.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal .close {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 36px; height: 36px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--ink-mute);
+    cursor: pointer;
+    border-radius: 4px;
+    line-height: 1;
+  }
+  .modal .close:hover { background: var(--paper-tint); color: var(--ink); }
+  .modal .mech-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .modal .name {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 4px;
+    padding-right: 32px;
+  }
+  .modal .subtitle {
+    font-size: 12px;
+    color: var(--ink-mute);
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
+  }
+  .modal dl {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+  }
+  .modal dt {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .modal dd {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .modal .warning {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--amber-tint);
+    border: 1px solid var(--amber-rule);
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .modal .warning-icon {
+    color: var(--amber);
+    flex-shrink: 0;
+    font-size: 16px;
+    line-height: 1;
+    margin-top: 2px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--amber);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  .modal .warning-text {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .modal .warning-text strong {
+    display: block;
+    color: var(--amber);
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+
+  footer.site {
+    border-top: 1px solid var(--rule);
+    padding: 20px 0 28px;
+    margin-top: 30px;
+    font-size: 11px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="eyebrow">Chapter 6 · Visual map</div>
+    <h1>Autoimmune and immune-mediated disorders of the oral cavity</h1>
+    <p class="sub">Tap a clinical presentation to explore the diseases that fall under it.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="stage" id="stage" aria-label="Clinical presentations"></div>
+
+    <div class="cluster" id="cluster">
+      <button class="btn-back" onclick="showOverview()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        All presentations
+      </button>
+      <div class="cluster-header">
+        <div class="cluster-avatar" id="clusterAvatar"></div>
+        <div class="cluster-info">
+          <div class="cluster-title" id="clusterTitle"></div>
+          <div class="cluster-desc" id="clusterDesc"></div>
+        </div>
+      </div>
+      <div class="disease-grid" id="diseaseGrid"></div>
+    </div>
+
+    <div class="principle-strip" id="principleStrip">
+      <strong>Key principle.</strong> Chronic erosions, desquamative gingivitis, blisters and severe recurrent ulcers require a precise diagnosis — not prolonged empirical treatment. Biopsy plus direct immunofluorescence is usually needed.
+    </div>
+  </div>
+</main>
+
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    Visual summary of chapter 6. Educational recap tool, not a substitute for study of the full text or specialist clinical evaluation.
+  </div>
+</footer>
+
+<script>
+const MECHANISMS = {
+  tcell: 'Chronic T-cell response',
+  desmo: 'Autoantibodies vs desmosomes',
+  bmz: 'Autoantibodies vs basement membrane',
+  acute: 'Acute immune-mediated reaction',
+  systemic: 'Systemic autoimmunity',
+  vasculitis: 'Vasculitis / autoinflammation',
+  other: 'Specific immune-mediated condition',
+};
+
+const PRESENTATIONS = [
+  { id: 'gingivitis', label: 'Desquamative gingivitis', desc: 'Erythema, desquamation and chronic fragility of the gingiva. Common to several immune-mediated conditions.', size: 1.0, x: 30, y: 30, diseases: ['olp', 'mmp', 'pv', 'liad', 'lupus'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 14c2-1 4-1 5 1s3 2 5 0 4-1 6 1"/><path d="M4 9c2-1 4-1 5 1s3 2 5 0 4-1 6 1"/></svg>' },
+  { id: 'bullae', label: 'Blisters and erosions', desc: 'Mucosal fragility with intra- or subepithelial bullous lesions.', size: 0.92, x: 68, y: 25, diseases: ['pv', 'mmp', 'bp', 'liad'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="10" r="4"/><circle cx="16" cy="14" r="5"/></svg>' },
+  { id: 'striae', label: 'Reticular white striae', desc: 'Lichenoid pattern — bilateral (idiopathic) or unilateral (with an identifiable trigger).', size: 0.75, x: 15, y: 68, diseases: ['olp', 'olr'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 12h16M4 16h16" stroke-dasharray="3 2"/></svg>' },
+  { id: 'ulcers-r', label: 'Recurrent ulcers', desc: 'Severe or chronic aphthous-like ulceration, often with systemic signs or resistant to standard therapy.', size: 0.78, x: 82, y: 65, diseases: ['bd', 'cus'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="9" r="2.5"/><circle cx="15" cy="8" r="2"/><circle cx="10" cy="16" r="2.2"/><circle cx="17" cy="15" r="1.8"/></svg>' },
+  { id: 'ulcers-a', label: 'Acute ulcers', desc: 'Rapid onset, often post-infectious or drug-related, with hemorrhagic labial crusts.', size: 0.68, x: 50, y: 60, diseases: ['em'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L4 14 h7 l-1 8 9-12 h-7 z"/></svg>' },
+  { id: 'erythemo', label: 'Erythemato-keratotic lesions', desc: 'Mixed erythematous and keratotic areas, often in a systemic context.', size: 0.65, x: 20, y: 12, diseases: ['lupus'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>' },
+  { id: 'xero', label: 'Persistent xerostomia', desc: 'Oral dryness with dry eyes and involvement of the exocrine glands.', size: 0.65, x: 78, y: 8, diseases: ['ss'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 c-3 5-6 8-6 12 a6 6 0 0 0 12 0 c0-4-3-7-6-12z"/></svg>' },
+];
+
+const DISEASES = {
+  'olp': { name: 'Oral lichen planus', mech: 'tcell', tag: 'Common · Chronic', hint: 'Bilateral Wickham striae, chronic course',
+    definition: 'Chronic immune-mediated inflammatory disease of the oral mucosa driven by a T-cell response against basal keratinocytes. Not infectious, not linked to poor hygiene.',
+    presentation: 'Bilateral Wickham striae on buccal mucosa, tongue and gingiva. Forms: reticular (asymptomatic), atrophic and erosive (burning, pain), plaque, bullous. Can present as desquamative gingivitis.',
+    distinctive: 'Bilateral, symmetrical white striae; chronic, relapsing course.',
+    ddx: 'Leukoplakia, contact or drug-induced lichenoid reactions, hyperplastic candidiasis, oral lupus, mucous membrane pemphigoid, epithelial dysplasia.',
+    diagnostics: 'Clinical in typical bilateral reticular forms. Biopsy if erosive, atrophic, plaque, unilateral or atypical. Direct immunofluorescence if a bullous disease or desquamative gingivitis is suspected.',
+    management: 'Asymptomatic forms: information, control of irritating factors, follow-up. Symptomatic forms: topical corticosteroids with attention to secondary candidiasis. Severe cases: specialist systemic therapy.',
+    warning: 'Atrophic-erosive and plaque forms are considered potentially malignant. Follow-up is essential.' },
+  'olr': { name: 'Oral lichenoid lesions', mech: 'tcell', tag: 'Identifiable trigger', hint: 'Lichen-like, but with an identifiable cause',
+    definition: 'Lichen planus-like clinical and histologic patterns associated with an identifiable trigger: drugs, dental materials, restorations, graft-versus-host disease.',
+    presentation: 'White striae, plaques, erythema, erosions. Tend to be unilateral, asymmetrical or in close relation to the triggering factor.',
+    distinctive: 'Topographic relationship with a restoration or dental material; temporal relationship with systemic drugs.',
+    ddx: 'Idiopathic oral lichen planus, leukoplakia, chronic candidiasis, traumatic lesions, epithelial dysplasia, oral lupus.',
+    diagnostics: 'Careful drug and dental material history. Biopsy in atypical or persistent cases.',
+    management: 'Identify and remove the causal factor. Restoration replacement in symptomatic contact cases. Symptomatic therapy as for lichen planus. Do not discontinue systemic drugs without the prescriber.',
+    warning: null },
+  'pv': { name: 'Pemphigus vulgaris', mech: 'desmo', tag: 'Rare · Potentially severe', hint: 'Fragile intraepithelial bullae, widespread erosions',
+    definition: 'Autoimmune bullous disease caused by autoantibodies against desmosomal proteins → acantholysis and intraepithelial bullae.',
+    presentation: 'Widespread painful erosions, fragile mucosa, desquamative gingivitis. Bullae rupture rapidly. Sites: buccal mucosa, palate, lips, tongue, gingiva. Oral lesions may precede skin lesions.',
+    distinctive: 'Positive Nikolsky sign; flaccid, rapidly ruptured bullae.',
+    ddx: 'Mucous membrane pemphigoid, erosive oral lichen planus, erythema multiforme, herpetic gingivostomatitis, erosive candidiasis, severe aphthous stomatitis.',
+    diagnostics: 'Histology (fresh lesion or erosion margin) + direct immunofluorescence on intact perilesional mucosa. Autoimmune serology for diagnosis and monitoring.',
+    management: 'Specialist treatment: systemic immunosuppression, corticosteroids, steroid-sparing agents or biologics. Locally: pain control, gentle hygiene, prevention of candidiasis and superinfection.',
+    warning: 'Diagnostic delay worsens prognosis and quality of life. Oral lesions are often the first sign.' },
+  'mmp': { name: 'Mucous membrane pemphigoid', mech: 'bmz', tag: 'Chronic · Risk of scarring', hint: 'Tense bullae, possible ocular involvement',
+    definition: 'Chronic autoimmune bullous disease with autoantibodies against basement membrane components → subepithelial separation. Involves oral cavity, conjunctiva, nasal mucosa, pharynx, larynx, esophagus, genitalia.',
+    presentation: 'Chronic desquamative gingivitis, tense bullae, painful erosions. Red, glossy, fragile gingiva. Nikolsky sign sometimes positive. Scarring possible, particularly ocular.',
+    distinctive: 'Scarring tendency (especially ocular); bullae more tense than in pemphigus.',
+    ddx: 'Erosive oral lichen planus, pemphigus vulgaris, bullous pemphigoid, linear IgA disease, oral lupus, contact stomatitis.',
+    diagnostics: 'Histology + direct immunofluorescence on non-ulcerated perilesional mucosa. Ophthalmology assessment is always indicated.',
+    management: 'Mild oral forms: high-potency topical corticosteroids + biofilm control + atraumatic hygiene. Extensive forms or with ocular, laryngeal involvement: systemic multidisciplinary therapy.',
+    warning: 'Risk of ocular scarring up to visual impairment. Ophthalmology assessment always indicated, even without symptoms.' },
+  'bp': { name: 'Bullous pemphigoid', mech: 'bmz', tag: 'Mostly cutaneous · Elderly', hint: 'Tense skin bullae; oral involvement uncommon',
+    definition: 'Subepidermal autoimmune bullous disease, more typical of skin than mucosae. Autoantibodies against hemidesmosomal components.',
+    presentation: 'Tense cutaneous bullae on erythema, often pruritic. Oral involvement possible but less common: erosions, bullae, ulcerations.',
+    distinctive: 'Cutaneous predominance; older age; possible association with neurological comorbidities and polypharmacy.',
+    ddx: 'Mucous membrane pemphigoid, pemphigus vulgaris, dermatitis herpetiformis, linear IgA disease, drug-induced bullous reactions, erythema multiforme major.',
+    diagnostics: 'Dermatologic and immunopathologic management. The dentist contributes to recognizing oral lesions.',
+    management: 'Topical or systemic corticosteroids, immunomodulators according to severity. In elderly patients balance disease control against therapy risks.',
+    warning: null },
+  'liad': { name: 'Linear IgA disease', mech: 'bmz', tag: 'Rare · Children and adults', hint: 'Linear IgA deposition at the basement membrane',
+    definition: 'Rare autoimmune bullous disease with linear IgA deposition along the basement membrane. Can affect skin and mucosae.',
+    presentation: 'Bullae, erosions, ulcers, desquamative gingivitis. Relapsing course. In children: characteristic cutaneous lesions. In adults: variable presentation.',
+    distinctive: 'Direct immunofluorescence showing linear IgA deposition along the basement membrane.',
+    ddx: 'Mucous membrane pemphigoid, pemphigus vulgaris, bullous pemphigoid, erythema multiforme, dermatitis herpetiformis, drug reactions.',
+    diagnostics: 'Biopsy + direct immunofluorescence. Careful drug history (drug-induced forms exist).',
+    management: 'Specialist management, possible systemic therapies. Locally: pain control, trauma prevention, gentle hygiene.',
+    warning: null },
+  'lupus': { name: 'Oral lupus erythematosus', mech: 'systemic', tag: 'Oral ↔ systemic disease', hint: 'Erythematous/erosive lesions with systemic signs',
+    definition: 'Autoimmune disease with cutaneous, mucosal or systemic forms. Oral manifestations occur in systemic lupus and in chronic cutaneous forms (discoid).',
+    presentation: 'Erythematous areas, erosions, superficial ulcerations, whitish plaques, atrophic lesions, radiating striae. Palate is a relatively suggestive site. In discoid lupus: atrophic/erythematous center with peripheral keratotic areas.',
+    distinctive: 'Associated systemic manifestations: photosensitivity, cutaneous rash, arthralgia, fatigue, fever, Raynaud phenomenon.',
+    ddx: 'Oral lichen planus, lichenoid reactions, leukoplakia, erythroplakia, mucous membrane pemphigoid, erythematous candidiasis, aphthous ulcers.',
+    diagnostics: 'Systemic history and complete examination, biopsy in doubtful cases, hematological and immunological tests when indicated.',
+    management: 'Coordination with rheumatologist or dermatologist. Locally: topical corticosteroids, trauma reduction, candidiasis management, biofilm control.',
+    warning: null },
+  'cus': { name: 'Chronic ulcerative stomatitis', mech: 'other', tag: 'Rare · Mimics erosive lichen', hint: 'Chronic erosions resistant to corticosteroids',
+    definition: 'Rare chronic immune-mediated disease with persistent ulcerations/erosions and a specific immunopathologic profile. Similar to erosive lichen planus but with poor corticosteroid response.',
+    presentation: 'Chronic painful erosions, ulcers and erythematous areas. Possible white striae similar to lichen planus. Sites: buccal mucosa, tongue, gingiva.',
+    distinctive: 'Poor response to standard corticosteroid therapy — a clue to reconsider a diagnosis of "resistant lichen planus".',
+    ddx: 'Erosive oral lichen planus, mucous membrane pemphigoid, pemphigus vulgaris, oral lupus, lichenoid reactions, epithelial dysplasia.',
+    diagnostics: 'Biopsy + direct immunofluorescence or specific immunopathologic investigations.',
+    management: 'Individualized specialist management. Symptom control, follow-up, exclusion of alternative diagnoses.',
+    warning: null },
+  'em': { name: 'Erythema multiforme', mech: 'acute', tag: 'Acute · Common triggers', hint: 'Acute onset, hemorrhagic labial crusts',
+    definition: 'Acute immune-mediated mucocutaneous reaction, often triggered by herpes simplex virus or drugs.',
+    presentation: 'Acute onset. Painful, often extensive oral erosions and ulcers. Lips with very characteristic hemorrhagic crusts. Cutaneous: target lesions on the extremities.',
+    distinctive: 'Hemorrhagic labial crusts; cutaneous target lesions; history of recurrent herpes.',
+    ddx: 'Primary herpetic gingivostomatitis, pemphigus vulgaris, mucous membrane pemphigoid, severe aphthous stomatitis, Stevens-Johnson syndrome, acute allergic reaction, oral lupus.',
+    diagnostics: 'Clinical, with careful history (HSV, drugs). Distinction from Stevens-Johnson is essential.',
+    management: 'Mild forms: analgesia, hydration, soft diet. HSV trigger: antivirals, especially in recurrent forms. Drug trigger: discontinuation under medical supervision.',
+    warning: 'Severe forms with ocular, genital or extensive cutaneous involvement, fever or general compromise require urgent evaluation. Distinguish from Stevens-Johnson syndrome.' },
+  'bd': { name: 'Behçet\u2019s disease', mech: 'vasculitis', tag: 'Multisystemic · Not simple aphthosis', hint: 'Recurrent oral ulcers + genital/uveitis',
+    definition: 'Recurrent systemic immune-mediated and autoinflammatory vasculitis. Recurrent oral ulcers with genital, ocular, cutaneous, articular, neurological or vascular manifestations.',
+    presentation: 'Recurrent oral ulcers (minor, major, herpetiform) more frequent/severe than common aphthae. Genital ulcers, uveitis, folliculitis-like skin lesions, erythema nodosum, arthralgias, thrombosis, neurological symptoms.',
+    distinctive: 'Recurrent oral ulcers + genital ulcers; uveitis; oral ulcers can precede other signs by years.',
+    ddx: 'Common recurrent aphthous stomatitis, Crohn\u2019s disease, celiac disease, cyclic neutropenia, oral/genital herpes, lupus, drug reactions.',
+    diagnostics: 'Multidisciplinary clinical diagnosis (international criteria). Rheumatology, dermatology, ophthalmology assessment.',
+    management: 'Limited mucocutaneous forms: topical therapy + pain control. Systemic forms: multidisciplinary. Goal: prevent systemic complications.',
+    warning: 'Recurrent oral ulcers + genital ulcers, ocular symptoms, skin lesions, thrombosis or neurological symptoms require specialist evaluation.' },
+  'ss': { name: 'Sjögren\u2019s syndrome', mech: 'systemic', tag: 'Xerostomia · Exocrine glands', hint: 'Oral/ocular dryness, increased caries',
+    definition: 'Systemic autoimmune disease with lymphocytic infiltration and dysfunction of exocrine glands (salivary, lacrimal). Primary or secondary (rheumatoid arthritis, lupus).',
+    presentation: 'Xerostomia, frequent need to drink, dysphagia with dry foods, burning, taste alteration, increased caries, recurrent candidiasis, denture intolerance. Ocular dryness, parotid swelling, fatigue, arthralgia.',
+    distinctive: 'Persistent xerostomia + dry eyes; cervical/root caries; parotid swelling.',
+    ddx: 'Drug-induced dryness, dehydration, diabetes, head-and-neck radiotherapy, anxiety, mouth breathing, HCV infection.',
+    diagnostics: 'Salivary flow measurement, autoimmune serology, ophthalmology assessment, minor salivary gland biopsy in selected cases.',
+    management: 'Multidisciplinary. Dental: intensive caries prevention, fluoride prophylaxis, biofilm control, candidiasis management, saliva substitutes/stimulants, frequent hydration.',
+    warning: null },
+};
+
+const stage = document.getElementById('stage');
+const cluster = document.getElementById('cluster');
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modalContent');
+
+function computeBubbleSize(sizeFactor) {
+  const stageW = stage.offsetWidth;
+  const stageH = stage.offsetHeight;
+  const base = Math.min(stageW, stageH) * 0.22;
+  return Math.max(88, Math.min(160, base * sizeFactor));
+}
+
+function renderStage() {
+  stage.innerHTML = '';
+  PRESENTATIONS.forEach((p, i) => {
+    const size = computeBubbleSize(p.size);
+    const b = document.createElement('button');
+    b.className = 'bubble';
+    b.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: calc(${p.x}% - ${size/2}px);
+      top: calc(${p.y}% - ${size/2}px);
+      background: var(--p-${p.id}-bg);
+      color: var(--p-${p.id});
+      animation-delay: -${i * 1.3}s, ${i * 0.08}s;
+      animation-duration: ${7 + (i % 3)}s, 0.55s;
+    `;
+    b.setAttribute('aria-label', p.label);
+    b.innerHTML = `
+      <span class="count">${p.diseases.length} ${p.diseases.length === 1 ? 'disease' : 'diseases'}</span>
+      <span class="label">${p.label}</span>
+    `;
+    b.onclick = () => openCluster(p.id);
+    stage.appendChild(b);
+  });
+}
+
+function openCluster(pid) {
+  const p = PRESENTATIONS.find(x => x.id === pid);
+  if (!p) return;
+  stage.classList.add('hidden');
+  document.getElementById('principleStrip').style.display = 'none';
+  cluster.classList.add('active');
+  document.getElementById('clusterTitle').textContent = p.label;
+  document.getElementById('clusterDesc').textContent = p.desc;
+  const avatar = document.getElementById('clusterAvatar');
+  avatar.style.cssText = `background: var(--p-${p.id}-bg); color: var(--p-${p.id}); width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4);`;
+  avatar.innerHTML = p.icon;
+  const grid = document.getElementById('diseaseGrid');
+  grid.innerHTML = '';
+  p.diseases.forEach((did, i) => {
+    const d = DISEASES[did];
+    if (!d) return;
+    const btn = document.createElement('button');
+    btn.className = 'disease';
+    btn.style.cssText = `border-left-color: var(--m-${d.mech}); animation-delay: ${i * 0.06}s;`;
+    btn.innerHTML = `
+      <div class="disease-name">${d.name}</div>
+      <div class="disease-hint">${d.hint}</div>
+      <div class="disease-mech" style="background: var(--p-${p.id}-bg); color: var(--m-${d.mech});">${MECHANISMS[d.mech]}</div>
+    `;
+    btn.onclick = () => openModal(did);
+    grid.appendChild(btn);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showOverview() {
+  cluster.classList.remove('active');
+  stage.classList.remove('hidden');
+  document.getElementById('principleStrip').style.display = '';
+  renderStage();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.showOverview = showOverview;
+
+function openModal(id) {
+  const d = DISEASES[id];
+  if (!d) return;
+  const warningHtml = d.warning ? `<div class="warning">
+    <span class="warning-icon" aria-hidden="true">!</span>
+    <div class="warning-text"><strong>Warning</strong>${d.warning}</div>
+  </div>` : '';
+  modalContent.style.borderTopColor = `var(--m-${d.mech})`;
+  modalContent.innerHTML = `
+    <button class="close" aria-label="Close" onclick="closeModal()">&times;</button>
+    <div class="mech-label" style="color: var(--m-${d.mech})">${MECHANISMS[d.mech]}</div>
+    <div class="name">${d.name}</div>
+    <div class="subtitle">${d.tag}</div>
+    <dl>
+      <div><dt>Definition</dt><dd>${d.definition}</dd></div>
+      <div><dt>Clinical presentation</dt><dd>${d.presentation}</dd></div>
+      <div><dt>Distinctive feature</dt><dd>${d.distinctive}</dd></div>
+      <div><dt>Differential diagnosis</dt><dd>${d.ddx}</dd></div>
+      <div><dt>Workup</dt><dd>${d.diagnostics}</dd></div>
+      <div><dt>Key management</dt><dd>${d.management}</dd></div>
+    </dl>
+    ${warningHtml}
+  `;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+window.closeModal = closeModal;
+
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+window.addEventListener('resize', () => { if (!stage.classList.contains('hidden')) renderStage(); });
+
+renderStage();
+</script>
+
+</body>
+</html>
