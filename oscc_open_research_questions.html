@@ -1,0 +1,114 @@
+<style>
+.qc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 520px) { .qc-grid { grid-template-columns: 1fr; } }
+.qc-col-header { font-size: 13px; font-weight: 500; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid; letter-spacing: 0.2px; }
+.qc-col-header.nh { color: #7F77DD; border-color: #7F77DD; }
+.qc-col-header.det { color: #D85A30; border-color: #D85A30; }
+.qc-card { background: var(--surface-1); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; cursor: pointer; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; font-size: 13.5px; color: var(--text-primary); line-height: 1.5; }
+.qc-card.nh { border-left-color: rgba(127, 119, 221, 0.35); }
+.qc-card.det { border-left-color: rgba(216, 90, 48, 0.35); }
+.qc-card:hover { background: var(--surface-2); }
+.qc-card.nh:hover, .qc-card.nh.selected { border-left-color: #7F77DD; border-left-width: 4px; }
+.qc-card.det:hover, .qc-card.det.selected { border-left-color: #D85A30; border-left-width: 4px; }
+.qc-card.selected { background: var(--surface-2); }
+.qc-num { display: inline-block; font-weight: 500; margin-right: 6px; opacity: 0.55; min-width: 14px; }
+.qc-info { background: var(--surface-1); border-radius: 12px; padding: 18px 20px; margin-top: 16px; border-left: 3px solid var(--border); transition: border-color 0.2s; min-height: 140px; }
+.qc-info-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.9px; font-weight: 500; color: var(--text-muted); margin: 0 0 8px; }
+.qc-info-title { font-size: 15px; font-weight: 500; margin: 0 0 12px; line-height: 1.45; color: var(--text-primary); }
+.qc-info-block { margin: 12px 0 0; }
+.qc-info-block-label { font-size: 11px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.6px; margin: 0 0 4px; }
+.qc-info-text { font-size: 13.5px; color: var(--text-primary); margin: 0; line-height: 1.6; }
+.qc-info-text.muted { color: var(--text-secondary); }
+</style>
+
+<h2 class="sr-only">Interactive layout of six open research questions on oral squamous cell carcinoma, organized into natural history and detection of aggressive cancers. Click a question to see why it matters and where the evidence stands.</h2>
+
+<div class="qc-grid">
+  <div>
+    <p class="qc-col-header nh">Natural history</p>
+    <div class="qc-card nh" onclick="qcpick('N1', this)"><span class="qc-num">1.</span>Do OSCCs developing from precursor lesions behave differently from de-novo OSCCs?</div>
+    <div class="qc-card nh" onclick="qcpick('N2', this)"><span class="qc-num">2.</span>Do HPV-associated OSCCs have a genuinely better prognosis?</div>
+    <div class="qc-card nh" onclick="qcpick('N3', this)"><span class="qc-num">3.</span>Do metastases occur early — and through which mechanisms?</div>
+  </div>
+  <div>
+    <p class="qc-col-header det">Detection of aggressive cancers</p>
+    <div class="qc-card det" onclick="qcpick('D1', this)"><span class="qc-num">1.</span>Is there a reservoir of silent/indolent oral cancers?</div>
+    <div class="qc-card det" onclick="qcpick('D2', this)"><span class="qc-num">2.</span>Are precursor lesions diagnosed on incisional biopsy actually incident cancers?</div>
+    <div class="qc-card det" onclick="qcpick('D3', this)"><span class="qc-num">3.</span>What are the hallmarks of aggressive OSCC — and how do we screen for them?</div>
+  </div>
+</div>
+
+<div class="qc-info" id="qc-info-panel">
+  <p class="qc-info-label" id="qc-info-label">Six questions, one decade of research</p>
+  <p class="qc-info-title" id="qc-info-title">Where oral cancer research is heading next</p>
+  <p class="qc-info-text muted" id="qc-info-intro">Each of these questions, if answered, would meaningfully change how we screen, stage, and treat oral cancer. Click any card above to explore why it matters — and where the evidence stands today.</p>
+  <div id="qc-info-details" style="display:none">
+    <div class="qc-info-block"><p class="qc-info-block-label">Why it matters</p><p class="qc-info-text" id="qc-info-why"></p></div>
+    <div class="qc-info-block"><p class="qc-info-block-label">Where the field stands</p><p class="qc-info-text muted" id="qc-info-state"></p></div>
+  </div>
+</div>
+
+<script>
+const qcdata = {
+  N1: {
+    color: '#7F77DD',
+    label: 'Natural history · Question 1',
+    title: 'Do OSCCs developing from precursor lesions behave differently from de-novo OSCCs?',
+    why: 'Different molecular pathways may translate into different aggressiveness, response to therapy, and optimal follow-up. It also affects how much confidence we can place in field-cancerization surveillance.',
+    state: 'Some retrospective series suggest de-novo OSCCs present at later stages and behave more aggressively, but robust prospective data comparing the two pathways is still missing.'
+  },
+  N2: {
+    color: '#7F77DD',
+    label: 'Natural history · Question 2',
+    title: 'Do HPV-associated OSCCs have a genuinely better prognosis?',
+    why: 'In oropharyngeal cancer HPV+ status is a major favorable prognostic factor. If the same held for the oral cavity, treatment de-escalation could spare toxicity — and staging that grants HPV+ patients favorable classification would need revalidation.',
+    state: 'Evidence is conflicting. Detection method matters: p16 immunohistochemistry alone may capture bystander infection rather than transcriptionally active HPV. Definitive answers require standardized molecular testing.'
+  },
+  N3: {
+    color: '#7F77DD',
+    label: 'Natural history · Question 3',
+    title: 'Do metastases occur early — and through which mechanisms?',
+    why: 'The traditional model assumed linear progression with late metastasis. Early dissemination would justify systemic therapy sooner, closer distant-recurrence surveillance, and a rethinking of "curative" surgery in early-stage disease.',
+    state: 'Circulating and disseminated tumor cells have been detected in early-stage OSCC. This maps onto trajectory A of the contemporary model: some tumors metastasize before the primary is even clinically apparent.'
+  },
+  D1: {
+    color: '#D85A30',
+    label: 'Detection · Question 1',
+    title: 'Is there a reservoir of silent/indolent oral cancers?',
+    why: 'Autopsy studies in prostate and thyroid have revealed large pools of unsuspected indolent cancers. If the same is true for oral cavity, aggressive population screening would surface many indolent cases and cause overdiagnosis.',
+    state: 'Poorly characterized. Autopsy data for OSCC is limited. Screening high-risk populations (heavy smokers and drinkers) is currently justified; general-population screening remains uncertain.'
+  },
+  D2: {
+    color: '#D85A30',
+    label: 'Detection · Question 2',
+    title: 'Are precursor lesions diagnosed on incisional biopsy actually incident cancers?',
+    why: 'Incisional biopsy samples only a fraction of a lesion. A "high-grade dysplasia" report may miss adjacent invasive foci — meaning the disease was already cancer at diagnosis, not a precursor. This changes the treatment window and margin considerations.',
+    state: 'Some series report that up to a quarter of dysplasia lesions harbor occult invasion at excision. Argues for excisional rather than incisional biopsy in high-risk cases.'
+  },
+  D3: {
+    color: '#D85A30',
+    label: 'Detection · Question 3',
+    title: 'What are the hallmarks of aggressive OSCC — and how do we screen for them?',
+    why: 'TNM classification is anatomic and imperfect. Molecular signatures would enable personalized treatment intensity — de-escalation for indolent tumors, escalation for aggressive ones. This is precision oncology applied to oral cancer.',
+    state: 'Candidate biomarkers exist (p53, EGFR, PD-L1, tumor budding, immune-infiltrate patterns) but no clinically validated panel has entered routine practice. The field is still in early days.'
+  }
+};
+
+function qcpick(key, el) {
+  const d = qcdata[key];
+  const panel = document.getElementById('qc-info-panel');
+  const lbl = document.getElementById('qc-info-label');
+  const ttl = document.getElementById('qc-info-title');
+  lbl.textContent = d.label;
+  lbl.style.color = d.color;
+  ttl.textContent = d.title;
+  ttl.style.color = d.color;
+  document.getElementById('qc-info-why').textContent = d.why;
+  document.getElementById('qc-info-state').textContent = d.state;
+  document.getElementById('qc-info-intro').style.display = 'none';
+  document.getElementById('qc-info-details').style.display = 'block';
+  panel.style.borderLeftColor = d.color;
+  document.querySelectorAll('.qc-card').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>
