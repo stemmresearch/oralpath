@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ASU Dentistry — Spiral Curriculum Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650&family=Public+Sans:wght@400;500;650&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F2F3F8;--paper:#FFFFFF;--ink:#1D1B3A;--mute:#5E5C7A;--rule:#D9DAE6;--hema:#4B3F8F;--eo:#C9577E;
+  --l1:#4B3F8F;--l2:#6A4A9E;--l3:#8E54A1;--l4:#AE5B94;--l5:#C9577E;--chip:#E9E7F3;--tier1:#C9577E;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14132A;--paper:#1D1C38;--ink:#ECEAF7;--mute:#A9A6C6;--rule:#34325A;--hema:#A99BEA;--eo:#EE8FB0;--chip:#2A2850;--tier1:#EE8FB0}}
+:root[data-theme="dark"]{--bg:#14132A;--paper:#1D1C38;--ink:#ECEAF7;--mute:#A9A6C6;--rule:#34325A;--hema:#A99BEA;--eo:#EE8FB0;--chip:#2A2850;--tier1:#EE8FB0}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans)}
+a{color:var(--hema)}
+header.top{padding:28px 20px 8px;max-width:1080px;margin:0 auto}
+header.top p.fac{margin:0 0 6px;color:var(--mute);font-size:.9rem}
+h1{font:650 clamp(1.8rem,5.5vw,3rem)/1.05 var(--serif);margin:0 0 10px;letter-spacing:-.01em}
+.lede{max-width:62ch;margin:0;color:var(--mute)}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+nav.tabs .in{max-width:1080px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:8px 14px;scrollbar-width:none}
+nav.tabs button{flex:none;border:0;background:transparent;color:var(--mute);font:500 .95rem var(--sans);padding:9px 12px;border-radius:999px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+button:focus-visible,.dot:focus-visible,.chipbtn:focus-visible{outline:3px solid var(--eo);outline-offset:2px}
+main{max-width:1080px;margin:0 auto;padding:18px 16px 60px}
+section[hidden]{display:none}
+h2{font:650 1.6rem/1.15 var(--serif);margin:6px 0 6px}
+h3{font:650 1.15rem/1.25 var(--serif);margin:0 0 6px}
+p.sub{color:var(--mute);margin:0 0 16px;max-width:66ch}
+/* spiral */
+.spiralwrap{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+@media(min-width:880px){.spiralwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start}}
+svg.spiral{width:100%;max-width:560px;height:auto;display:block;margin:0 auto;touch-action:manipulation}
+.spiral .track{fill:none;stroke:var(--rule);stroke-width:1.5}
+.spiral .spoke{stroke:var(--rule);stroke-width:1}
+.spiral .spoke.on{stroke:var(--ink);stroke-width:2}
+.spiral .dot{cursor:pointer;stroke:var(--paper);stroke-width:2;transition:r .15s}
+.spiral .dot.dim{opacity:.28}
+.spiral .code{font:650 19px var(--sans);fill:var(--mute);text-anchor:middle;dominant-baseline:middle;cursor:pointer}
+.spiral .code.on{fill:var(--ink)}
+.spiral .ctr{font:650 17px var(--serif);fill:var(--ink);text-anchor:middle}
+.spiral .ctr2{font:400 14px var(--sans);fill:var(--mute);text-anchor:middle}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:center;font-size:.82rem;color:var(--mute);margin:6px 0 0}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:-1px}
+.threadlist{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.chipbtn{border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 11px;font:500 .85rem var(--sans);cursor:pointer}
+.chipbtn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:18px}
+ol.levels{list-style:none;margin:0;padding:0;position:relative}
+ol.levels li{position:relative;padding:0 0 14px 34px}
+ol.levels li::before{content:attr(data-l);position:absolute;left:0;top:1px;width:24px;height:24px;border-radius:50%;background:var(--c);color:#fff;font:650 .7rem/24px var(--sans);text-align:center}
+ol.levels li::after{content:"";position:absolute;left:11px;top:27px;bottom:2px;width:2px;background:var(--rule)}
+ol.levels li:last-child::after{display:none}
+ol.levels li.hl{background:linear-gradient(90deg,transparent 0 28px,var(--chip) 28px);border-radius:8px}
+ol.levels b{display:block;font-size:.78rem;color:var(--mute);font-weight:500}
+/* timeline */
+.years{display:grid;gap:14px}
+.yr{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px}
+.yr h3{margin-bottom:10px}
+.terms{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+@media(min-width:760px){.terms{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.term p{margin:0 0 6px;font-size:.8rem;color:var(--mute)}
+.courses{display:flex;flex-wrap:wrap;gap:6px}
+.course{border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:8px;padding:5px 9px;font:400 .84rem var(--sans);cursor:default;text-align:left}
+.course.ch{cursor:pointer;border-color:var(--hema)}
+.course.t1{border-color:var(--tier1);box-shadow:inset 3px 0 0 var(--tier1)}
+.course.ch:hover{background:var(--chip)}
+.key{font-size:.82rem;color:var(--mute);margin:0 0 12px}
+.key i{display:inline-block;width:14px;height:12px;border:1px solid var(--tier1);box-shadow:inset 3px 0 0 var(--tier1);border-radius:3px;vertical-align:-1px;margin-right:4px}
+.key u{display:inline-block;width:14px;height:12px;border:1px solid var(--hema);border-radius:3px;vertical-align:-1px;margin:0 4px 0 10px;text-decoration:none}
+/* sheet */
+dialog{border:0;border-radius:16px;padding:0;max-width:560px;width:calc(100% - 24px);background:var(--paper);color:var(--ink);box-shadow:0 20px 60px rgba(20,18,50,.35)}
+dialog::backdrop{background:rgba(20,18,50,.45)}
+dialog .in{padding:20px}
+dialog .close{float:right;border:0;background:var(--chip);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 .85rem var(--sans);cursor:pointer}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.tag{background:var(--chip);border-radius:6px;padding:2px 8px;font-size:.78rem;color:var(--mute)}
+/* findings */
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.flist{display:grid;gap:10px}
+@media(min-width:760px){.flist{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.f{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.f .id{font:650 .8rem var(--sans);color:var(--eo);margin-right:6px}
+.f .ty{font-size:.8rem;color:var(--mute)}
+.f p{margin:6px 0 0;font-size:.92rem}
+/* case */
+.case{display:grid;gap:16px}
+@media(min-width:880px){.case{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}}
+.stage{font-size:.9rem;margin:0;padding:0;list-style:none}
+.stage li{padding:8px 0;border-top:1px solid var(--rule)}
+.stage li b{color:var(--eo);margin-right:6px}
+.stepper .ctl{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.stepper .ctl button{border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:999px;padding:7px 14px;font:500 .9rem var(--sans);cursor:pointer}
+.stepper .ctl button:disabled{opacity:.4;cursor:default}
+.bar{flex:1;height:6px;background:var(--rule);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--l1),var(--l5));transition:width .25s}
+.st .lv{display:inline-block;color:#fff;border-radius:6px;padding:2px 8px;font:650 .75rem var(--sans);margin-bottom:8px}
+.st .where{color:var(--mute);font-size:.88rem;margin:0 0 8px}
+.st .ret{font-size:.85rem;color:var(--mute);border-left:3px solid var(--rule);padding-left:10px;margin-top:10px}
+/* decisions */
+.dec{display:grid;gap:16px}
+@media(min-width:880px){.dec{grid-template-columns:1fr 1fr}}
+ul.check{list-style:none;padding:0;margin:0}
+ul.check li{padding:8px 0 8px 30px;position:relative;border-top:1px solid var(--rule)}
+ul.check li::before{content:"";position:absolute;left:0;top:11px;width:18px;height:18px;border:2px solid var(--hema);border-radius:4px}
+ol.road{list-style:none;padding:0;margin:0}
+ol.road li{padding:8px 0;border-top:1px solid var(--rule)}
+ol.road b{display:block;font-size:.82rem;color:var(--eo)}
+.stats{display:flex;flex-wrap:wrap;gap:8px 22px;margin:14px 0 0;color:var(--mute);font-size:.9rem}
+.stats strong{color:var(--ink);font:650 1.25rem var(--serif);margin-right:4px}
+footer{max-width:1080px;margin:0 auto;padding:0 16px 30px;color:var(--mute);font-size:.8rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <p class="fac">ASU Faculty of Dentistry · Curriculum Committee · draft, September 2026</p>
+  <h1>Integrated Spiral Curriculum</h1>
+  <p class="lede">Ten threads run through the five years. Each time a topic returns, students work at a higher level. No new courses and no extra hours: only content inside existing syllabi changes.</p>
+  <div class="stats"><span><strong>86</strong>syllabi mapped</span><span><strong>10</strong>threads</span><span><strong>22</strong>findings</span><span><strong>0</strong>hours added</span></div>
+</header>
+<nav class="tabs" aria-label="Sections"><div class="in" role="tablist">
+  <button role="tab" aria-selected="true" data-t="spiral">Spiral</button>
+  <button role="tab" aria-selected="false" data-t="years">Year by year</button>
+  <button role="tab" aria-selected="false" data-t="findings">Findings</button>
+  <button role="tab" aria-selected="false" data-t="case">Case: Mr K.</button>
+  <button role="tab" aria-selected="false" data-t="decide">Decisions</button>
+</div></nav>
+<main>
+<section id="spiral">
+  <h2>The spiral</h2>
+  <p class="sub">Each dot is a thread at one level. Moving outward along the spiral, levels rise from foundation (inside) to integration (outside). Tap a thread code or a dot.</p>
+  <div class="spiralwrap">
+    <div>
+      <svg class="spiral" id="svg" viewBox="0 0 600 600" role="img" aria-label="Spiral of ten curriculum threads across five levels"></svg>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div>
+      <div class="threadlist" id="tlist"></div>
+      <div class="panel" id="tpanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+<section id="years" hidden>
+  <h2>Year by year</h2>
+  <p class="sub">Every course in its current place. Outlined courses have a proposed content change; tap one to read it.</p>
+  <p class="key"><i></i>Tier 1 change (2027–28)<u></u>Tier 2–3 change</p>
+  <div class="years" id="ylist"></div>
+</section>
+<section id="findings" hidden>
+  <h2>What breaks the spiral today</h2>
+  <p class="sub">22 issues found in the weekly topic tables. Filter by type.</p>
+  <div class="filters" id="ffil"></div>
+  <div class="flist" id="flist"></div>
+</section>
+<section id="case" hidden>
+  <h2>One patient, five years</h2>
+  <p class="sub">A worked example on the oral mucosa and oral cancer thread. Mr K. is 58, a heavy smoker with type 2 diabetes and hypertension. His story is released in stages, one course at a time.</p>
+  <div class="case">
+    <div class="panel"><h3>How his story unfolds</h3><ul class="stage" id="stages"></ul></div>
+    <div class="panel stepper">
+      <div class="ctl"><button id="prev" aria-label="Previous station">Back</button><div class="bar"><i id="barfill"></i></div><button id="next" aria-label="Next station">Next</button></div>
+      <div class="st" id="station" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+<section id="decide" hidden>
+  <h2>What the Committee is asked to decide</h2>
+  <p class="sub">Tier 1 can be live in 2027–28; a pilot needing no syllabus approval can run in the second semester of 2026–27.</p>
+  <div class="dec">
+    <div class="panel"><h3>Decisions</h3><ul class="check" id="dlist"></ul></div>
+    <div class="panel"><h3>Roadmap</h3><ol class="road" id="rlist"></ol></div>
+  </div>
+</section>
+</main>
+<footer>Source: 86 ASU Dentistry syllabi (D1–D5). Full proposal and case study are available as Word documents.</footer>
+<dialog id="sheet"><div class="in"><button class="close" id="closeS">Close</button><div id="sheetBody"></div></div></dialog>
+<script>
+const LV=["Foundation","Mechanism","Recognition","Application","Integration"];
+const LC=["var(--l1)","var(--l2)","var(--l3)","var(--l4)","var(--l5)"];
+const T=[
+{c:"CA",n:"Caries & hard-tissue loss",l:["Oral Histology (enamel, dentine); Dental Anatomy; Biochemistry 1","Fundamentals of Caries (D2); Microbiology 1 oral biofilm (proposed)","Conservative 1 caries detection; Oral Pathology 1 non-carious disorders; Radiology 2","Conservative 3; Pediatric 1–2 (risk assessment, early childhood caries); Preventive Dentistry","Conservative 5 (root caries, erosion); Comprehensive Care 2–3"]},
+{c:"PE",n:"Periodontal health & disease",l:["Oral Histology (gingiva, PDL, cementum, bone)","General Pathology 1 inflammation; Microbiology 2 oral pathogens (proposed); Periodontics 1 pathogenesis","Radiology 2 periodontal; Periodontics 1 examination labs","Periodontics 2 (staging & grading); Oral Diagnosis 1–2","Periodontics 3–4; Prosthodontics 6; Oral Implantology peri-implant health"]},
+{c:"PU",n:"Pulp, periapex & endodontics",l:["Oral Histology (dentine-pulp); Oral Physiology (dentinal & pulpal pain)","Oral Pathology 1 pulp & periapical disease; General Pathology 1","Conservative 2 pre-clinical endodontics; Radiology 2","Conservative 4","Conservative 6 (emergencies, surgical & regenerative endo); Oral Surgery 1"]},
+{c:"OC",n:"Oral mucosal disease & oral cancer",l:["General Histology 1 epithelium; Oral Histology mucosa; Molecular Biology (cancer genetics)","General Pathology 1 neoplasia; Oral Pathology 1 hyperplastic & keratotic lesions","Oral Pathology 2 potentially malignant disorders & SCC; Radiology 2; Intro Clinical Dentistry exam","Oral Diagnosis 1–2; Oral Surgery 1 (biopsy, neck masses); Preventive; General Surgery","Oral Medicine 1–2; Oral Surgery 3 (tumours, radio/chemotherapy patient); Comprehensive Care"]},
+{c:"IN",n:"Infection & host response",l:["Infection Control (D1); Histology (blood, lymphoid tissue)","Microbiology 1–2; General Pathology 1; Pharmacology 2 antimicrobials","Oral Pathology 2 mucosal infections; Radiology 2 jaw infections","Oral Surgery 2 orofacial infections; Internal Medicine","Oral Medicine 1 bacterial, fungal, viral; Conservative 6; Periodontics 3 acute conditions"]},
+{c:"PA",n:"Pain & anaesthesia",l:["Neuroanatomy; Head & Neck Anatomy (V2, V3); Physiology 1–2","Oral Physiology; Pharmacology 1 (local anaesthetics, opioids); Pharmacology 2 (NSAIDs)","Dental Anaesthesia; Conservative 2 endodontic pain","Clinical Occlusion/TMD; Pediatric 1; Oral Surgery 2","Oral Medicine 1 neuropathic & neurovascular pain; Oral Surgery 3 TMJ; Conservative 6"]},
+{c:"MC",n:"Medically complex patient",l:["Physiology 1–2; Biochemistry 2 (lab tests)","General Pathology 2; Pharmacology 1–2; First Aid (D2)","Intro Clinical Dentistry (medical history); Psychology","Oral Surgery 2; Periodontics 2; Internal Medicine; General Surgery; Special Patient Care; Pediatric 2","Oral Medicine 2 (blood, endocrine, renal, immune); Conservative 5–6; Oral Surgery 3; Comprehensive Care"]},
+{c:"OF",n:"Occlusion, function & TMD",l:["Head & Neck Anatomy (TMJ, masticatory muscles); Oral Histology TMJ; Dental Anatomy","Oral Physiology (mastication, occlusal dynamics)","Prosthodontics 1 jaw relations; Oral Pathology 2 TMJ disease; Radiology 2 TMJ","Prosthodontics 4; Clinical Occlusion/TMD; Periodontics 2; Orthodontics 1–2","Prosthodontics 6 full-mouth rehabilitation; Oral Surgery 3 TMJ; Oral Medicine 1 facial pain"]},
+{c:"GD",n:"Growth, development & anomalies",l:["Anatomy & Embryology; Oral Histology (odontogenesis, face & palate); Molecular Biology","Oral Pathology 1 developmental disorders","Radiology 2 anomalies; Dental Anatomy deciduous teeth","Orthodontics 1–2; Pediatric 1 arch development","Orthodontics 3, Oral Surgery 3, Pediatric 3 (joint cleft seminar)"]},
+{c:"RR",n:"Restoration & rehabilitation",l:["Chemistry & Physics (material properties); Dental Anatomy","Dental Materials 1–2","Conservative 1; Prosthodontics 1–2 labs","Conservative 3–4; Prosthodontics 3–4; Esthetic Dentistry","Conservative 5–6; Prosthodontics 5–6; Oral Surgery 3 & Oral Implantology"]}
+];
+/* ---------- spiral ---------- */
+const svg=document.getElementById('svg'),NS='http://www.w3.org/2000/svg',cx=300,cy=300,r0=46,dr=44;
+const ang=i=>(-90+i*36)*Math.PI/180, rad=(i,k)=>r0+(k+i/10)*dr;
+function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e}
+let d="";for(let s=0;s<=500;s++){const t=s/100;const i=(t*10)%10,k=Math.floor(t);const a=(-90+t*360)*Math.PI/180,r=r0+t*dr;d+=(s?"L":"M")+(cx+r*Math.cos(a)).toFixed(1)+" "+(cy+r*Math.sin(a)).toFixed(1)}
+svg.append(el('path',{d,class:'track'}));
+T.forEach((t,i)=>{const a=ang(i),R=rad(i,4)+6;svg.append(el('line',{x1:cx,y1:cy,x2:cx+R*Math.cos(a),y2:cy+R*Math.sin(a),class:'spoke',id:'sp'+i}))});
+T.forEach((t,i)=>{for(let k=0;k<5;k++){const a=ang(i),r=rad(i,k);const c=el('circle',{cx:cx+r*Math.cos(a),cy:cy+r*Math.sin(a),r:k==4?12:9.5,fill:getComputedStyle(document.documentElement).getPropertyValue('--l'+(k+1))||'#555',class:'dot',tabindex:0,role:'button','data-i':i,'data-k':k,'aria-label':t.n+', level '+(k+1)+' '+LV[k]});c.style.fill=LC[k];svg.append(c)}
+  const a=ang(i),R=rad(i,4)+30;const tx=el('text',{x:cx+R*Math.cos(a),y:cy+R*Math.sin(a),class:'code',id:'cd'+i,'data-i':i});tx.textContent=t.c;svg.append(tx)});
+const c1=el('text',{x:cx,y:cy-6,class:'ctr'});c1.textContent="Same courses";svg.append(c1);
+const c2=el('text',{x:cx,y:cy+14,class:'ctr2'});c2.textContent="same hours";svg.append(c2);
+document.getElementById('legend').innerHTML=LV.map((v,k)=>`<span style="--c:${LC[k]}">L${k+1} ${v}</span>`).join('');
+const tl=document.getElementById('tlist');tl.innerHTML=T.map((t,i)=>`<button class="chipbtn" aria-pressed="false" data-i="${i}">${t.c} · ${t.n}</button>`).join('');
+function pick(i,k){document.querySelectorAll('.spiral .dot').forEach(dn=>dn.classList.toggle('dim',+dn.dataset.i!==i));
+  document.querySelectorAll('.spiral .spoke').forEach((s,j)=>s.classList.toggle('on',j===i));
+  document.querySelectorAll('.spiral .code').forEach((s,j)=>s.classList.toggle('on',j===i));
+  tl.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  const t=T[i];document.getElementById('tpanel').innerHTML=`<h3>${t.n} <span style="color:var(--mute);font-family:var(--sans);font-size:.85rem">${t.c}</span></h3><ol class="levels">${t.l.map((x,j)=>`<li data-l="L${j+1}" style="--c:${LC[j]}" class="${j===k?'hl':''}"><b>${LV[j]}</b>${x}</li>`).join('')}</ol>`}
+svg.addEventListener('click',e=>{const t=e.target;if(t.dataset.i!==undefined)pick(+t.dataset.i,t.dataset.k!==undefined?+t.dataset.k:-1)});
+svg.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset.i!==undefined){e.preventDefault();pick(+e.target.dataset.i,+e.target.dataset.k)}});
+tl.addEventListener('click',e=>{const b=e.target.closest('button');if(b)pick(+b.dataset.i,-1)});
+pick(3,-1);
+/* ---------- years ---------- */
+const C={
+"General Histology 1":["Epithelium lectures use oral keratinised vs non-keratinised epithelium as worked examples.","Thread seeding",2],
+"Molecular Biology & Genetics":["Cancer genetics lecture uses HPV and oral SCC, and inherited dental anomalies, as examples.","Thread seeding",2],
+"Oral Histology":["Each topic closes with a clinical image previewing where it returns later; two final practical stations use clinical images.","F9, F10",2],
+"Fundamentals of Dental Caries":["Introduces the shared Caries Risk Assessment tool; plaque lecture becomes the entry point for Microbiology 1.","F14, F18",1],
+"First Aid & Emergency":["No content change; BLS content is revalidated in Comprehensive Care 1 and Oral Surgery 2.","F19",2],
+"Oral Pathology 1":["Owns developmental, dental, pulpal, periapical, cystic, reactive and odontogenic pathology. W15 becomes Odontogenic tumours; W14 limited to non-dysplastic keratoses.","F15, F17",1],
+"Oral Pathology 2":["Owns mucosal, neoplastic, salivary and bone pathology. New weeks: potentially malignant disorders and dysplasia; salivary gland disease; oral SCC incl. HPV; salivary neoplasms; melanocytic and haematolymphoid lesions. Each practical ends with monitor, biopsy or refer.","F15, F16, F3",1],
+"General Pathology 1":["Each block closes with an oral example taught jointly with Oral Pathology 1; timetables synchronised.","D3 integration",2],
+"Microbiology 1":["Two introductory lectures merged; freed lecture: Oral microbiome and dental biofilm. Gram stain lab uses plaque.","F18",1],
+"Microbiology 2":["Digestive-tract lecture extended to the oral cavity (oral pathogens, Candida, herpesviruses, HPV); one water-analysis lab replaced by oral Candida culture.","F18",1],
+"Pharmacology 1":["Local anaesthetics limited to systemic pharmacology and toxicity; anticoagulant lecture previews extraction management.","F7, F13",1],
+"Pharmacology 2":["Dental therapeutics becomes the anchor for the shared Prescription Standard.","F12",1],
+"Dental Anaesthesia & Sedation":["Opens with retrieval from Pharmacology 1; focuses on choosing agent and dose, incl. the medically complex patient.","F7",1],
+"Dental Materials 2":["Designated owner of adhesion and ceramic science; later courses reference it.","F11",1],
+"Conservative 1":["Two re-teaching lectures merged; freed lecture: non-carious tooth wear recognition. Uses shared caries risk tool.","F10, F14",1],
+"Conservative 2":["Three pulp biology lectures merged into one on diagnostic terminology; two freed for endodontic diagnosis cases.","F10",1],
+"Dental Radiology 2":["Pathology lectures open with Oral Pathology image retrieval; benign tumours aligned with odontogenic tumours week.","F17",2],
+"Intro to Clinical Dentistry":["Introduces the Medical History & Risk template, Lesion Description Standard and consent checklist; one ethics micro-case.","F3, F13, F21",1],
+"Profession & Professionalism":["Adds the basic ethical decision framework later used in Dental Ethics.","F21",2],
+"Periodontics 1":["Four histology lectures become: periodontium revisited, examination and charting, radiographic assessment, smoking and diabetes. 2017 classification.","F9, F20",1],
+"Periodontics 2":["Chronic and aggressive periodontitis lectures become staging, and grading with risk modifiers.","F20, F13",1],
+"Orthodontics 1":["Owns dental arch development; embryology lecture opens with retrieval from Oral Histology.","F4",1],
+"Pediatric 1":["Arch development lecture becomes monitoring the developing occlusion (case application). Space management set at recognition level.","F4, F8",1],
+"Pediatric 2":["Prevention lectures apply the shared caries risk tool to children; fluoride mechanisms not re-taught.","F14",1],
+"Preventive Dentistry & Epidemiology":["Owns fluoride and diet mechanisms; oral cancer lecture uses the Lesion Description Standard; tobacco linked to motivational interviewing.","F14, F3",2],
+"Oral Diagnosis & TP 1":["Each seminar includes one lesion case: description, differential from Oral Pathology, and action.","F3",1],
+"Oral Diagnosis & TP 2":["Each seminar includes one lesion case: description, differential from Oral Pathology, and action.","F3",1],
+"Oral Surgery 1":["Biopsy lecture opens with Oral Pathology retrieval and the referral pathway; ORN reframed as prevention and surgical risk; prescribing uses the shared standard.","F2, F12",1],
+"Oral Surgery 2":["Medically compromised lectures limited to surgical risk and built on the shared template; BLS scenario in first clinic.","F13, F19",1],
+"Comprehensive Care 1":["Medical-emergency simulation in Clinic 1; integrated rubric across threads.","F19",1],
+"Prosthodontics 4":["Occlusion lectures become occlusion applied to fixed prosthodontic planning (TMD course owns concepts).","F5",1],
+"Clinical Occlusion, TMD & Orofacial Pain":["Owns occlusal concepts; revision week becomes the orofacial pain differential diagnosis.","F5, F22",1],
+"Conservative 3":["Five materials lectures become two on material selection; freed: selective caries removal, repair vs replacement, tooth wear planning.","F11, F14",1],
+"Conservative 4":["Technical lectures reframed at application level; basics referenced to Conservative 2.","F10",2],
+"Orthodontics 2":["Space management set at analysis and planning level.","F8",2],
+"Internal Medicine":["Each topic closes with dental implications using the shared risk template.","F13",2],
+"General Surgery":["Salivary and head and neck cancer lectures open with retrieval from Oral Pathology 2.","F16",2],
+"Special Patient Care":["Uses the shared risk template; each lecture ends with a dental decision point.","F13",2],
+"Esthetic Dentistry":["Adhesive lectures become case-based integration; bleaching within smile design.","F11",2],
+"Biostatistics":["Worked examples use dental indices.","Evidence strand",3],
+"Oral Medicine 1":["Receives carcinogenesis/OPMD and oral carcinoma lectures from OM2; practicals move from re-teaching to complex cases; owns biopsy choice and lab interpretation.","F2, F3",1],
+"Oral Medicine 2":["Receives tongue/lip and GI lectures from OM1; medically complex lectures reframed as oral manifestations and dental decisions.","F2, F13",1],
+"Oral Surgery 3":["Implant lecture becomes implant surgery principles and case selection; RT/CT patient shared with OM1 (surgery owns pre-radiotherapy assessment and ORN); cleft joint seminar.","F1, F2, F6",1],
+"Orthodontics 3":["Cleft lectures follow the joint seminar and focus on orthodontic management.","F6",1],
+"Pediatric 3":["Cleft lecture merged into the joint seminar; space management at integration level.","F6, F8",1],
+"Prosthodontics 5":["Implant prosthesis lectures open with retrieval from Oral Surgery 3.","F1",2],
+"Oral Implantology":["Reframed as capstone: foundations condensed; freed lecture on peri-implant health and maintenance.","F1",1],
+"Conservative 5":["Adhesion lecture becomes adhesive failure troubleshooting; medically compromised uses shared template.","F11, F13",1],
+"Conservative 6":["Medically compromised endodontics uses the template; emergencies linked to orofacial pain differential.","F13, F22",2],
+"Periodontics 3":["Prescription lecture becomes periodontal antimicrobials and stewardship.","F12",1],
+"Comprehensive Care 2":["Integrated rubric; one case with a consent or ethical decision point.","F21",2],
+"Comprehensive Care 3":["Integrated rubric; one case with a consent or ethical decision point.","F21",2],
+"Dental Ethics":["Becomes a capstone on dilemmas logged by students since D3.","F21",2],
+"Research Project 1":["Topic list includes curriculum-evaluation projects.","Evidence strand",3],
+"Research Project 2":["Topic list includes curriculum-evaluation projects.","Evidence strand",3]
+};
+const Y=[
+["D1",["General Chemistry","Physics","General Biology","Computer Skills"],["Anatomy & Embryology","General Histology 1","Molecular Biology & Genetics"],["Introduction to Dentistry","Infection Control"]],
+["D2",["Physiology 1","Biochemistry 1","Head & Neck Anatomy","General Histology 2","Dental Materials 1"],["Physiology 2","Biochemistry 2","Neuroanatomy","Oral Histology","Oral Physiology","Dental Anatomy","Fundamentals of Dental Caries","Organic Chemistry"],["First Aid & Emergency"]],
+["D3",["Conservative 1","Prosthodontics 1","Oral Pathology 1","Microbiology 1","General Pathology 1","Pharmacology 1","Dental Materials 2"],["Conservative 2","Prosthodontics 2","Oral Pathology 2","Microbiology 2","General Pathology 2","Pharmacology 2","Dental Radiology 1","Dental Anaesthesia & Sedation"],["Intro to Clinical Dentistry","Dental Radiology 2","Community Dentistry","Psychology","Profession & Professionalism"]],
+["D4",["Conservative 3","Prosthodontics 3","Oral Surgery 1","Periodontics 1","Orthodontics 1","Pediatric 1","Oral Diagnosis & TP 1","Preventive Dentistry & Epidemiology"],["Conservative 4","Prosthodontics 4","Oral Surgery 2","Periodontics 2","Orthodontics 2","Pediatric 2","Oral Diagnosis & TP 2","Comprehensive Care 1","Clinical Occlusion, TMD & Orofacial Pain"],["Internal Medicine","General Surgery","Biostatistics","Esthetic Dentistry","Special Patient Care"]],
+["D5",["Conservative 5","Prosthodontics 5","Oral Surgery 3","Periodontics 3","Orthodontics 3","Pediatric 3","Oral Medicine 1","Comprehensive Care 2","Research Project 1"],["Conservative 6","Prosthodontics 6","Oral Surgery 4","Periodontics 4","Orthodontics 4","Pediatric 4","Oral Medicine 2","Comprehensive Care 3","Research Project 2","Practice Management","Dental Ethics","Oral Implantology"],[]]];
+const TN=["Semester 1","Semester 2","Summer"];
+document.getElementById('ylist').innerHTML=Y.map(y=>`<div class="yr"><h3>${y[0]}</h3><div class="terms">${[1,2,3].map(j=>y[j].length?`<div class="term"><p>${TN[j-1]}</p><div class="courses">${y[j].map(n=>{const c=C[n];return c?`<button class="course ch ${c[2]===1?'t1':''}" data-n="${n}">${n}</button>`:`<span class="course">${n}</span>`}).join('')}</div></div>`:'').join('')}</div></div>`).join('');
+const sheet=document.getElementById('sheet');
+document.getElementById('ylist').addEventListener('click',e=>{const b=e.target.closest('button.course');if(!b)return;const n=b.dataset.n,c=C[n];
+  document.getElementById('sheetBody').innerHTML=`<h3>${n}</h3><p>${c[0]}</p><div class="meta"><span class="tag">Tier ${c[2]}</span><span class="tag">Fixes ${c[1]}</span><span class="tag">Same hours</span></div>`;
+  sheet.showModal?sheet.showModal():sheet.setAttribute('open','')});
+document.getElementById('closeS').onclick=()=>sheet.close?sheet.close():sheet.removeAttribute('open');
+sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.close()});
+/* ---------- findings ---------- */
+const F=[
+["F1","Inverted sequence","Implant fundamentals are taught in Oral Implantology (D5 S2), after advanced implant surgery and implant prosthodontics (D5 S1)."],
+["F2","Inverted sequence","Management of the radio/chemotherapy patient and ORN precede oral cancer in Oral Medicine 2."],
+["F3","Inverted sequence","Students diagnose mucosal lesions in Oral Diagnosis from D4; Oral Medicine (D5) re-teaches history and lesion description."],
+["F4","Same semester","Dental arch development in Orthodontics 1 and Pediatric 1 (D4 S1)."],
+["F5","Same semester","Occlusion fundamentals in Prosthodontics 4 and the TMD course (D4 S2)."],
+["F6","Same semester","Cleft lip and palate in Orthodontics 3, Oral Surgery 3 and Pediatric 3 (D5 S1)."],
+["F7","Same semester","Local anaesthetic pharmacology in Pharmacology 1 and Dental Anaesthesia (D3)."],
+["F8","Repetition","Space management in three courses with no stated progression."],
+["F9","Repetition","Periodontics 1 re-teaches periodontium histology from Oral Histology."],
+["F10","Repetition","Conservative 1–2 re-teach tooth morphology, pulp histology and pulpal pathology."],
+["F11","Repetition","Adhesion and materials in Dental Materials 2, Conservative 3, Conservative 5 and Esthetic Dentistry."],
+["F12","Repetition","Prescription writing taught in four courses."],
+["F13","Uncoordinated","The medically compromised patient appears in at least seven courses with no shared framework."],
+["F14","Uncoordinated","Caries risk assessment in eight syllabi without a common tool."],
+["F15","Repetition","Keratoses and epithelial tumours in both Oral Pathology 1 and 2."],
+["F16","Gap","Salivary gland pathology not named in Oral Pathology 1–2."],
+["F17","Gap","Odontogenic tumours not named in Oral Pathology 1–2."],
+["F18","Gap","No oral microbiology in Microbiology 1–2."],
+["F19","Gap","Adult medical emergencies not revisited after First Aid (D2)."],
+["F20","Gap","Periodontics 2 lists chronic and aggressive periodontitis instead of 2017 staging and grading."],
+["F21","Late placement","Consent and ethics needed from D3 clinics; Dental Ethics is in D5 S2."],
+["F22","Late placement","Neuropathic and neurovascular pain only in Oral Medicine 1, after the TMD course."]];
+const types=["All",...new Set(F.map(f=>f[1]))];let ft="All";
+function drawF(){document.getElementById('ffil').innerHTML=types.map(t=>`<button class="chipbtn" aria-pressed="${t===ft}" data-t="${t}">${t}${t==='All'?'':' ('+F.filter(f=>f[1]===t).length+')'}</button>`).join('');
+  document.getElementById('flist').innerHTML=F.filter(f=>ft==='All'||f[1]===ft).map(f=>`<div class="f"><span class="id">${f[0]}</span><span class="ty">${f[1]}</span><p>${f[2]}</p></div>`).join('')}
+document.getElementById('ffil').addEventListener('click',e=>{const b=e.target.closest('button');if(b){ft=b.dataset.t;drawF()}});drawF();
+/* ---------- case ---------- */
+const S=[["A","Normal lateral tongue mucosa","D1"],["B","Non-removable white patch, left lateral tongue, 4 months","D3 summer"],["C","Biopsy: moderate dysplasia with Candida hyphae","D3 S2"],["D","Treated and monitored; lesion persists","D4"],["E","Two years later: indurated ulcer; squamous cell carcinoma; palpable node","D4–D5"],["F","Surgery and radiotherapy; dental care before and after","D5"]];
+document.getElementById('stages').innerHTML=S.map(s=>`<li><b>${s[0]}</b>${s[1]} <span style="color:var(--mute)">· ${s[2]}</span></li>`).join('');
+const ST=[
+[1,"D1 S2 · General Histology 1","Compare keratinised and non-keratinised epithelium; why is the lateral tongue normally non-keratinised?",""],
+[1,"D1 S2 · Molecular Biology & Genetics","Link tobacco carcinogens to TP53 mutation and field cancerisation.","Cell cycle (General Biology)"],
+[1,"D2 S1 · Head & Neck Anatomy","Predict lymphatic drainage of a lateral tongue lesion.","Epithelium slide from D1"],
+[1,"D2 S2 · Oral Histology","Map regional oral mucosa; explain what a white lesion means histologically.","Keratinised vs non-keratinised"],
+[2,"D3 S1 · General Pathology 1","Metaplasia, dysplasia, carcinoma in situ as a sequence; grading and staging vocabulary.","Tobacco and TP53"],
+[2,"D3 S1 · Pharmacology 1","Mechanism of pilocarpine, flagged for Mr K. at D5.","Saliva functions (Oral Physiology)"],
+[2,"D3 S2 · Microbiology 2","Candida virulence and why chronic candidosis matters in a smoker with diabetes.","Oral mucosa as a barrier"],
+[2,"D3 S2 · Pharmacology 2","Choose an antifungal and check interactions with his current drugs; preview chemotherapy mucositis.","Candida biology"],
+[3,"D3 S2 · Oral Pathology 2","Read his biopsy slide: grade the dysplasia, identify hyphae, give the differential and the clinician's next step.","Dysplasia sequence (General Pathology)"],
+[3,"D3 summer · Intro to Clinical Dentistry","Take his history with the risk template, examine nodes, describe the lesion with the shared standard.","Neck drainage (Anatomy)"],
+[4,"D4 S1 · Oral Diagnosis & TP 1","Differential for the white patch; decide monitor, biopsy or refer.","Oral Pathology 2 differential"],
+[4,"D4 S1 · Oral Surgery 1","Plan the incisional biopsy site.","Biopsy histology"],
+[4,"D4 S1 · Preventive Dentistry","Brief smoking-cessation intervention, role-played.","Oral cancer epidemiology"],
+[4,"D4 S2 · Periodontics 2","Stage and grade his periodontitis; smoking and diabetes as modifiers.","Risk template"],
+[5,"D5 S1 · Oral Medicine 1","Surveillance, recognition of carcinoma, referral; anticipate mucositis, xerostomia, dysgeusia.","Every station so far, as a case recap"],
+[5,"D5 S1 · Oral Surgery 3","Pre-radiotherapy dental assessment and extractions; ORN risk.","ORN (Oral Surgery 1)"],
+[5,"D5 · Comprehensive Care; Conservative 5","High-fluoride prevention, custom trays, short recall; restore radiation caries.","Caries risk tool"],
+[5,"D5 S2 · Oral Medicine 2","Manage xerostomia and taste loss; is pilocarpine appropriate?","Pilocarpine (Pharmacology 1)"],
+[5,"D5 S2 · Dental Ethics","Consent for extraction in an irradiated field.","Consent checklist (D3)"]];
+let si=0;const sEl=document.getElementById('station');
+function drawS(){const s=ST[si];sEl.innerHTML=`<span class="lv" style="background:${LC[s[0]-1]}">L${s[0]} ${LV[s[0]-1]}</span><h3>${s[1].split(' · ')[1]}</h3><p class="where">${s[1].split(' · ')[0]} · station ${si+1} of ${ST.length}</p><p>${s[2]}</p>${s[3]?`<p class="ret">Opens with retrieval: ${s[3]}</p>`:''}`;
+  document.getElementById('barfill').style.width=((si+1)/ST.length*100)+'%';document.getElementById('prev').disabled=si===0;document.getElementById('next').disabled=si===ST.length-1}
+document.getElementById('prev').onclick=()=>{if(si>0){si--;drawS()}};document.getElementById('next').onclick=()=>{if(si<ST.length-1){si++;drawS()}};drawS();
+/* ---------- decisions ---------- */
+document.getElementById('dlist').innerHTML=["Approve the 10 threads, 5 levels and 6 operational rules","Appoint a lead for each thread","Approve the Oral Pathology 1–2 content split and the Oral Medicine 1–2 lecture swap","Adopt the four shared instruments: risk template, lesion standard, caries risk tool, prescription standard","Approve the Tier 1 list for 2027–28 and the 2026–27 pilot","Add “thread and level” and “builds on / prepares for” columns to the syllabus template"].map(x=>`<li>${x}</li>`).join('');
+document.getElementById('rlist').innerHTML=[["Oct–Nov 2026","Approve threads; appoint leads; coordinators validate findings"],["Dec 2026–Feb 2027","Thread workshops; draft shared instruments"],["Feb–Jun 2027","Pilot: retrieval openings, lesion cases, orofacial pain week"],["Jun–Aug 2027","Tier 1 syllabi through councils"],["Sep 2027","Tier 1 live; Tier 2 during the year"],["Jun 2028","First review"]].map(r=>`<li><b>${r[0]}</b>${r[1]}</li>`).join('');
+/* ---------- tabs ---------- */
+const tabs=document.querySelectorAll('nav.tabs button');
+function show(id){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));document.querySelectorAll('main>section').forEach(s=>s.hidden=s.id!==id);try{localStorage.setItem('tab',id)}catch(e){}}
+tabs.forEach(b=>b.onclick=()=>{show(b.dataset.t);window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'})});
+try{const t=localStorage.getItem('tab');if(t&&document.getElementById(t))show(t)}catch(e){}
+</script>
+</body>
+</html>
