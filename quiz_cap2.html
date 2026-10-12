@@ -1,0 +1,241 @@
+<title>Quiz Capitolo 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: colonna di lettura unica, schede-domanda in sequenza, barra di avanzamento fissa in alto */
+:root {
+  --bg: #fbf8f9;
+  --surface: #ffffff;
+  --fg: #2b1a22;
+  --muted: #6f5b64;
+  --line: #ead9df;
+  --plum: #4a1f33;
+  --accent: #b5465e;
+  --accent-soft: #f7e8ec;
+  --ok: #2f7a4f;
+  --ok-soft: #e4f2e9;
+  --ko: #b23a3a;
+  --ko-soft: #fbe7e6;
+  --font-display: "Newsreader", "Cambria", Georgia, serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b1216; --surface: #261920; --fg: #f3e7eb; --muted: #b9a2ab; --line: #3d2a33;
+    --plum: #f0d3dc; --accent: #e7839a; --accent-soft: #3a2029;
+    --ok: #7fd1a0; --ok-soft: #1d3326; --ko: #f19a94; --ko-soft: #3e1f1f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1b1216; --surface: #261920; --fg: #f3e7eb; --muted: #b9a2ab; --line: #3d2a33;
+  --plum: #f0d3dc; --accent: #e7839a; --accent-soft: #3a2029;
+  --ok: #7fd1a0; --ok-soft: #1d3326; --ko: #f19a94; --ko-soft: #3e1f1f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 18px; padding-block: 0 64px; }
+
+header.intro { padding-block: 40px 20px; display: grid; gap: 10px; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 5vw, 40px); line-height: 1.15; margin: 0; color: var(--plum); text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); max-width: 60ch; }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding-block: 12px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.meter { flex: 1 1 200px; min-width: 0; height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.meter span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s ease; }
+.stats { font-variant-numeric: tabular-nums; font-size: 14px; color: var(--muted); white-space: nowrap; }
+.stats b { color: var(--fg); }
+.tools { display: flex; gap: 8px; }
+.btn { font: inherit; font-size: 14px; font-weight: 600; border-radius: 8px; padding: 7px 12px; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.btn:focus-visible, .opt:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+ol.qs { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 20px; }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 14px; }
+.qhead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.qnum { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
+.topic { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.qtext { margin: 0; font-size: 17px; font-weight: 600; text-wrap: pretty; }
+.opts { display: grid; gap: 8px; }
+.opt { font: inherit; text-align: left; display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; width: 100%; padding: 10px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; transition: border-color .15s, background .15s; }
+.opt:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.opt:disabled { cursor: default; }
+.letter { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px; background: var(--accent-soft); color: var(--accent); }
+.opt.correct { border-color: var(--ok); background: var(--ok-soft); }
+.opt.correct .letter { background: var(--ok); color: var(--surface); }
+.opt.wrong { border-color: var(--ko); background: var(--ko-soft); }
+.opt.wrong .letter { background: var(--ko); color: var(--surface); }
+.opt.dim { opacity: .6; }
+
+.expl { border-radius: 9px; padding: 14px 16px; background: var(--accent-soft); display: grid; gap: 6px; }
+.verdict { font-weight: 700; margin: 0; }
+.verdict.ok { color: var(--ok); }
+.verdict.ko { color: var(--ko); }
+.expl p { margin: 0; }
+.ref { font-size: 13px; color: var(--muted); }
+
+.result { margin-top: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; display: grid; gap: 8px; }
+.result h2 { font-family: var(--font-display); font-weight: 600; margin: 0; font-size: 26px; color: var(--plum); }
+.result .big { font-family: var(--font-display); font-size: 44px; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1; }
+.result p { margin: 0; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <p class="eyebrow">Patologia orale · Capitolo 2</p>
+    <h1>Condizioni parafisiologiche e varianti anatomiche del cavo orale</h1>
+    <p class="lede">15 domande a scelta multipla. Scegli una risposta: vedrai subito se è corretta e la spiegazione.</p>
+  </header>
+
+  <div class="bar" role="region" aria-label="Avanzamento">
+    <div class="meter" aria-hidden="true"><span id="meter"></span></div>
+    <div class="stats" id="stats" aria-live="polite">Risposte <b>0</b>/15 · Corrette <b>0</b></div>
+    <div class="tools">
+      <button class="btn" id="reveal" type="button">Mostra soluzioni</button>
+      <button class="btn" id="reset" type="button">Ricomincia</button>
+    </div>
+  </div>
+
+  <ol class="qs" id="qs"></ol>
+
+  <section class="result" id="result" hidden aria-live="polite">
+    <h2>Risultato</h2>
+    <div class="big" id="score">0/15</div>
+    <p id="comment"></p>
+  </section>
+</div>
+
+<script>
+const Q = [
+  { t: "Leucoedema", q: "Quale manovra clinica aiuta a distinguere il leucoedema da altre lesioni bianche della mucosa geniena?",
+    o: ["Il raschiamento con una garza, che rimuove la patina", "Lo stiramento della mucosa, che riduce o fa scomparire l'opalescenza", "La pressione con un vetrino, che fa impallidire la lesione", "L'applicazione di blu di toluidina, che non colora la lesione"],
+    a: 1, e: "Il leucoedema tende a ridursi o scomparire quando la mucosa viene stirata. Questo lo distingue da lesioni bianche più stabili come cheratosi da frizione, leucoplachia o lichen planus, che restano visibili. Il raschiamento è tipico della valutazione delle pseudomembrane (es. candidosi), la vitropressione delle lesioni vascolari.", r: "Leucoedema" },
+  { t: "Linea alba", q: "Qual è la causa della linea alba della mucosa geniena?",
+    o: ["Un'infezione micotica superficiale cronica", "Ghiandole sebacee ectopiche disposte in fila", "Una lieve ipercheratosi reattiva da contatto cronico con le superfici dentarie", "Un deposito di melanina lungo il piano occlusale"],
+    a: 2, e: "La linea alba è una sottile banda bianca orizzontale in corrispondenza del piano occlusale, dovuta a lieve ipercheratosi reattiva da frizione cronica con i denti. È più evidente con serramento, bruxismo, malocclusioni o margini dentari irregolari. Non è una leucoplachia e non richiede trattamento, salvo correggere i fattori traumatici.", r: "Linea alba" },
+  { t: "Granuli di Fordyce", q: "Cosa sono i granuli di Fordyce?",
+    o: ["Ghiandole sebacee ectopiche", "Ghiandole salivari minori ostruite", "Aggregati di tessuto linfoide", "Papule virali da papillomavirus"],
+    a: 0, e: "I granuli di Fordyce sono ghiandole sebacee ectopiche: piccole papule giallastre o color crema, multiple e simmetriche, soprattutto su mucosa geniena e vermiglio del labbro superiore. Sono una variante anatomica molto frequente, non evolvono verso neoplasie e non richiedono biopsia né trattamento quando l'aspetto è tipico.", r: "Granuli di Fordyce" },
+  { t: "Pigmentazione", q: "Quale caratteristica di una pigmentazione della mucosa orale impone un approfondimento invece della semplice rassicurazione?",
+    o: ["Distribuzione bilaterale e simmetrica sulla gengiva aderente", "Presenza da molti anni senza variazioni", "Paziente con fototipo scuro", "Lesione isolata, recente, asimmetrica e in crescita"],
+    a: 3, e: "La pigmentazione fisiologica è diffusa, bilaterale, regolare, stabile e più evidente nei fototipi scuri. Una lesione pigmentata isolata, recente, asimmetrica, irregolare, in crescita o associata a nodularità deve invece essere valutata con attenzione per escludere una lesione melanocitaria.", r: "Pigmentazione fisiologica della mucosa orale" },
+  { t: "Lingua geografica", q: "Quale affermazione sulla lingua geografica (eritema migrante benigno) è corretta?",
+    o: ["È un'infezione da Candida da trattare con antifungini", "È una condizione infiammatoria benigna, non contagiosa, con lesioni che cambiano sede nel tempo", "È una lesione potenzialmente maligna da sottoporre a biopsia", "È causata da carenza di vitamina B12 e scompare con l'integrazione"],
+    a: 1, e: "La lingua geografica presenta aree eritematose depapillate con margini biancastri serpiginosi che migrano nel tempo. Non è infettiva, non è contagiosa e non è potenzialmente maligna. Non servono antifungini né antibiotici; nei casi sintomatici si evitano cibi irritanti. Candidosi eritematosa e glossite carenziale rientrano nella diagnosi differenziale.", r: "Lingua geografica o eritema migrante benigno" },
+  { t: "Lingua fissurata", q: "La lingua fissurata può associarsi a quale delle seguenti sindromi?",
+    o: ["Sindrome di Peutz-Jeghers", "Sindrome di Sturge-Weber", "Sindrome di Melkersson-Rosenthal", "Sindrome di Gorlin-Goltz"],
+    a: 2, e: "La lingua fissurata è spesso una variante isolata, ma può associarsi a lingua geografica, sindrome di Down, lichen planus e sindrome di Melkersson-Rosenthal. Nella maggior parte dei casi non indica una malattia sistemica. Peutz-Jeghers si associa invece a pigmentazioni periorali, Gorlin-Goltz a cheratocisti dei mascellari.", r: "Lingua fissurata" },
+  { t: "Lingua saburrale", q: "Quale elemento orienta verso una candidosi pseudomembranosa piuttosto che verso una lingua saburrale?",
+    o: ["Interessamento di più sedi mucose in un paziente che usa steroidi inalatori", "Patina diffusa sul dorso linguale in un paziente febbrile e disidratato", "Alitosi e sapore sgradevole con igiene orale scarsa", "Patina che migliora con pulizia della lingua e idratazione"],
+    a: 0, e: "La candidosi può interessare più sedi mucose ed è favorita da immunosoppressione, antibiotici, steroidi inalatori, diabete o protesi incongrue. La lingua saburrale è invece un accumulo di cellule desquamate, residui e batteri sul dorso linguale, legato a fattori locali (igiene scarsa, disidratazione, febbre, respirazione orale) e migliora con igiene e idratazione.", r: "Lingua saburrale" },
+  { t: "Lingua villosa", q: "Qual è il meccanismo della lingua nigra villosa?",
+    o: ["Proliferazione di melanociti nell'epitelio del dorso linguale", "Necrosi superficiale delle papille per ischemia", "Infezione profonda da miceti pigmentati", "Allungamento e mancata desquamazione delle papille filiformi, pigmentate da cromogeni"],
+    a: 3, e: "La lingua villosa deriva dall'allungamento e dalla mancata desquamazione delle papille filiformi; diventa 'nigra' quando le papille si pigmentano per cromogeni batterici, alimentari o tabagici. Fattori associati: fumo, scarsa igiene, antibiotici prolungati, collutori ossidanti, xerostomia, dieta morbida. Il colore scuro non indica necrosi, melanoma o infezione grave.", r: "Lingua villosa e lingua nigra villosa" },
+  { t: "Varici sublinguali", q: "Quale reperto vascolare sul ventre linguale merita una valutazione più approfondita?",
+    o: ["Vene bluastre serpiginose, multiple e bilaterali in un paziente anziano", "Lesione vascolare singola, in rapida crescita, indurita e ulcerata", "Strutture violacee morbide e comprimibili, asintomatiche", "Vene dilatate diventate più evidenti con l'età"],
+    a: 1, e: "Le varici sublinguali sono dilatazioni venose benigne, multiple, bilaterali, morbide e comprimibili, più evidenti con l'età; non richiedono trattamento. Una lesione vascolare singola, in rapida crescita, indurita, ulcerata o sanguinante esce invece dal quadro tipico e va valutata.", r: "Varici sublinguali" },
+  { t: "Lago venoso", q: "Come si comporta tipicamente il lago venoso del labbro alla pressione?",
+    o: ["Diventa più scuro e duro", "Non si modifica, perché il pigmento è melanico", "Tende a svuotarsi parzialmente, perché il colore deriva dal sangue nel lume", "Si ulcera e sanguina facilmente"],
+    a: 2, e: "Il lago venoso è una piccola dilatazione venosa, blu-violacea e morbida, tipica del labbro inferiore di adulti e anziani. Alla pressione tende a svuotarsi parzialmente perché il colore dipende dal sangue contenuto nel vaso. Una lesione pigmentata melanica non si modifica: per questo il segno aiuta nella diagnosi differenziale con nevo e melanoma.", r: "Lago venoso del labbro" },
+  { t: "Tori", q: "In quale situazione è indicata la rimozione chirurgica di un torus palatino o mandibolare?",
+    o: ["Quando interferisce con una protesi rimovibile o si ulcera ripetutamente", "Sempre, per il rischio di trasformazione maligna", "Quando viene scoperto casualmente durante una visita", "Quando è bilaterale e simmetrico"],
+    a: 0, e: "I tori sono esostosi benigne senza potenziale maligno; nella maggior parte dei casi non vanno trattati. La chirurgia è indicata quando interferiscono con la protesizzazione, si ulcerano ripetutamente (la mucosa che li ricopre è sottile) o creano problemi di fonazione, masticazione o igiene.", r: "Tori ed esostosi" },
+  { t: "Papille linguali", q: "Un paziente teme un tumore per alcuni rilievi nella parte posteriore del dorso linguale. Quale reperto è rassicurante?",
+    o: ["Un rilievo singolo e duro su un solo lato", "Una lesione ulcerata che sanguina allo spazzolamento", "Un rilievo in crescita progressiva nelle ultime settimane", "Rilievi simmetrici disposti a V davanti al solco terminale"],
+    a: 3, e: "Le papille circumvallate sono strutture normali, più grandi, disposte a V davanti al solco terminale; vengono talvolta scambiate per lesioni tumorali. Simmetria, sede tipica e assenza di ulcerazione, indurimento o crescita progressiva sono gli elementi rassicuranti.", r: "Papille linguali prominenti" },
+  { t: "Cheratosi da frizione", q: "Quando un'area bianca attribuita a frizione cronica NON va più considerata parafisiologica?",
+    o: ["Quando è localizzata in corrispondenza di un margine dentario irregolare", "Quando persiste nonostante la rimozione dello stimolo traumatico", "Quando è omogenea e stabile nel tempo", "Quando migliora dopo la correzione della protesi"],
+    a: 1, e: "La cheratosi reattiva è omogenea, stabile e localizzata dove agisce lo stimolo; rimuovendo la causa migliora o si risolve. Se persiste nonostante la rimozione dello stimolo, o presenta superficie verrucosa, aree rosse, ulcerazione, indurimento o aumento dimensionale, richiede valutazione specialistica.", r: "Ipercheratosi da frizione di modesto significato clinico" },
+  { t: "Mucosa normale", q: "In quali sedi si trova principalmente la mucosa masticatoria?",
+    o: ["Pavimento orale e ventre linguale", "Mucosa geniena e labiale", "Gengiva aderente e palato duro", "Dorso linguale e palato molle"],
+    a: 2, e: "La mucosa masticatoria, cheratinizzata e resistente allo stress meccanico, riveste gengiva aderente e palato duro, che possono apparire più chiari. Pavimento orale, ventre linguale, mucosa geniena e labiale e palato molle sono mucosa di rivestimento; il dorso linguale è mucosa specializzata.", r: "Mucosa orale normale e variazioni regionali" },
+  { t: "Criteri generali", q: "Quale delle seguenti caratteristiche NON è compatibile con una condizione parafisiologica?",
+    o: ["Frequenza elevata nella popolazione", "Assenza di sintomi", "Andamento stabile o lentamente variabile", "Indurimento e sanguinamento spontaneo"],
+    a: 3, e: "Una condizione parafisiologica è frequente, spesso asintomatica, stabile, non richiede trattamento specifico e non mostra crescita rapida, ulcerazione persistente, indurimento o sanguinamento spontaneo. Una lesione nuova, progressiva, asimmetrica, ulcerata, indurita o sanguinante merita approfondimento.", r: "Concetto di condizione parafisiologica" },
+];
+
+const L = ["A", "B", "C", "D"];
+const state = Q.map(() => null);
+const list = document.getElementById("qs");
+
+function render() {
+  list.innerHTML = "";
+  Q.forEach((item, i) => {
+    const li = document.createElement("li");
+    li.className = "q";
+    li.id = "q" + (i + 1);
+    li.innerHTML = `
+      <div class="qhead"><span class="qnum">${String(i + 1).padStart(2, "0")}</span><span class="topic">${item.t}</span></div>
+      <p class="qtext">${item.q}</p>
+      <div class="opts" role="group" aria-label="Opzioni domanda ${i + 1}">
+        ${item.o.map((t, j) => `<button class="opt" type="button" id="q${i + 1}o${j}" data-q="${i}" data-o="${j}"><span class="letter">${L[j]}</span><span>${t}</span></button>`).join("")}
+      </div>
+      <div class="expl" hidden></div>`;
+    list.appendChild(li);
+  });
+}
+
+function show(i, chosen) {
+  const item = Q[i];
+  const li = list.children[i];
+  li.querySelectorAll(".opt").forEach((b, j) => {
+    b.disabled = true;
+    b.classList.toggle("correct", j === item.a);
+    b.classList.toggle("wrong", chosen !== null && j === chosen && j !== item.a);
+    b.classList.toggle("dim", j !== item.a && j !== chosen);
+  });
+  const ex = li.querySelector(".expl");
+  let verdict;
+  if (chosen === null) verdict = `<p class="verdict">Risposta corretta: ${L[item.a]}</p>`;
+  else if (chosen === item.a) verdict = `<p class="verdict ok">Corretto: ${L[item.a]}</p>`;
+  else verdict = `<p class="verdict ko">Non corretto. La risposta esatta è ${L[item.a]}</p>`;
+  ex.innerHTML = `${verdict}<p>${item.e}</p><p class="ref">Rif. capitolo: ${item.r}</p>`;
+  ex.hidden = false;
+}
+
+function update() {
+  const answered = state.filter(s => s !== null && s !== "rev").length;
+  const correct = state.filter((s, i) => s === Q[i].a).length;
+  const done = state.filter(s => s !== null).length;
+  document.getElementById("meter").style.width = (done / Q.length * 100) + "%";
+  document.getElementById("stats").innerHTML = `Risposte <b>${answered}</b>/${Q.length} · Corrette <b>${correct}</b>`;
+  const res = document.getElementById("result");
+  if (answered === Q.length) {
+    res.hidden = false;
+    document.getElementById("score").textContent = `${correct}/${Q.length}`;
+    const pct = correct / Q.length;
+    document.getElementById("comment").textContent =
+      pct >= 0.87 ? "Ottimo: riconosci con sicurezza le varianti del normale e i segni d'allarme." :
+      pct >= 0.6 ? "Buona base. Rileggi le spiegazioni delle risposte sbagliate e i paragrafi indicati." :
+      "Conviene ripassare il capitolo, partendo dai criteri che distinguono una variante da una lesione sospetta.";
+  } else res.hidden = true;
+}
+
+list.addEventListener("click", e => {
+  const b = e.target.closest(".opt");
+  if (!b || b.disabled) return;
+  const i = +b.dataset.q, o = +b.dataset.o;
+  state[i] = o;
+  show(i, o);
+  update();
+});
+
+document.getElementById("reveal").addEventListener("click", () => {
+  Q.forEach((_, i) => { if (state[i] === null) { state[i] = "rev"; show(i, null); } });
+  update();
+});
+document.getElementById("reset").addEventListener("click", () => {
+  state.fill(null);
+  render();
+  update();
+  window.scrollTo({ top: 0 });
+});
+
+render();
+update();
+</script>
