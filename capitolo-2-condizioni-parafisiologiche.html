@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Mappa visiva interattiva del capitolo 2: condizioni parafisiologiche e varianti anatomiche del cavo orale.">
+<meta name="theme-color" content="#2C5F5D">
+<meta property="og:title" content="Capitolo 2 — Condizioni parafisiologiche">
+<meta property="og:description" content="Mappa visiva interattiva delle varianti anatomiche e delle condizioni parafisiologiche del cavo orale.">
+<meta property="og:type" content="website">
+<title>Capitolo 2 — Condizioni parafisiologiche</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%232C5F5D'/%3E%3Ctext x='50' y='68' font-family='Georgia' font-size='56' font-weight='500' text-anchor='middle' fill='white'%3E2%3C/text%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1A1F2E;
+    --ink-soft: #4A5163;
+    --ink-mute: #7B8296;
+    --paper: #FAFAF7;
+    --paper-tint: #F2F0E9;
+    --rule: #E5E2D8;
+    --rule-strong: #C9C4B4;
+    --accent: #2C5F5D;
+    --accent-dark: #1E4544;
+    --accent-tint: #E6EFEE;
+    --amber: #B45309;
+    --amber-tint: #FEF3C7;
+    --amber-rule: #F0D89A;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, 'URW Palladio L', Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --p-bianche:    #64748B; --p-bianche-bg:    #E8ECF1;
+    --p-cromatiche: #B45309; --p-cromatiche-bg: #FDF0D8;
+    --p-linguali:   #DB2777; --p-linguali-bg:   #FBE4EF;
+    --p-vascolari:  #0284C7; --p-vascolari-bg:  #D6ECFB;
+    --p-anatomiche: #0F766E; --p-anatomiche-bg: #D2F0EC;
+    --p-eta:        #EA580C; --p-eta-bg:        #FDE4CE;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #EDECE4; --ink-soft: #B8B5AA; --ink-mute: #7E7B70;
+      --paper: #14171E; --paper-tint: #1C2028;
+      --rule: #2B2F38; --rule-strong: #3B4049;
+      --accent: #7BB5B3; --accent-dark: #A0CFCD; --accent-tint: #1E3231;
+      --amber: #F0B056; --amber-tint: #3B2A0F; --amber-rule: #6E4E1B;
+      --p-bianche:    #B0B8C4; --p-bianche-bg:    #262B33;
+      --p-cromatiche: #F0BC5F; --p-cromatiche-bg: #3D2B0F;
+      --p-linguali:   #F0759F; --p-linguali-bg:   #3D1E2A;
+      --p-vascolari:  #6FBEE8; --p-vascolari-bg:  #0F2A3D;
+      --p-anatomiche: #7BC8C0; --p-anatomiche-bg: #143231;
+      --p-eta:        #F0A26E; --p-eta-bg:        #3D2419;
+    }
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper);
+    min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+  header.site {
+    padding: 20px 0 16px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    z-index: 10;
+  }
+  header.site .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  header.site h1 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+  header.site .sub {
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin-top: 6px;
+    max-width: 56ch;
+  }
+  @media (min-width: 640px) {
+    header.site h1 { font-size: 26px; }
+    header.site .sub { font-size: 14px; }
+  }
+
+  main { padding: 24px 0 40px; position: relative; }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 620px;
+    margin: 0 auto 24px;
+  }
+  @media (max-width: 500px) {
+    .stage { aspect-ratio: 3 / 4; }
+  }
+
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    text-align: center;
+    font-family: inherit;
+    color: inherit;
+    transition: transform 260ms cubic-bezier(.34,1.4,.64,1), box-shadow 200ms, opacity 400ms;
+    animation: float 8s ease-in-out infinite;
+    box-shadow: 0 4px 20px -8px rgba(0,0,0,0.15), inset 0 0 0 1.5px rgba(255,255,255,0.4);
+    will-change: transform;
+  }
+  @media (prefers-color-scheme: dark) {
+    .bubble { box-shadow: 0 4px 20px -8px rgba(0,0,0,0.5), inset 0 0 0 1.5px rgba(255,255,255,0.08); }
+  }
+  .bubble:hover, .bubble:focus-visible {
+    transform: scale(1.08);
+    box-shadow: 0 8px 30px -6px rgba(0,0,0,0.22), inset 0 0 0 1.5px rgba(255,255,255,0.5);
+    outline: none;
+    animation-play-state: paused;
+    z-index: 2;
+  }
+  .bubble:active { transform: scale(1.02); }
+  .bubble .count {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.75;
+    margin-bottom: 4px;
+    letter-spacing: 0.04em;
+  }
+  .bubble .label {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 0 4px;
+    max-width: 100%;
+  }
+  @media (min-width: 640px) {
+    .bubble .label { font-size: 14px; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(4px, -8px) rotate(0.4deg); }
+    66% { transform: translate(-3px, 5px) rotate(-0.3deg); }
+  }
+  @keyframes bubblein {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .bubble { animation: float 8s ease-in-out infinite, bubblein 0.55s cubic-bezier(.34,1.6,.64,1) both; }
+  @media (prefers-reduced-motion: reduce) {
+    .bubble { animation: bubblein 0.4s ease both; }
+  }
+
+  .stage.hidden { display: none; }
+
+  .cluster {
+    display: none;
+    animation: fadein 0.4s ease both;
+  }
+  .cluster.active { display: block; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .cluster-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .cluster-avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4);
+  }
+  .cluster-avatar svg { width: 28px; height: 28px; }
+  .cluster-info { flex: 1; min-width: 0; }
+  .cluster-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 3px;
+    letter-spacing: -0.005em;
+  }
+  .cluster-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .btn-back {
+    background: transparent;
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    padding: 8px 12px 8px 8px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 18px;
+    min-height: 36px;
+    transition: background 120ms, color 120ms;
+  }
+  .btn-back:hover { background: var(--paper-tint); color: var(--ink); }
+  .btn-back svg { width: 14px; height: 14px; }
+
+  .lesion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .lesion {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--rule-strong);
+    border-radius: 8px;
+    padding: 14px 14px 12px;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+    transition: transform 160ms, box-shadow 160ms, border-color 160ms;
+    animation: fadein 0.4s ease both;
+  }
+  .lesion:hover, .lesion:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -10px rgba(0,0,0,0.15);
+    outline: none;
+  }
+  .lesion-name {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .lesion-hint {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .lesion-type {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-top: 2px;
+  }
+
+  .principle-strip {
+    padding: 12px 16px;
+    background: var(--accent-tint);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    margin-top: 28px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .principle-strip strong { color: var(--accent); font-weight: 500; }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,20,30,0.55);
+    z-index: 100;
+    display: none;
+    padding: 20px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: fadein 0.2s ease;
+  }
+  .modal-backdrop.open {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 40px;
+  }
+  .modal {
+    background: var(--paper);
+    border-radius: 12px;
+    max-width: 560px;
+    width: 100%;
+    padding: 24px 22px;
+    position: relative;
+    border-top: 4px solid var(--accent);
+    animation: modalin 0.3s cubic-bezier(.34,1.4,.64,1) both;
+  }
+  @keyframes modalin { from { opacity: 0; transform: scale(0.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .modal .close {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 36px; height: 36px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--ink-mute);
+    cursor: pointer;
+    border-radius: 4px;
+    line-height: 1;
+  }
+  .modal .close:hover { background: var(--paper-tint); color: var(--ink); }
+  .modal .type-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .modal .name {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 4px;
+    padding-right: 32px;
+  }
+  .modal .subtitle {
+    font-size: 12px;
+    color: var(--ink-mute);
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
+  }
+  .modal dl {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+  }
+  .modal dt {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .modal dd {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .modal .warning {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--amber-tint);
+    border: 1px solid var(--amber-rule);
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .modal .warning-icon {
+    color: white;
+    background: var(--amber);
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .modal .warning-text {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .modal .warning-text strong {
+    display: block;
+    color: var(--amber);
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+
+  footer.site {
+    border-top: 1px solid var(--rule);
+    padding: 20px 0 28px;
+    margin-top: 30px;
+    font-size: 11px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="eyebrow">Capitolo 2 · Mappa visiva</div>
+    <h1>Condizioni parafisiologiche e varianti anatomiche del cavo orale</h1>
+    <p class="sub">Tocca una categoria per esplorare le condizioni benigne che vi rientrano — con particolare attenzione a cosa non confondere con la patologia.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="stage" id="stage" aria-label="Categorie di condizioni parafisiologiche"></div>
+
+    <div class="cluster" id="cluster">
+      <button class="btn-back" onclick="showOverview()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Tutte le categorie
+      </button>
+      <div class="cluster-header">
+        <div class="cluster-avatar" id="clusterAvatar"></div>
+        <div class="cluster-info">
+          <div class="cluster-title" id="clusterTitle"></div>
+          <div class="cluster-desc" id="clusterDesc"></div>
+        </div>
+      </div>
+      <div class="lesion-grid" id="lesionGrid"></div>
+    </div>
+
+    <div class="principle-strip" id="principleStrip">
+      <strong>Principio.</strong> Una variante parafisiologica è rassicurante quando è <em>tipica, stabile, simmetrica, asintomatica e coerente con la sede anatomica</em>. Diventa meritevole di approfondimento quando è <em>nuova, progressiva, asimmetrica, ulcerata, indurita, sanguinante o associata a sintomi persistenti</em>.
+    </div>
+  </div>
+</main>
+
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    Sintesi visiva del capitolo 2. Strumento didattico di riepilogo, non sostituisce lo studio del testo né la valutazione clinica.
+  </div>
+</footer>
+
+<script>
+const CATEGORIES = [
+  { id: 'bianche', label: 'Aree bianche benigne', desc: 'Condizioni benigne che si presentano come aree biancastre della mucosa — da non confondere con leucoplachia.', size: 1.0, x: 22, y: 24, lesions: ['leucoedema', 'linea-alba', 'morsicatio', 'ipercheratosi-frizione'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 12h16M4 16h16" stroke-dasharray="3 2"/></svg>' },
+  { id: 'cromatiche', label: 'Variazioni cromatiche', desc: 'Alterazioni benigne del colore della mucosa, di origine melanica o ghiandolare.', size: 0.78, x: 72, y: 20, lesions: ['pigmentazione-fisiologica', 'granuli-fordyce'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8" stroke-dasharray="2 2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>' },
+  { id: 'linguali', label: 'Reperti linguali', desc: 'Varianti e condizioni benigne del dorso e dei margini linguali.', size: 1.05, x: 22, y: 62, lesions: ['papille-prominenti', 'lingua-fissurata', 'lingua-geografica', 'lingua-saburrale', 'lingua-villosa'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4c0-1 1-2 2-2h8c1 0 2 1 2 2v12c0 3-3 6-6 6s-6-3-6-6z"/><path d="M9 10h1M14 10h1M11 14h2"/></svg>' },
+  { id: 'vascolari', label: 'Vascolari benigne', desc: 'Dilatazioni vascolari benigne, tipiche del paziente adulto e anziano.', size: 0.78, x: 74, y: 58, lesions: ['varici-sublinguali', 'lago-venoso'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12 c 4-4 8-4 12 0 s 4 4 4 4"/><path d="M4 8 c 4-4 8-4 12 0"/></svg>' },
+  { id: 'anatomiche', label: 'Strutture anatomiche normali', desc: 'Strutture normali che possono simulare masse o lesioni patologiche.', size: 1.0, x: 26, y: 88, lesions: ['tori-esostosi', 'papilla-rughe', 'pliche-fimbriate', 'granuli-linfoidi'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="12" r="3"/><ellipse cx="16" cy="12" rx="4" ry="3"/></svg>' },
+  { id: 'eta', label: 'Variazioni legate all\u2019età', desc: 'Modificazioni fisiologiche della mucosa e dei tessuti periorali nel paziente anziano.', size: 0.72, x: 72, y: 88, lesions: ['variazioni-eta'],
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>' },
+];
+
+const LESIONS = {
+  'leucoedema': {
+    name: 'Leucoedema', category: 'bianche', tag: 'Mucosa geniena \u00b7 Opalescente', hint: 'Area biancastra che si riduce stirando la mucosa',
+    definition: 'Variazione benigna della mucosa orale osservata soprattutto a livello della mucosa geniena. Non ha significato patologico e non deve essere considerato una lesione precancerosa.',
+    presentation: 'Area biancastra o grigio-biancastra, diffusa, leggermente opalescente, spesso bilaterale e simmetrica. Caratteristicamente si riduce o scompare quando la mucosa viene stirata.',
+    differential: 'Cheratosi da frizione, leucoplachia, lichen planus \u2014 tutte lesioni bianche pi\u00f9 stabili che non cambiano aspetto con lo stiramento della mucosa.',
+    factors: 'Pi\u00f9 evidente in alcuni gruppi etnici e nei fumatori. Nessun trattamento richiesto quando l\u2019aspetto \u00e8 tipico.',
+    redflag: null,
+  },
+  'linea-alba': {
+    name: 'Linea alba', category: 'bianche', tag: 'Mucosa geniena \u00b7 Piano occlusale', hint: 'Banda biancastra lungo il piano occlusale',
+    definition: 'Linea biancastra orizzontale localizzata sulla mucosa geniena in corrispondenza del piano occlusale, dovuta a lieve ipercheratosi reattiva provocata dal contatto cronico con le superfici dentarie.',
+    presentation: 'Sottile banda bianca, pi\u00f9 o meno continua, spesso bilaterale. Pi\u00f9 evidente in soggetti con serramento, bruxismo, malocclusioni, margini dentari irregolari o abitudine a mordicchiare le guance.',
+    differential: 'Leucoplachia (assente il rapporto topografico con il piano occlusale), morsicatio buccarum (aspetto sfrangiato, non lineare).',
+    factors: 'Frizione cronica con le superfici dentarie. Correzione di eventuali fattori traumatici; nei casi marcati pu\u00f2 associarsi a morsicatio buccarum.',
+    redflag: null,
+  },
+  'morsicatio': {
+    name: 'Morsicatio buccarum e labiorum', category: 'bianche', tag: 'Mucosa geniena/labiale \u00b7 Trauma cronico', hint: 'Aree biancastre sfrangiate da morsicamento cronico',
+    definition: 'Modificazione della mucosa geniena (buccarum) o labiale (labiorum) dovuta al morsicamento cronico o ripetuto. Al limite tra variante parafunzionale e lesione traumatica cronica.',
+    presentation: 'Aree biancastre, irregolari, sfrangiate o desquamative, spesso bilaterali, localizzate lungo la linea occlusale (geniena) o sul vermiglio (labiale).',
+    differential: 'Non \u00e8 una lesione potenzialmente maligna, ma pu\u00f2 simulare leucoplachia, lichen planus, cheratosi da frizione \u2014 soprattutto quando l\u2019aspetto \u00e8 marcato.',
+    factors: 'Abitudine spesso automatica, legata a stress, ansia, concentrazione o parafunzioni. Riconoscimento dell\u2019abitudine, rassicurazione, correzione di margini dentari traumatici, dispositivi protettivi o strategie comportamentali se necessarie.',
+    redflag: null,
+  },
+  'ipercheratosi-frizione': {
+    name: 'Ipercheratosi da frizione', category: 'bianche', tag: 'Cheratosi reattiva \u00b7 Causa identificabile', hint: 'Cheratosi reattiva a trauma cronico lieve',
+    definition: 'Area biancastra della mucosa orale sviluppata in risposta a frizione o trauma cronico lieve, con causa evidente e aspetto omogeneo. Considerata cheratosi reattiva quando l\u2019aspetto \u00e8 tipico e la causa \u00e8 identificabile.',
+    presentation: 'Lesione biancastra omogenea, stabile, localizzata in corrispondenza dello stimolo meccanico. Sedi tipiche: mucosa geniena, margini linguali, creste edentule, aree a contatto con protesi, apparecchi ortodontici o margini dentari irregolari.',
+    differential: 'Leucoplachia (persiste dopo rimozione dello stimolo), lichen planus, candidosi iperplastica. La reversibilit\u00e0 alla rimozione della causa \u00e8 il criterio-chiave.',
+    factors: 'Traumi cronici lievi da protesi, ortodonzia, margini dentari irregolari. La rimozione del fattore traumatico dovrebbe determinare miglioramento o risoluzione.',
+    redflag: 'Se la lesione persiste nonostante la rimozione dello stimolo, o presenta superficie verrucosa, aree rosse, ulcerazione, indurimento o aumento dimensionale \u2014 non \u00e8 pi\u00f9 parafisiologica e richiede valutazione specialistica.',
+  },
+  'pigmentazione-fisiologica': {
+    name: 'Pigmentazione fisiologica', category: 'cromatiche', tag: 'Melanica \u00b7 Simmetrica', hint: 'Pigmentazione benigna da melanina',
+    definition: 'Variazione cromatica dovuta principalmente alla presenza di melanina nella mucosa orale. Pi\u00f9 evidente nei soggetti con fototipo scuro, ma osservabile anche in individui con carnagione pi\u00f9 chiara.',
+    presentation: 'Colorazione bruna, marrone o grigio-brunastra, generalmente simmetrica e diffusa. Sedi frequenti: gengiva aderente, mucosa vestibolare, palato, mucosa labiale. Omogenea, stabile nel tempo, priva di sintomi.',
+    differential: 'Lesioni pigmentate patologiche: nevo melanocitico, melanoma orale, lentiggini della sindrome di Peutz-Jeghers, melanosi da fumo o farmaci (antimalarici), pigmentazione da metalli. La bilateralit\u00e0, la regolarit\u00e0 e la stabilit\u00e0 nel tempo sono elementi rassicuranti.',
+    factors: 'Genetica, fototipo. Nessun trattamento richiesto; rassicurazione del paziente quando il quadro \u00e8 tipico.',
+    redflag: 'Una lesione pigmentata isolata, recente, asimmetrica, irregolare, in crescita o associata a nodularit\u00e0 deve essere valutata con maggiore attenzione \u2014 sospetto melanoma orale.',
+  },
+  'granuli-fordyce': {
+    name: 'Granuli di Fordyce', category: 'cromatiche', tag: 'Ghiandole sebacee ectopiche', hint: 'Piccole papule giallastre bilaterali',
+    definition: 'Ghiandole sebacee ectopiche presenti nella mucosa orale. Variante anatomica molto frequente, non rappresentano una malattia e non evolvono verso neoplasie.',
+    presentation: 'Piccole macule o papule giallastre, bianco-giallastre o color crema, di pochi millimetri. Spesso multiple, bilaterali, simmetriche. Sedi comuni: mucosa geniena e vermiglio del labbro superiore. Possono aumentare di evidenza con l\u2019età.',
+    differential: 'Papillomi, mollusco contagioso, iperplasia epiteliale focale, condilomi \u2014 tutte lesioni con andamento evolutivo e distribuzione asimmetrica.',
+    factors: 'Variante anatomica congenita, pu\u00f2 diventare pi\u00f9 evidente con l\u2019età. Nessuna biopsia n\u00e9 trattamento indicato quando l\u2019aspetto \u00e8 tipico. Rassicurazione.',
+    redflag: null,
+  },
+  'papille-prominenti': {
+    name: 'Papille linguali prominenti', category: 'linguali', tag: 'Dorso e margini linguali \u00b7 Anatomia normale', hint: 'Papille circumvallate, fungiformi o foliate accentuate',
+    definition: 'Il dorso della lingua presenta normalmente un aspetto irregolare per la presenza delle papille linguali. Talvolta appaiono particolarmente evidenti e vengono confuse con lesioni tumorali.',
+    presentation: 'Papille filiformi (superficie vellutata), fungiformi (piccoli rilievi rossastri su punta e margini anteriori), circumvallate (posteriori, davanti al solco terminale, disposte a V), foliate (margini latero-posteriori, possono simulare tumefazioni).',
+    differential: 'Papillomi, tumori linguali, condilomi, iperplasie infiammatorie. Simmetria, sede tipica e assenza di ulcerazione, indurimento o crescita progressiva sono elementi rassicuranti.',
+    factors: 'Le papille foliate possono diventare pi\u00f9 evidenti in corso di irritazione locale, infezioni delle alte vie respiratorie o reflusso.',
+    redflag: 'Asimmetria unilaterale, indurimento, crescita rapida o ulcerazione richiedono approfondimento diagnostico.',
+  },
+  'lingua-fissurata': {
+    name: 'Lingua fissurata', category: 'linguali', tag: 'Dorso linguale \u00b7 Solchi profondi', hint: 'Solchi singoli o multipli sul dorso linguale',
+    definition: 'Presenza di solchi pi\u00f9 o meno profondi sul dorso linguale, con singola fissura mediana o numerose fissurazioni ramificate. Condizione frequente, generalmente benigna e asintomatica.',
+    presentation: 'Solchi lineari, ramificati o a rete sul dorso linguale; profondit\u00e0 variabile; asimmetria possibile. I sintomi (bruciore, alitosi) compaiono solo se le fissure trattengono placca e detriti.',
+    differential: 'Nella maggior parte dei casi non indica malattia sistemica. Pu\u00f2 essere isolata o associarsi a lingua geografica, sindrome di Down, lichen planus, sindrome di Melkersson-Rosenthal.',
+    factors: 'Igiene linguale scarsa, xerostomia, dieta irritante, fumo possono peggiorare la sintomatologia. Pulizia delicata del dorso linguale, evitando manovre traumatiche.',
+    redflag: 'Bruciore persistente richiede valutazione di fattori irritativi, candidosi, xerostomia o carenze ematiniche.',
+  },
+  'lingua-geografica': {
+    name: 'Lingua geografica', category: 'linguali', tag: 'Eritema migrante benigno', hint: 'Aree depapillate migranti con bordo biancastro',
+    definition: 'Detta anche eritema migrante benigno. Condizione infiammatoria benigna del dorso linguale caratterizzata da aree eritematose depapillate con margini biancastri o giallo-biancastri, aspetto "a carta geografica". Non \u00e8 infettiva, non contagiosa, non potenzialmente maligna.',
+    presentation: 'Aree eritematose depapillate con bordo biancastro serpiginoso. Caratteristica la migrazione delle lesioni: cambiano sede, forma ed estensione nel tempo. Andamento spesso ricorrente. Sintomi (bruciore con cibi piccanti, acidi, caldi, salati) presenti solo in una parte dei pazienti.',
+    differential: 'Candidosi eritematosa, glossite atrofica da carenze nutrizionali, lichen planus, lesioni lichenoidi. La variabilit\u00e0 nel tempo e il bordo biancastro serpiginoso sono elementi utili per il riconoscimento.',
+    factors: 'Predisposizione individuale; pu\u00f2 associarsi a lingua fissurata. Non sono necessari antifungini, antibiotici o trattamenti aggressivi. Nei casi sintomatici: evitare cibi irritanti; terapie topiche lenitive se indicate dal clinico.',
+    redflag: null,
+  },
+  'lingua-saburrale': {
+    name: 'Lingua saburrale', category: 'linguali', tag: 'Patina linguale \u00b7 Accumulo di detriti', hint: 'Rivestimento biancastro/giallastro sul dorso',
+    definition: 'Rivestimento biancastro o giallastro sul dorso linguale dovuto all\u2019accumulo di cellule desquamate, residui alimentari, batteri e materiale organico tra le papille filiformi.',
+    presentation: 'Patina bianca o giallastra diffusa sul dorso linguale. Pu\u00f2 associarsi ad alitosi e sapore sgradevole. Non lascia base eritematosa sanguinante dopo rimozione.',
+    differential: 'Candidosi pseudomembranosa \u2014 differenza chiave: la candidosi interessa pi\u00f9 sedi mucose, \u00e8 favorita da immunosoppressione, antibiotici, steroidi inalatori, diabete o protesi incongrue, e la rimozione lascia base eritematosa. La lingua saburrale \u00e8 pi\u00f9 diffusa sul dorso linguale e legata a fattori locali di accumulo.',
+    factors: 'Igiene orale insufficiente, disidratazione, febbre, respirazione orale, dieta morbida, fumo, xerostomia, ridotta autodetersione linguale. Miglioramento dell\u2019igiene orale, idratazione, pulizia delicata della lingua.',
+    redflag: null,
+  },
+  'lingua-villosa': {
+    name: 'Lingua villosa e lingua nigra villosa', category: 'linguali', tag: 'Papille filiformi allungate \u00b7 Pigmentazione', hint: 'Papille allungate, spesso pigmentate scure',
+    definition: 'Deriva dall\u2019allungamento e dalla mancata desquamazione delle papille filiformi del dorso linguale. Quando le papille si pigmentano per accumulo di cromogeni batterici, alimentari o tabagici, il quadro viene definito lingua nigra villosa. Condizione benigna.',
+    presentation: 'Dorso linguale ricoperto da superficie allungata, villosa, di colore variabile dal bianco-giallastro al marrone o nero. Sedi pi\u00f9 interessate: porzione centrale e posteriore del dorso linguale. Possibili alitosi, alterazione del gusto, nausea, preoccupazione estetica.',
+    differential: 'Il colore scuro non indica necessariamente necrosi, melanoma o infezione grave. Rassicurare il paziente su questo punto \u00e8 fondamentale.',
+    factors: 'Fumo, scarsa igiene orale, uso prolungato di antibiotici, collutori ossidanti, xerostomia, dieta morbida, riduzione della normale abrasione linguale. Rimozione dei fattori predisponenti, detersione delicata del dorso linguale, miglioramento dell\u2019idratazione.',
+    redflag: null,
+  },
+  'varici-sublinguali': {
+    name: 'Varici sublinguali', category: 'vascolari', tag: 'Ventre linguale/pavimento orale \u00b7 Bilaterali', hint: 'Dilatazioni venose blu-violacee bilaterali',
+    definition: 'Dilatazioni venose benigne, frequenti soprattutto nei soggetti adulti e anziani. Localizzate pi\u00f9 comunemente sulla superficie ventrale della lingua e nel pavimento orale.',
+    presentation: 'Strutture bluastre, violacee o serpiginose, morbide e comprimibili. Generalmente multiple e bilaterali. Pi\u00f9 evidenti con l\u2019età per modificazioni della parete vascolare e del connettivo di supporto.',
+    differential: 'Lesioni vascolari pi\u00f9 complesse (emangiomi, malformazioni vascolari), ematomi, pigmentazioni esogene, lesioni melanocitarie \u2014 tutte con caratteristiche di asimmetria, evoluzione o rilievo diverso.',
+    factors: 'Et\u00e0, modificazioni vascolari. Asintomatiche nella maggior parte dei casi; sanguinamento spontaneo raro. Nessun trattamento necessario.',
+    redflag: 'Una lesione vascolare singola, in rapida crescita, indurita, ulcerata o sanguinante deve essere valutata con maggiore attenzione.',
+  },
+  'lago-venoso': {
+    name: 'Lago venoso del labbro', category: 'vascolari', tag: 'Labbro inferiore \u00b7 Comprimibile', hint: 'Papula blu-violacea comprimibile del labbro',
+    definition: 'Piccola dilatazione venosa localizzata, tipica del labbro, soprattutto del labbro inferiore. Pi\u00f9 frequente negli adulti e negli anziani. Benigno.',
+    presentation: 'Papula o macula blu-violacea, morbida, generalmente asintomatica. Alla pressione tende a svuotarsi parzialmente (colore deriva dal sangue nel lume vascolare). Pu\u00f2 aumentare di evidenza con il tempo.',
+    differential: 'Melanoma (non comprimibile, pigmentazione melanica), nevo (stabile, non vascolare), ematoma persistente, lesioni vascolari pi\u00f9 profonde.',
+    factors: 'Et\u00e0, modificazioni vascolari. Trattamento non necessario salvo motivi estetici, sanguinamento traumatico ricorrente o dubbio diagnostico.',
+    redflag: null,
+  },
+  'tori-esostosi': {
+    name: 'Tori ed esostosi', category: 'anatomiche', tag: 'Protuberanze ossee benigne', hint: 'Torus palatinus o mandibularis',
+    definition: 'Protuberanze ossee benigne. Torus palatinus lungo la linea mediana del palato duro; torus mandibularis sulla superficie linguale della mandibola, generalmente in regione premolare. Non sono neoplasie, nessun potenziale maligno.',
+    presentation: 'Rilievi duri, ricoperti da mucosa sottile e normale. Singoli o multipli, simmetrici o asimmetrici. Crescita lenta, spesso scoperti casualmente durante visita odontoiatrica.',
+    differential: 'Masse del palato, neoplasie ossee benigne o maligne, cisti \u2014 la consistenza duro-ossea, la sede tipica e la crescita lentissima sono elementi rassicuranti.',
+    factors: 'Predisposizione genetica; crescita nel tempo lenta. Trattamento non necessario nella maggior parte dei casi.',
+    redflag: 'Possono diventare clinicamente rilevanti quando interferiscono con fonazione, masticazione, igiene orale o protesi rimovibili. La mucosa che li ricopre \u00e8 sottile e si ulcera facilmente in seguito a trauma. Chirurgia indicata solo se sintomatici o problematici per la protesizzazione.',
+  },
+  'papilla-rughe': {
+    name: 'Papilla incisiva e rughe palatine', category: 'anatomiche', tag: 'Palato anteriore \u00b7 Anatomia normale', hint: 'Rilievi mucosi normali del palato anteriore',
+    definition: 'La papilla incisiva \u00e8 una piccola prominenza mucosa situata nella parte anteriore del palato duro, posteriormente agli incisivi centrali superiori. Le rughe palatine sono rilievi mucosi trasversali o obliqui del palato anteriore. Entrambe sono strutture anatomiche normali.',
+    presentation: 'Rilievi mucosi simmetrici, stabili nel tempo, di consistenza normale. Possono apparire pi\u00f9 evidenti in alcuni soggetti o in caso di irritazione protesica.',
+    differential: 'Papillomi, iperplasie infiammatorie, neoplasie del palato \u2014 la simmetria, la stabilit\u00e0 nel tempo e la sede anatomica caratteristica sono elementi rassicuranti.',
+    factors: 'Traumi da protesi, apparecchi ortodontici o parafunzioni possono renderle dolenti. Nessun trattamento richiesto in assenza di dolore persistente.',
+    redflag: 'Aumento volumetrico progressivo, ulcerazione o dolore persistente richiedono valutazione.',
+  },
+  'pliche-fimbriate': {
+    name: 'Pliche fimbriate', category: 'anatomiche', tag: 'Ventre linguale \u00b7 Anatomia normale', hint: 'Pieghe mucose frangiate del ventre linguale',
+    definition: 'Pieghe mucose presenti sulla superficie ventrale della lingua, lateralmente al frenulo linguale. Strutture anatomiche normali.',
+    presentation: 'Piccoli rilievi frangiati, simmetrici, talvolta molto evidenti. Stabili nel tempo.',
+    differential: 'Papillomi, condilomi, altre lesioni esofitiche \u2014 la simmetria, la sede tipica e la stabilit\u00e0 nel tempo aiutano nel riconoscimento.',
+    factors: 'Anatomia individuale. Nessun trattamento richiesto. Se fastidio, valutare traumi locali, irritazione da margini dentari o abitudini di morsicamento.',
+    redflag: null,
+  },
+  'granuli-linfoidi': {
+    name: 'Granuli linfoidi e tessuto tonsillare accessorio', category: 'anatomiche', tag: 'Regione posteriore \u00b7 Sistema immunitario', hint: 'Aggregati linfoidi normali',
+    definition: 'Aggregati di tessuto linfoide presenti nel cavo orale e nell\u2019orofaringe, soprattutto nella regione posteriore della lingua, del palato molle e delle tonsille. Fanno parte del sistema immunitario mucosale.',
+    presentation: 'Piccoli rilievi rosei o giallo-rosati, talvolta multipli, soprattutto nella regione posteriore della lingua. Possono diventare pi\u00f9 evidenti in corso di infezioni delle alte vie respiratorie, reflusso, allergie o irritazioni croniche.',
+    differential: 'Neoplasie linfoidi (linfomi), carcinoma della base della lingua, altre masse dell\u2019orofaringe \u2014 la simmetria, la stabilit\u00e0 e la contestualit\u00e0 clinica sono rassicuranti.',
+    factors: 'Risposta immunitaria fisiologica; reattivit\u00e0 a stimoli infettivi o irritativi.',
+    redflag: 'Aumento volumetrico unilaterale, persistente, ulcerato, duro, sanguinante o associato a linfoadenopatia cervicale deve destare attenzione e richiede valutazione specialistica.',
+  },
+  'variazioni-eta': {
+    name: 'Variazioni fisiologiche legate all\u2019età', category: 'eta', tag: 'Trasversale \u00b7 Paziente anziano', hint: 'Modificazioni fisiologiche del cavo orale nell\u2019anziano',
+    definition: 'Con l\u2019età, la mucosa orale e i tessuti periorali possono modificarsi per riduzione della salivazione, uso di farmaci, protesi, alterazioni della dieta, ridotta manualit\u00e0 nell\u2019igiene orale, perdita di elasticit\u00e0 tissutale e modificazioni vascolari.',
+    presentation: 'Nel paziente anziano: maggiore evidenza delle varici sublinguali; mucosa pi\u00f9 sottile e fragile; maggiore suscettibilit\u00e0 a traumi da protesi; lingua pi\u00f9 fissurata o saburrale; ridotta tolleranza a cibi irritanti; maggiore frequenza di xerostomia soggettiva o oggettiva.',
+    differential: 'Questi reperti non devono essere automaticamente considerati patologici, ma neppure banalizzati. Condizioni comuni possono coesistere con lesioni potenzialmente gravi \u2014 ogni reperto va interpretato nel contesto della storia clinica, della durata, della sede e dell\u2019evoluzione.',
+    factors: 'Invecchiamento fisiologico, polifarmacoterapia, protesi rimovibili, ridotta manualit\u00e0. Prevenzione: igiene assistita, controllo protesi, idratazione, revisione farmaci.',
+    redflag: 'Nell\u2019anziano la soglia di attenzione per lesioni sospette dovrebbe essere pi\u00f9 bassa: il rischio oncologico aumenta con l\u2019età.',
+  },
+};
+
+const stage = document.getElementById('stage');
+const cluster = document.getElementById('cluster');
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modalContent');
+
+function computeBubbleSize(sizeFactor) {
+  const stageW = stage.offsetWidth;
+  const stageH = stage.offsetHeight;
+  const base = Math.min(stageW, stageH) * 0.24;
+  return Math.max(88, Math.min(170, base * sizeFactor));
+}
+
+function renderStage() {
+  stage.innerHTML = '';
+  CATEGORIES.forEach((c, i) => {
+    const size = computeBubbleSize(c.size);
+    const b = document.createElement('button');
+    b.className = 'bubble';
+    b.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: calc(${c.x}% - ${size/2}px);
+      top: calc(${c.y}% - ${size/2}px);
+      background: var(--p-${c.id}-bg);
+      color: var(--p-${c.id});
+      animation-delay: -${i * 1.3}s, ${i * 0.08}s;
+      animation-duration: ${7 + (i % 3)}s, 0.55s;
+    `;
+    b.setAttribute('aria-label', c.label);
+    b.innerHTML = `
+      <span class="count">${c.lesions.length} ${c.lesions.length === 1 ? 'condizione' : 'condizioni'}</span>
+      <span class="label">${c.label}</span>
+    `;
+    b.onclick = () => openCluster(c.id);
+    stage.appendChild(b);
+  });
+}
+
+function openCluster(cid) {
+  const c = CATEGORIES.find(x => x.id === cid);
+  if (!c) return;
+  stage.classList.add('hidden');
+  document.getElementById('principleStrip').style.display = 'none';
+  cluster.classList.add('active');
+  document.getElementById('clusterTitle').textContent = c.label;
+  document.getElementById('clusterDesc').textContent = c.desc;
+  const avatar = document.getElementById('clusterAvatar');
+  avatar.style.cssText = `background: var(--p-${c.id}-bg); color: var(--p-${c.id}); width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.4);`;
+  avatar.innerHTML = c.icon;
+  const grid = document.getElementById('lesionGrid');
+  grid.innerHTML = '';
+  c.lesions.forEach((lid, i) => {
+    const l = LESIONS[lid];
+    if (!l) return;
+    const btn = document.createElement('button');
+    btn.className = 'lesion';
+    btn.style.cssText = `border-left-color: var(--p-${c.id}); animation-delay: ${i * 0.06}s;`;
+    btn.innerHTML = `
+      <div class="lesion-name">${l.name}</div>
+      <div class="lesion-hint">${l.hint}</div>
+      <div class="lesion-type" style="background: var(--p-${c.id}-bg); color: var(--p-${c.id});">${l.tag.split(' \u00b7 ')[0]}</div>
+    `;
+    btn.onclick = () => openModal(lid, c.id);
+    grid.appendChild(btn);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showOverview() {
+  cluster.classList.remove('active');
+  stage.classList.remove('hidden');
+  document.getElementById('principleStrip').style.display = '';
+  renderStage();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.showOverview = showOverview;
+
+function openModal(id, cid) {
+  const l = LESIONS[id];
+  if (!l) return;
+  const c = CATEGORIES.find(x => x.id === cid) || CATEGORIES[0];
+  const warningHtml = l.redflag ? `<div class="warning">
+    <span class="warning-icon" aria-hidden="true">!</span>
+    <div class="warning-text"><strong>Segno di sospetto</strong>${l.redflag}</div>
+  </div>` : '';
+  modalContent.style.borderTopColor = `var(--p-${c.id})`;
+  modalContent.innerHTML = `
+    <button class="close" aria-label="Chiudi" onclick="closeModal()">&times;</button>
+    <div class="type-label" style="color: var(--p-${c.id})">${c.label}</div>
+    <div class="name">${l.name}</div>
+    <div class="subtitle">${l.tag}</div>
+    <dl>
+      <div><dt>Definizione</dt><dd>${l.definition}</dd></div>
+      <div><dt>Aspetto clinico</dt><dd>${l.presentation}</dd></div>
+      <div><dt>Da non confondere con</dt><dd>${l.differential}</dd></div>
+      <div><dt>Fattori associati e gestione</dt><dd>${l.factors}</dd></div>
+    </dl>
+    ${warningHtml}
+  `;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+window.closeModal = closeModal;
+
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+window.addEventListener('resize', () => { if (!stage.classList.contains('hidden')) renderStage(); });
+
+renderStage();
+</script>
+
+</body>
+</html>
