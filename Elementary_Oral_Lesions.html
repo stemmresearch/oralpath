@@ -1,0 +1,278 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Elementary Oral Lesions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: atlas tool — filters and a grid of findings on the left, a sticky detail sheet with the tooth schematic on the right; one column on phones. */
+:root{
+  --bg:#F3F6F8; --surface:#FFFFFF; --ink:#16232B; --muted:#5A6B76; --line:#D8E0E6; --soft:#E8EEF2;
+  --accent:#B23E5C; --accent-ink:#FFFFFF;
+  --c-duri:#2F6D8F; --c-svil:#6E54A3; --c-polpa:#C0532F; --c-geng:#B23E5C; --c-paro:#866424;
+  --epi:#E9A3AE; --ct:#F7DCD6; --les:#D2405A; --kera:#FFFFFF; --fluid:#A8CDE4; --pus:#E9C35A; --blood:#8E2242; --pig:#6B4630; --mass:#F0C2B6; --fibrin:#F2E6B8; --hard:#C98E80; --tstroke:#9A7E86;
+  --hl:#E0465F; --warn-bg:#FCECEF; --warn-ink:#8E2440;
+  --display:"Spectral",Georgia,"Times New Roman",serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10181D; --surface:#172229; --ink:#E6EDF1; --muted:#9AAAB4; --line:#2A3943; --soft:#1E2B33;
+  --accent:#EE7F98; --accent-ink:#10181D;
+  --c-duri:#7DB7D8; --c-svil:#B4A0E2; --c-polpa:#F0936F; --c-geng:#EE7F98; --c-paro:#D6B370;
+  --epi:#A85F6E; --ct:#4A2E35; --les:#FF5C78; --kera:#F2F4F6; --fluid:#5E9BC2; --pus:#D8B04A; --blood:#C2456A; --pig:#B08060; --mass:#7E5258; --fibrin:#D9CB92; --hard:#9C6A62; --tstroke:#B49AA2;
+  --hl:#FF6B83; --warn-bg:#3A1C25; --warn-ink:#FFB3C2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10181D; --surface:#172229; --ink:#E6EDF1; --muted:#9AAAB4; --line:#2A3943; --soft:#1E2B33;
+  --accent:#EE7F98; --accent-ink:#10181D;
+  --c-duri:#7DB7D8; --c-svil:#B4A0E2; --c-polpa:#F0936F; --c-geng:#EE7F98; --c-paro:#D6B370;
+  --epi:#A85F6E; --ct:#4A2E35; --les:#FF5C78; --kera:#F2F4F6; --fluid:#5E9BC2; --pus:#D8B04A; --blood:#C2456A; --pig:#B08060; --mass:#7E5258; --fibrin:#D9CB92; --hard:#9C6A62; --tstroke:#B49AA2;
+  --hl:#FF6B83; --warn-bg:#3A1C25; --warn-ink:#FFB3C2; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.1;margin:6px 0 6px;text-wrap:balance}
+.lede{color:var(--muted);max-width:62ch;margin:0}
+.mode{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.mode button{border:0;background:transparent;color:var(--muted);font:600 14px var(--body);padding:8px 16px;border-radius:999px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+button:focus-visible,input:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 13.5px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.search{flex:1 1 220px;min-width:0;display:flex}
+.search input{width:100%;font:15px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+
+.main{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:22px;align-items:start}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;min-width:0}
+.group-h{grid-column:1/-1;display:flex;align-items:baseline;gap:10px;margin-top:6px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.group-h h2{font-family:var(--display);font-weight:600;font-size:19px;margin:0;color:var(--c)}
+.group-h span{color:var(--muted);font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;width:100%}
+.card:hover{border-color:var(--c)}
+.card[aria-current="true"]{border-color:var(--c);box-shadow:inset 3px 0 0 var(--c)}
+.card h3{font-size:14.5px;font-weight:700;margin:0 0 3px;line-height:1.3}
+.card p{margin:0;font-size:13px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.mini{width:64px;height:40px}
+.empty{grid-column:1/-1;color:var(--muted);padding:30px 0}
+
+.sheet{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sheet .cat{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--c)}
+.sheet h2{font-family:var(--display);font-weight:600;font-size:26px;line-height:1.15;margin:2px 0 0;text-wrap:balance}
+.fig{display:flex;flex-direction:column;gap:6px}
+.big{width:100%;max-width:360px;height:auto;aspect-ratio:160/100;background:var(--surface)}
+.zone{font-size:13px;color:var(--muted)}
+.zone b{display:block;color:var(--ink);font-size:14px}
+.def{font-size:15.5px;margin:0}
+.field h4{margin:0 0 3px;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.field p{margin:0;font-size:14.5px}
+.mono{font-family:var(--mono);font-size:13px;background:var(--soft);padding:1px 5px;border-radius:4px}
+.alert{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:10px 12px;font-size:14px}
+.alert b{font-weight:700}
+
+/* tissue svg */
+.epi{fill:var(--epi)} .ct{fill:var(--ct)} .les{fill:var(--les)} .kera{fill:var(--kera);stroke:var(--tstroke);stroke-width:.6}
+.fluid{fill:var(--fluid);stroke:var(--tstroke);stroke-width:.6} .pus{fill:var(--pus);stroke:var(--tstroke);stroke-width:.6}
+.blood{fill:var(--blood)} .pig{fill:var(--pig)} .mass{fill:var(--mass);stroke:var(--epi);stroke-width:3}
+.fibrin{fill:var(--fibrin)} .hard{fill:var(--hard);stroke:var(--tstroke);stroke-width:.8} .cut{fill:var(--surface)}
+.basal{stroke:var(--tstroke);stroke-width:.6;stroke-dasharray:2 2}
+.lab{font:600 8px var(--body);fill:var(--muted)}
+.size{display:inline-block;font-family:var(--mono);font-size:12px;background:var(--soft);padding:2px 7px;border-radius:5px;margin-top:6px;color:var(--ink)}
+/* review mode */
+.review{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;max-width:900px}
+.review .q{font-size:18px;margin:0 0 14px;font-family:var(--display);line-height:1.35}
+.review .ans{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.review .ans h2{margin:0;font-family:var(--display);font-size:24px}
+.rbtns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.btn{font:600 14px var(--body);padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.count{font-family:var(--mono);color:var(--muted);font-size:13px}
+.foot{color:var(--muted);font-size:12.5px;max-width:80ch}
+
+@media (max-width:900px){
+  .main{grid-template-columns:minmax(0,1fr)}
+  .sheet{position:static;order:-1}
+}
+@media (max-width:520px){
+  .review{grid-template-columns:minmax(0,1fr)}
+  
+}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+</style>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Oral diagnosis · Elementary lesions</div>
+      <h1>Elementary oral mucosal lesions</h1>
+      <p class="lede">The basic lesions used to describe any change in the oral mucosa: what each looks like in section, how to examine it and which conditions it should bring to mind. Select a lesion to see its cross-section.</p>
+    </div>
+    <div class="mode" role="group" aria-label="Mode">
+      <button id="m-explore" aria-pressed="true">Explore</button>
+      <button id="m-review" aria-pressed="false">Review</button>
+    </div>
+  </header>
+
+  <section id="explore">
+    <div class="toolbar" style="margin-bottom:16px">
+      <div class="chips" id="chips"></div>
+      <label class="search"><input id="q" type="search" placeholder="Search a lesion or condition (e.g. bulla, lichen)" aria-label="Search"></label>
+    </div>
+    <div class="main">
+      <div class="grid" id="grid"></div>
+      <aside class="sheet" id="sheet" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section id="review" hidden></section>
+
+  <p class="foot">Sources: Idahosa &amp; Kerr, <i>Clinical Evaluation of Oral Diseases</i> (2019), Table 6 and Tables 7–10; Stefanac &amp; Nesbit, <i>Diagnosis and Treatment Planning in Dentistry</i>, Box 1-2. The 5 mm cut-off follows Idahosa &amp; Kerr; the 1 cm macule/patch cut-off is a common dermatological convention. A teaching aid; it does not replace clinical assessment.</p>
+</div>
+
+<script>
+const CATS={
+  duri:{n:"Flat: colour change",c:"--c-duri"},
+  svil:{n:"Raised solid",c:"--c-svil"},
+  polpa:{n:"Fluid-filled",c:"--c-polpa"},
+  geng:{n:"Loss of surface",c:"--c-geng"},
+  paro:{n:"Growth & consistency",c:"--c-paro"}
+};
+const D=[
+ {n:"Macule",cat:"duri",z:"macule",size:"flat · < 1 cm",def:"Circumscribed change in colour, flush with the surrounding mucosa.",ril:"Look, then palpate to confirm it is flat. Diascopy: press a glass slide on it; vascular lesions blanch, haemorrhage and pigment do not.",pensa:"Melanotic macule, amalgam tattoo, erythematous candidosis, early erythroplakia."},
+ {n:"Patch",cat:"duri",z:"patch",size:"flat · > 1 cm",def:"Flat change in colour larger than a macule.",ril:"Look at colour, uniformity and borders; palpate; diascopy.",pensa:"Erythroplakia, smoker's melanosis, physiological pigmentation, geographic tongue.",alert:"A red patch with no obvious cause that persists after 2 weeks (erythroplakia) has a high risk of dysplasia or carcinoma: biopsy."},
+ {n:"Petechiae",cat:"duri",z:"petechiae",size:"pinpoint",def:"Pinpoint red-purple spots of submucosal bleeding that do not blanch.",ril:"Look; diascopy shows no blanching. Ask about trauma, coughing, drugs and bleeding elsewhere.",pensa:"Palatal trauma, viral infection (infectious mononucleosis), thrombocytopenia, leukaemia.",alert:"Widespread petechiae without trauma: full blood count with platelets."},
+ {n:"Ecchymosis",cat:"duri",z:"ecchymosis",size:"flat · larger",def:"Flat red-purple area of submucosal haemorrhage that turns blue, green and yellow as it resolves.",ril:"Look; no blanching on diascopy. Bleeding history and drug list.",pensa:"Trauma or injection, anticoagulants, coagulation disorders, liver disease."},
+ {n:"Pigmented lesion",cat:"duri",z:"pigment",size:"flat or raised",def:"Brown, blue-grey or black area from melanin or from exogenous material.",ril:"Note size, uniformity, borders and any change over time; radiograph for amalgam particles; photograph for follow-up.",pensa:"Physiological pigmentation, amalgam tattoo, melanotic macule, naevus, smoker's melanosis, drug-induced, Addison's disease, Peutz–Jeghers syndrome.",alert:"Asymmetric, irregular, multicoloured or growing pigmentation (especially palate and gingiva): biopsy to rule out melanoma."},
+
+ {n:"Papule",cat:"svil",z:"papule",size:"raised · < 5 mm",def:"Circumscribed, elevated solid lesion.",ril:"Look and palpate: consistency, surface, single or multiple.",pensa:"Fordyce granules, small papilloma, focal epithelial hyperplasia."},
+ {n:"Nodule",cat:"svil",z:"nodule",size:"raised · > 5 mm",def:"Elevated solid lesion, often sited deep in the submucosa.",ril:"Bimanual palpation: consistency, depth, mobility, tenderness; is the overlying mucosa normal?",pensa:"Fibroma (focal fibrous hyperplasia), lipoma, neurofibroma, salivary gland neoplasm."},
+ {n:"Plaque",cat:"svil",z:"plaque",size:"slightly raised",def:"Slightly elevated area with a flat surface, wider than it is tall.",ril:"Look and palpate; note texture (smooth, fissured, verrucous) and any red component.",pensa:"Leukoplakia, plaque-type lichen planus, hyperplastic candidosis, frictional keratosis."},
+ {n:"White lesion (keratosis)",cat:"svil",z:"keratosis",size:"any size",def:"White area caused by thickened keratin or epithelium.",ril:"Try to wipe it with gauze. Wipes off: pseudomembrane (candidosis, burn). Does not wipe off: keratosis. Stretch the cheek: leukoedema fades.",pensa:"Frictional keratosis, linea alba, leukoedema, lichen planus, hairy leukoplakia, leukoplakia.",alert:"A white patch that does not wipe off and persists once any cause is removed is leukoplakia until proven otherwise: biopsy."},
+ {n:"Reticular striae",cat:"svil",z:"reticular",size:"surface pattern",def:"Fine, lace-like white lines (Wickham striae), often bilateral.",ril:"Look at both buccal mucosae, tongue and gingiva; check for skin, nail and genital lesions.",pensa:"Oral lichen planus, lichenoid reaction (amalgam, drugs), lupus erythematosus, graft-versus-host disease."},
+
+ {n:"Vesicle",cat:"polpa",z:"vesicle",size:"fluid · < 5 mm",def:"Small blister containing clear fluid; breaks quickly in the mouth.",ril:"Look early, before rupture; ask about prodrome, fever, skin lesions and contacts.",pensa:"Herpes simplex, varicella-zoster (unilateral), coxsackie (herpangina, hand-foot-and-mouth disease)."},
+ {n:"Bulla",cat:"polpa",z:"bulla",size:"fluid · > 5 mm",def:"Large fluid-filled blister.",ril:"Nikolsky sign: gentle lateral pressure that peels the epithelium. Check eyes, skin and genitals.",pensa:"Pemphigus vulgaris (intraepithelial, Nikolsky positive), mucous membrane pemphigoid (subepithelial, more often intact), bullous lichen planus, angina bullosa haemorrhagica.",alert:"Multiple persistent blisters or erosions: biopsy with direct immunofluorescence."},
+ {n:"Pustule",cat:"polpa",z:"pustule",size:"fluid · pus",def:"Raised lesion containing pus.",ril:"Look and palpate; search for the source of infection.",pensa:"Uncommon intraorally; sinus tract opening (parulis), infected hair follicles of the perioral skin."},
+ {n:"Fluctuant swelling",cat:"polpa",z:"cyst",size:"soft · compressible",def:"Soft swelling with fluid content; bluish if close to the surface.",ril:"Bimanual palpation for fluctuance; diascopy (vascular lesions blanch); ask whether it comes and goes.",pensa:"Mucocele (lower lip), ranula (floor of mouth), abscess, eruption cyst, haemangioma."},
+
+ {n:"Erosion",cat:"geng",z:"erosion",size:"partial thickness",def:"Shallow loss of part of the epithelium; red and moist, without a fibrin base.",ril:"Look; ask whether blisters came first; check other mucosal sites.",pensa:"Ruptured vesicles or bullae, erosive lichen planus, pemphigus, chemical or thermal burn."},
+ {n:"Ulcer",cat:"geng",z:"ulcer",size:"full thickness",def:"Break through the full epithelium exposing connective tissue, covered by a yellow-white fibrin membrane, often with a red halo.",ril:"Note number, size, shape, base, margins; palpate for induration; ask about duration and recurrence.",pensa:"Traumatic ulcer, aphthous stomatitis, herpes, squamous cell carcinoma, tuberculosis, syphilis.",alert:"Lasting more than 2 weeks, indurated or with rolled margins: biopsy."},
+ {n:"Fissure",cat:"geng",z:"fissure",size:"linear",def:"Linear crack or groove in the mucosa or lip.",ril:"Look; stretch the tissue to open the fissure; check the commissures.",pensa:"Fissured tongue, angular cheilitis, exfoliative or actinic cheilitis."},
+ {n:"Atrophy",cat:"geng",z:"atrophy",size:"thinned epithelium",def:"Thinning of the epithelium making the mucosa red, smooth and shiny; on the tongue, loss of papillae.",ril:"Look; ask about soreness and burning; consider haematinics.",pensa:"Atrophic glossitis (iron, B12, folate deficiency), erythematous candidosis, median rhomboid glossitis, erosive lichen planus."},
+
+ {n:"Sessile",cat:"paro",z:"sessile",size:"broad base",def:"Exophytic growth attached by a base as wide as the lesion.",ril:"Look and palpate the base; is it mobile over deeper tissue?",pensa:"Fibroma, pyogenic granuloma, peripheral giant cell granuloma, squamous cell carcinoma."},
+ {n:"Pedunculated",cat:"paro",z:"pedunculated",size:"on a stalk",def:"Exophytic growth attached by a narrow stalk.",ril:"Lift the lesion with an instrument to see the stalk.",pensa:"Squamous papilloma, fibroepithelial polyp, pyogenic granuloma."},
+ {n:"Papillary / verrucous",cat:"paro",z:"papillary",size:"surface projections",def:"Surface of finger-like projections (papillary) or rough, warty folds (verrucous).",ril:"Look closely with magnification; palpate the base; note extent and multifocality.",pensa:"Squamous papilloma, verruca vulgaris, condyloma, proliferative verrucous leukoplakia, verrucous carcinoma.",alert:"Extensive or multifocal verrucous white lesions: think of proliferative verrucous leukoplakia; biopsy and follow up closely."},
+ {n:"Indurated & fixed",cat:"paro",z:"indurated",size:"hard on palpation",def:"Tissue that feels hard and is fixed to surrounding structures, often with raised rolled margins.",ril:"Palpate the lesion and its margins between two fingers; palpate the neck nodes.",pensa:"Squamous cell carcinoma, scar, chronic inflammation, salivary gland malignancy.",alert:"Ulceration with induration, fixation or firm neck nodes: urgent referral and biopsy."}
+];
+D.forEach((d,i)=>d.id=i);
+
+function tissue(k,cls){
+  const B=`<rect class="epi" x="0" y="44" width="160" height="12"/><rect class="ct" x="0" y="56" width="160" height="44"/><line class="basal" x1="0" y1="56" x2="160" y2="56"/>`;
+  let o="";
+  switch(k){
+    case"macule":o=B+`<rect class="les" x="60" y="44" width="40" height="12"/>`;break;
+    case"patch":o=B+`<rect class="les" x="20" y="44" width="120" height="12"/>`;break;
+    case"petechiae":o=B+[30,48,62,77,90,104,118,133].map((x,i)=>`<circle class="blood" cx="${x}" cy="${60+(i%3)*3}" r="2.6"/>`).join("");break;
+    case"ecchymosis":o=B+`<ellipse class="blood" cx="80" cy="64" rx="48" ry="11" opacity=".75"/>`;break;
+    case"pigment":o=B+`<rect class="pig" x="44" y="44" width="72" height="12" opacity=".35"/>`+Array.from({length:14},(_,i)=>`<circle class="pig" cx="${46+i*5}" cy="54.5" r="2"/>`).join("");break;
+    case"papule":o=B+`<path class="epi" d="M64,45 Q80,24 96,45 Z"/><path class="mass" style="stroke-width:0" d="M70,46 Q80,34 90,46 Z"/>`;break;
+    case"nodule":o=B+`<path class="epi" d="M38,46 Q80,-4 122,46 Z"/><ellipse class="mass" style="stroke-width:0" cx="80" cy="44" rx="30" ry="22"/>`;break;
+    case"plaque":o=B+`<rect class="epi" x="34" y="36" width="92" height="10" rx="2"/><rect class="kera" x="34" y="33" width="92" height="5" rx="2"/>`;break;
+    case"keratosis":o=`<rect class="epi" x="0" y="44" width="160" height="12"/><rect class="epi" x="30" y="40" width="100" height="16"/><rect class="kera" x="30" y="36" width="100" height="5"/><rect class="ct" x="0" y="56" width="160" height="44"/><line class="basal" x1="0" y1="56" x2="160" y2="56"/>`;break;
+    case"reticular":o=`<rect class="epi" x="0" y="0" width="160" height="100"/><path d="M10,30 Q40,10 70,34 T130,28 T160,40 M0,62 Q30,44 60,66 T120,58 T160,72 M20,90 Q50,74 80,92 T150,84 M40,8 L52,40 L46,70 L58,98 M100,4 L94,36 L108,66 L100,96" fill="none" stroke="var(--kera)" stroke-width="2.4" stroke-linecap="round"/><text class="lab" x="6" y="12">surface view</text>`;break;
+    case"vesicle":o=B+`<path class="epi" d="M64,46 Q80,22 96,46 Z"/><ellipse class="fluid" cx="80" cy="43" rx="11" ry="7"/>`;break;
+    case"bulla":o=B+`<path class="epi" d="M36,52 Q80,0 124,52 Z"/><path class="fluid" d="M44,54 Q80,12 116,54 Z"/>`;break;
+    case"pustule":o=B+`<path class="epi" d="M62,46 Q80,20 98,46 Z"/><ellipse class="pus" cx="80" cy="42" rx="12" ry="8"/>`;break;
+    case"cyst":o=B+`<path class="epi" d="M34,46 Q80,18 126,46 Z"/><ellipse class="fluid" cx="80" cy="54" rx="34" ry="20"/>`;break;
+    case"erosion":o=B+`<rect class="cut" x="56" y="43" width="48" height="7"/><rect class="les" x="56" y="50" width="48" height="6"/>`;break;
+    case"ulcer":o=B+`<rect class="les" x="44" y="44" width="72" height="12"/><path class="cut" d="M54,43 L62,66 L98,66 L106,43 Z"/><path class="fibrin" d="M60,60 L62,66 L98,66 L100,60 Z"/>`;break;
+    case"fissure":o=B+`<path class="cut" d="M75,43 L80,78 L85,43 Z"/>`;break;
+    case"atrophy":o=B+`<rect class="cut" x="34" y="43" width="92" height="9"/><rect class="les" x="34" y="52" width="92" height="4"/>`;break;
+    case"sessile":o=B+`<path class="mass" d="M40,45 C40,10 120,10 120,45 Z"/>`;break;
+    case"pedunculated":o=B+`<rect class="mass" style="stroke-width:2" x="74" y="30" width="12" height="16"/><ellipse class="mass" cx="80" cy="20" rx="26" ry="14"/>`;break;
+    case"papillary":o=B+`<rect class="epi" x="40" y="36" width="80" height="10"/>`+Array.from({length:9},(_,i)=>`<rect class="kera" x="${42+i*8.6}" y="${12+(i%2)*6}" width="6" height="${26-(i%2)*6}" rx="3"/>`).join("");break;
+    case"indurated":o=B+`<path class="hard" d="M38,46 Q44,30 56,38 L64,58 L96,58 L104,38 Q116,30 122,46 L118,84 Q80,100 42,84 Z"/><path class="cut" d="M56,37 L64,58 L96,58 L104,37 Z"/><path class="fibrin" d="M62,53 L64,58 L96,58 L98,53 Z"/>`;break;
+  }
+  return `<svg class="${cls}" viewBox="0 0 160 100" role="img" aria-label="Cross-section">${o}</svg>`;
+}
+let cat="all", query="", sel=0, mode="explore";
+const $=s=>document.querySelector(s);
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/<[^>]+>/g,"");
+
+function renderChips(){
+  const all=[["all","All","--muted"],...Object.entries(CATS).map(([k,v])=>[k,v.n,v.c])];
+  $("#chips").innerHTML=all.map(([k,n,c])=>`<button class="chip" data-k="${k}" aria-pressed="${cat===k}" style="--c:var(${c})"><span class="dot"></span>${n}</button>`).join("");
+  $("#chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.k;renderChips();renderGrid()});
+}
+function visible(){
+  const q=norm(query);
+  return D.filter(d=>(cat==="all"||d.cat===cat)&&(!q||norm(d.n+" "+d.def+" "+d.pensa+" "+d.ril+" "+d.size).includes(q)));
+}
+function renderGrid(){
+  const v=visible();
+  if(!v.length){$("#grid").innerHTML=`<div class="empty">No lesion matches “${query.replace(/</g,"")}”. Try another term or choose “All”.</div>`;return}
+  let h="";
+  Object.entries(CATS).forEach(([k,c])=>{
+    const items=v.filter(d=>d.cat===k); if(!items.length) return;
+    h+=`<div class="group-h" style="--c:var(${c.c})"><h2>${c.n}</h2><span>${items.length} lesions</span></div>`;
+    h+=items.map(d=>`<button class="card" data-id="${d.id}" aria-current="${d.id===sel}" style="--c:var(${c.c})">${tissue(d.z,"mini")}<div><h3>${d.n}</h3><p>${d.def}</p></div></button>`).join("");
+  });
+  $("#grid").innerHTML=h;
+  $("#grid").querySelectorAll(".card").forEach(b=>b.onclick=()=>{sel=+b.dataset.id;renderGrid();renderSheet();
+    if(window.matchMedia("(max-width:900px)").matches) $("#sheet").scrollIntoView({behavior:"smooth",block:"start"})});
+}
+function detail(d){
+  const c=CATS[d.cat];
+  return `<div style="--c:var(${c.c})"><div class="cat">${c.n}</div><h2>${d.n}</h2></div>
+  <div class="fig">${tissue(d.z,"big")}<div class="zone">Schematic cross-section: epithelium, basement membrane (dashed) and connective tissue. <span class="size">${d.size}</span></div></div>
+  <p class="def">${d.def}</p>
+  <div class="field"><h4>How to examine it</h4><p>${d.ril}</p></div>
+  <div class="field"><h4>Think of</h4><p>${d.pensa}</p></div>
+  ${d.alert?`<div class="alert"><b>Caution.</b> ${d.alert}</div>`:""}`;
+}
+function renderSheet(){$("#sheet").innerHTML=detail(D[sel]);}
+
+let deck=[],pos=0,shown=false;
+function shuffle(){deck=D.map(d=>d.id).sort(()=>Math.random()-.5);pos=0;shown=false}
+function renderReview(){
+  const d=D[deck[pos]], c=CATS[d.cat];
+  $("#review").innerHTML=`<div class="review" style="--c:var(${c.c})">
+    <div>${tissue(d.z,"big")}<div class="zone" style="margin-top:8px"><span class="size">${d.size}</span></div></div>
+    <div style="min-width:0">
+      <div class="count">${pos+1} / ${deck.length} · ${c.n}</div>
+      <p class="q">${d.def}</p>
+      <p style="margin:0;color:var(--muted)">Which lesion is this, and how would you examine it?</p>
+      ${shown?`<div class="ans" style="margin-top:14px"><h2>${d.n}</h2>
+        <div class="field"><h4>How to examine it</h4><p>${d.ril}</p></div>
+        <div class="field"><h4>Think of</h4><p>${d.pensa}</p></div>
+        ${d.alert?`<div class="alert"><b>Caution.</b> ${d.alert}</div>`:""}</div>`:""}
+      <div class="rbtns">
+        ${shown?"":`<button class="btn primary" id="r-show">Show answer</button>`}
+        <button class="btn ${shown?"primary":""}" id="r-next">${pos+1<deck.length?"Next lesion":"Start again"}</button>
+        <button class="btn" id="r-mix">Shuffle</button>
+      </div>
+    </div></div>`;
+  const s=$("#r-show"); if(s) s.onclick=()=>{shown=true;renderReview()};
+  $("#r-next").onclick=()=>{ if(pos+1<deck.length){pos++;shown=false}else shuffle(); renderReview()};
+  $("#r-mix").onclick=()=>{shuffle();renderReview()};
+}
+function setMode(m){
+  mode=m; $("#m-explore").setAttribute("aria-pressed",m==="explore"); $("#m-review").setAttribute("aria-pressed",m==="review");
+  $("#explore").hidden=m!=="explore"; $("#review").hidden=m!=="review";
+  if(m==="review"){ if(!deck.length) shuffle(); renderReview(); }
+  try{localStorage.setItem("eol-mode",m)}catch(e){}
+}
+$("#m-explore").onclick=()=>setMode("explore");
+$("#m-review").onclick=()=>setMode("review");
+$("#q").addEventListener("input",e=>{query=e.target.value;renderGrid()});
+renderChips();renderGrid();renderSheet();
+try{ if(location.hash==="#review"||localStorage.getItem("eol-mode")==="review") setMode("review") }catch(e){}
+</script>
+
+</body></html>

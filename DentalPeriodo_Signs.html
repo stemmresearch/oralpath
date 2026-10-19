@@ -1,0 +1,277 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Dental & Periodontal Signs</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: atlas tool — filters and a grid of findings on the left, a sticky detail sheet with the tooth schematic on the right; one column on phones. */
+:root{
+  --bg:#F3F6F8; --surface:#FFFFFF; --ink:#16232B; --muted:#5A6B76; --line:#D8E0E6; --soft:#E8EEF2;
+  --accent:#B23E5C; --accent-ink:#FFFFFF;
+  --c-duri:#2F6D8F; --c-svil:#6E54A3; --c-polpa:#C0532F; --c-geng:#B23E5C; --c-paro:#866424;
+  --enamel:#F7F9FB; --dentin:#EFE3C8; --pulp:#E7A39A; --bone:#E4D7BE; --gum:#EDB4BE; --tstroke:#7C8C96;
+  --hl:#E0465F; --warn-bg:#FCECEF; --warn-ink:#8E2440;
+  --display:"Spectral",Georgia,"Times New Roman",serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10181D; --surface:#172229; --ink:#E6EDF1; --muted:#9AAAB4; --line:#2A3943; --soft:#1E2B33;
+  --accent:#EE7F98; --accent-ink:#10181D;
+  --c-duri:#7DB7D8; --c-svil:#B4A0E2; --c-polpa:#F0936F; --c-geng:#EE7F98; --c-paro:#D6B370;
+  --enamel:#DDE4EA; --dentin:#C9B98F; --pulp:#C97E76; --bone:#5B513F; --gum:#9A5A68; --tstroke:#8796A0;
+  --hl:#FF6B83; --warn-bg:#3A1C25; --warn-ink:#FFB3C2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10181D; --surface:#172229; --ink:#E6EDF1; --muted:#9AAAB4; --line:#2A3943; --soft:#1E2B33;
+  --accent:#EE7F98; --accent-ink:#10181D;
+  --c-duri:#7DB7D8; --c-svil:#B4A0E2; --c-polpa:#F0936F; --c-geng:#EE7F98; --c-paro:#D6B370;
+  --enamel:#DDE4EA; --dentin:#C9B98F; --pulp:#C97E76; --bone:#5B513F; --gum:#9A5A68; --tstroke:#8796A0;
+  --hl:#FF6B83; --warn-bg:#3A1C25; --warn-ink:#FFB3C2; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.1;margin:6px 0 6px;text-wrap:balance}
+.lede{color:var(--muted);max-width:62ch;margin:0}
+.mode{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.mode button{border:0;background:transparent;color:var(--muted);font:600 14px var(--body);padding:8px 16px;border-radius:999px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+button:focus-visible,input:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 13.5px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.search{flex:1 1 220px;min-width:0;display:flex}
+.search input{width:100%;font:15px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+
+.main{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:22px;align-items:start}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;min-width:0}
+.group-h{grid-column:1/-1;display:flex;align-items:baseline;gap:10px;margin-top:6px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.group-h h2{font-family:var(--display);font-weight:600;font-size:19px;margin:0;color:var(--c)}
+.group-h span{color:var(--muted);font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;width:100%}
+.card:hover{border-color:var(--c)}
+.card[aria-current="true"]{border-color:var(--c);box-shadow:inset 3px 0 0 var(--c)}
+.card h3{font-size:14.5px;font-weight:700;margin:0 0 3px;line-height:1.3}
+.card p{margin:0;font-size:13px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.mini{width:52px;height:66px}
+.empty{grid-column:1/-1;color:var(--muted);padding:30px 0}
+
+.sheet{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sheet .cat{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--c)}
+.sheet h2{font-family:var(--display);font-weight:600;font-size:26px;line-height:1.15;margin:2px 0 0;text-wrap:balance}
+.fig{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:center}
+.big{width:120px;height:150px}
+.zone{font-size:13px;color:var(--muted)}
+.zone b{display:block;color:var(--ink);font-size:14px}
+.def{font-size:15.5px;margin:0}
+.field h4{margin:0 0 3px;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.field p{margin:0;font-size:14.5px}
+.mono{font-family:var(--mono);font-size:13px;background:var(--soft);padding:1px 5px;border-radius:4px}
+.alert{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:10px 12px;font-size:14px}
+.alert b{font-weight:700}
+
+/* tooth svg */
+.t-bone{fill:var(--bone)} .t-gum{fill:var(--gum)} .t-root{fill:var(--dentin);stroke:var(--tstroke);stroke-width:1.2}
+.t-crown{fill:var(--enamel);stroke:var(--tstroke);stroke-width:1.2} .t-pulp{fill:var(--pulp)}
+.hz{fill:transparent;stroke:none}
+svg .on{fill:var(--hl)!important;fill-opacity:.85}
+svg .on-stroke{stroke:var(--hl)!important;stroke-width:3.5!important}
+.cej{stroke:var(--tstroke);stroke-dasharray:2 2;stroke-width:.8}
+
+/* review mode */
+.review{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;max-width:860px}
+.review .q{font-size:18px;margin:0 0 14px;font-family:var(--display);line-height:1.35}
+.review .ans{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.review .ans h2{margin:0;font-family:var(--display);font-size:24px}
+.rbtns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.btn{font:600 14px var(--body);padding:9px 16px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.count{font-family:var(--mono);color:var(--muted);font-size:13px}
+.foot{color:var(--muted);font-size:12.5px;max-width:80ch}
+
+@media (max-width:900px){
+  .main{grid-template-columns:minmax(0,1fr)}
+  .sheet{position:static;order:-1}
+}
+@media (max-width:520px){
+  .review{grid-template-columns:minmax(0,1fr)}
+  .fig{grid-template-columns:90px minmax(0,1fr)} .big{width:90px;height:112px}
+}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Oral diagnosis · Elementary signs</div>
+      <h1>Dental &amp; periodontal signs</h1>
+      <p class="lede">The elementary signs of the teeth and supporting tissues: what they look like, how to detect them and which diagnoses they should bring to mind. Select a sign to see where it sits on the tooth.</p>
+    </div>
+    <div class="mode" role="group" aria-label="Mode">
+      <button id="m-explore" aria-pressed="true">Explore</button>
+      <button id="m-review" aria-pressed="false">Review</button>
+    </div>
+  </header>
+
+  <section id="explore">
+    <div class="toolbar" style="margin-bottom:16px">
+      <div class="chips" id="chips"></div>
+      <label class="search"><input id="q" type="search" placeholder="Search a sign or diagnosis (e.g. furcation, MIH)" aria-label="Search"></label>
+    </div>
+    <div class="main">
+      <div class="grid" id="grid"></div>
+      <aside class="sheet" id="sheet" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section id="review" hidden></section>
+
+  <p class="foot">Sources: Stefanac &amp; Nesbit, <i>Diagnosis and Treatment Planning in Dentistry</i> (Ch. 1 and 8); Idahosa &amp; Kerr, <i>Clinical Evaluation of Oral Diseases</i> (2019). Commonly used classifications: ICDAS, Miller (mobility), Hamp (furcation), Cairo (recession). A teaching aid; it does not replace clinical assessment.</p>
+</div>
+
+<script>
+const CATS={
+  duri:{n:"Enamel & dentine",c:"--c-duri"},
+  svil:{n:"Developmental anomalies",c:"--c-svil"},
+  polpa:{n:"Pulp & periapex",c:"--c-polpa"},
+  geng:{n:"Gingiva",c:"--c-geng"},
+  paro:{n:"Periodontium & bone",c:"--c-paro"}
+};
+const ZONES={occlusale:"Occlusal surface",cervicale:"Cervical third / neck",corona:"Crown",radice:"Root",polpa:"Pulp",apice:"Apex & periapex",gengiva:"Marginal gingiva",osso:"Alveolar bone",forcazione:"Furcation",pdl:"Sulcus / periodontal ligament"};
+const D=[
+ {n:"White spot",cat:"duri",z:"cervicale",def:"Chalky, opaque area with the enamel surface still intact.",ril:"Inspect the clean tooth wet, then air-dried for 5 s. ICDAS 1–2.",pensa:"Early caries: active if opaque and rough, arrested if shiny and smooth. Fluorosis (symmetrical, streaked), MIH, Turner hypoplasia."},
+ {n:"Carious cavitation",cat:"duri",z:"occlusale",def:"Break in the enamel surface with dentine visible or exposed.",ril:"Inspection, ball-ended probe without pressure, bitewings. ICDAS 3–6.",pensa:"Moderate or advanced caries. Soft, yellowish dentine = active; hard, dark dentine = arrested.",alert:"A grey shadow under intact enamel (ICDAS 4) already means dentine is involved."},
+ {n:"Wear facet",cat:"duri",z:"occlusale",def:"Flat, shiny surface with sharp edges that matches the opposing tooth.",ril:"Inspection; slide the teeth into lateral and protrusive contact to see the facets meet.",pensa:"Attrition from bruxism and parafunction; wear of prostheses."},
+ {n:"Erosive lesion",cat:"duri",z:"occlusale",def:"Smooth, silky enamel, \u201Ccupped\u201D cusps, restorations standing proud of the tooth.",ril:"Inspection; dietary history (acidic drinks) and gastrointestinal history.",pensa:"Extrinsic erosion (diet) or intrinsic: reflux, bulimia (palatal surfaces of upper incisors)."},
+ {n:"Cervical wedge lesion",cat:"duri",z:"cervicale",def:"Non-carious V-shaped loss of tooth substance at the buccal neck.",ril:"Inspection and probe; toothbrushing history.",pensa:"Abrasion (vigorous brushing, rounded margins); abfraction (deep, sharp-edged wedge, may extend subgingivally)."},
+ {n:"Discoloration",cat:"duri",z:"corona",def:"Change in colour, extrinsic (removable) or intrinsic.",ril:"Inspection after prophylaxis, compared with adjacent teeth.",pensa:"Extrinsic: tobacco, tea, chlorhexidine. Intrinsic: grey = pulp necrosis or haemorrhage; banded grey-blue = tetracycline; pink = internal resorption; white-brown = fluorosis.",alert:"A single tooth that darkens after trauma needs vitality tests and a radiograph."},
+ {n:"Crack or fracture",cat:"duri",z:"corona",def:"Fracture line limited to enamel or extending into dentine, a cusp or the root.",ril:"Transillumination, dyes, cusp-by-cusp bite test, probing.",pensa:"Craze line (enamel only, symptom-free); cracked tooth (pain on biting or release); split tooth; vertical root fracture (isolated narrow pocket)."},
+
+ {n:"Anomaly of number",cat:"svil",z:"corona",def:"Missing teeth (agenesis) or extra teeth (supernumeraries).",ril:"Count the teeth, ask about extractions, panoramic radiograph.",pensa:"Agenesis of third molars, upper laterals, lower second premolars; mesiodens; syndromes (ectodermal dysplasia, cleidocranial dysplasia)."},
+ {n:"Anomaly of shape",cat:"svil",z:"corona",def:"Crown or root size or morphology that differs from normal.",ril:"Inspection and radiographs.",pensa:"Peg lateral, microdontia, fusion or gemination, dens invaginatus, taurodontism, enamel pearls."},
+ {n:"Structural defect",cat:"svil",z:"corona",def:"Hypoplastic enamel (thin, pitted) or hypomineralised enamel (opaque, crumbly).",ril:"Inspection; distribution (one tooth, chronological band, all teeth) and family history.",pensa:"Turner hypoplasia (one tooth), MIH (first molars and incisors), amelogenesis imperfecta (all teeth, familial), dentinogenesis imperfecta (opalescent teeth)."},
+ {n:"Eruption anomaly",cat:"svil",z:"radice",def:"Tooth unerupted, delayed, infra-occluded or malpositioned.",ril:"Inspection against age, palpation, radiographs.",pensa:"Impaction (third molars, upper canines), ankylosis (infra-occlusion, metallic percussion note), obstruction (supernumeraries, odontomes)."},
+
+ {n:"Short provoked pain",cat:"polpa",z:"polpa",def:"Sharp pain to stimuli (cold, air, sweet) that stops within seconds.",ril:"Cold and air tests, compared with a control tooth.",pensa:"Dentine hypersensitivity; reversible pulpitis on a carious or restored tooth."},
+ {n:"Lingering or spontaneous pain",cat:"polpa",z:"polpa",def:"Pain that outlasts the stimulus or starts on its own; throbbing, often at night.",ril:"Cold test: pain lasting more than 30 s. Pain history.",pensa:"Irreversible pulpitis. Often poorly localised and may be referred."},
+ {n:"Negative vitality tests",cat:"polpa",z:"polpa",def:"No response to cold or to the electric pulp tester.",ril:"Cold and EPT on the suspect tooth and on control teeth.",pensa:"Pulp necrosis. False negatives: recent trauma, immature apex, calcified canals, older patients."},
+ {n:"Tenderness to percussion",cat:"polpa",z:"apice",def:"Pain on percussion or on biting.",ril:"Percuss with the mirror handle, vertically and laterally, compared with controls.",pensa:"Symptomatic apical periodontitis. Also occlusal trauma and periodontal abscess (lateral percussion)."},
+ {n:"Swelling or sinus tract",cat:"polpa",z:"apice",def:"Fluctuant buccal swelling or a draining tract (parulis).",ril:"Palpation; trace the sinus tract with a gutta-percha point and a radiograph.",pensa:"Acute or chronic apical abscess; periodontal abscess.",alert:"Trismus, fever, dysphagia or swelling of the fascial spaces: emergency."},
+ {n:"Periapical radiolucency",cat:"polpa",z:"apice",def:"Widened apical PDL space, loss of lamina dura or a radiolucent area.",ril:"Periapical radiograph, CBCT if needed.",pensa:"Apical periodontitis, granuloma, radicular cyst.",alert:"If the tooth responds to vitality tests, think of anatomical structures or non-odontogenic lesions."},
+ {n:"Root resorption",cat:"polpa",z:"radice",def:"Loss of root tissue from inside the canal or from the outer surface.",ril:"Radiographs at different angles, CBCT; pink spot on the crown.",pensa:"Internal (symmetrical widening of the canal), external invasive cervical, pressure resorption (impacted tooth, orthodontics)."},
+
+ {n:"Gingival erythema & oedema",cat:"geng",z:"gengiva",def:"Red, shiny, swollen gingiva without stippling, with blunted papillae.",ril:"Inspection compared with health: pink, stippled, knife-edged papillae.",pensa:"Plaque-induced gingivitis; hormonal factors (pregnancy). Diffuse erythema reaching the alveolar mucosa: desquamative gingivitis (lichen planus, pemphigoid)."},
+ {n:"Bleeding on probing",cat:"geng",z:"pdl",def:"Bleeding within 10–30 s of gentle probing.",ril:"Periodontal probe with light force (about 0.25 N), recorded site by site.",pensa:"Active inflammation. Smokers bleed less even when disease is present."},
+ {n:"Gingival enlargement",cat:"geng",z:"gengiva",def:"Increase in volume, localised or generalised, fibrous or oedematous.",ril:"Inspection, palpation, probing (false pockets).",pensa:"Drugs (phenytoin, ciclosporin, calcium-channel blockers), inflammation, epulides if localised, leukaemia.",alert:"Rapid generalised enlargement with spontaneous bleeding: order a full blood count."},
+ {n:"Gingival recession",cat:"geng",z:"cervicale",def:"Gingival margin apical to the cemento-enamel junction, exposing the root.",ril:"Probe from the CEJ to the gingival margin, in mm. Cairo classes <span class='mono'>RT1–RT3</span>.",pensa:"Traumatic brushing, thin phenotype, frenal pull, orthodontics; periodontitis if interproximal attachment is lost (RT2–3)."},
+ {n:"Suppuration",cat:"geng",z:"gengiva",def:"Pus from the sulcus on pressure or probing.",ril:"Finger pressure on the gingival margin.",pensa:"Active periodontitis, periodontal abscess, peri-implantitis."},
+
+ {n:"Periodontal pocket",cat:"paro",z:"pdl",def:"Pathological deepening of the sulcus beyond 3 mm with apical migration of attachment.",ril:"Probe 6 sites per tooth; distinguish from a false pocket caused by gingival enlargement.",pensa:"Periodontitis. An isolated, narrow, deep pocket: vertical root fracture or endo-perio lesion."},
+ {n:"Clinical attachment loss",cat:"paro",z:"pdl",def:"Distance from the cemento-enamel junction to the base of the pocket.",ril:"<span class='mono'>CAL = PD + recession</span>; subtract if the margin is coronal to the CEJ.",pensa:"The true measure of periodontal destruction and the basis of staging (stages I–IV)."},
+ {n:"Furcation involvement",cat:"paro",z:"forcazione",def:"Bone loss between the roots of a multi-rooted tooth.",ril:"Nabers probe. Hamp: <span class='mono'>I</span> < 3 mm, <span class='mono'>II</span> > 3 mm not through, <span class='mono'>III</span> through-and-through.",pensa:"Advanced periodontitis; also an endodontic lesion draining into the furcation."},
+ {n:"Tooth mobility",cat:"paro",z:"osso",def:"Tooth movement beyond the physiological range.",ril:"Two instrument handles. Miller: <span class='mono'>1</span> up to 1 mm horizontal, <span class='mono'>2</span> over 1 mm, <span class='mono'>3</span> vertical too.",pensa:"Loss of support, occlusal trauma, abscess, root fracture, bone lesion."},
+ {n:"Radiographic bone loss",cat:"paro",z:"osso",def:"Bone crest more than 2 mm apical to the CEJ; horizontal or vertical (infrabony defect).",ril:"Bitewings and periapicals; estimate as a percentage of root length.",pensa:"Periodontitis. Isolated vertical defect: occlusal trauma, fracture, abscess.",alert:"Irregular bone loss with \u201Cfloating\u201D teeth: rule out neoplasia and histiocytosis."},
+ {n:"Pathological migration",cat:"paro",z:"corona",def:"Drifting, spacing or extrusion of teeth because of lost support.",ril:"Inspection and history: recently appeared spaces.",pensa:"Advanced periodontitis (flaring of upper incisors), loss of adjacent teeth."}
+];
+D.forEach((d,i)=>d.id=i);
+
+function tooth(zone,cls){
+  const z=k=>zone===k?" on":"";
+  const stroke=zone==="pdl"?" on-stroke":"";
+  return `<svg class="${cls}" viewBox="0 0 120 160" role="img" aria-label="${ZONES[zone]}">
+  <rect class="t-bone${z('osso')}" x="4" y="84" width="112" height="76" rx="4"/>
+  <path class="t-gum${z('gengiva')}" d="M4,58 Q20,56 29,64 L31,90 L4,90 Z"/>
+  <path class="t-gum${z('gengiva')}" d="M116,58 Q100,56 91,64 L89,90 L116,90 Z"/>
+  <path class="t-root${z('radice')}${stroke}" d="M31,70 L89,70 C89,96 86,122 80,146 Q75,152 70,146 C68,122 65,104 60,98 C55,104 52,122 50,146 Q45,152 40,146 C34,122 31,96 31,70 Z"/>
+  <path class="hz${z('forcazione')}" d="M52,112 Q60,96 68,112 L67,124 L53,124 Z"/>
+  <path class="t-crown${z('corona')}" d="M30,72 C27,46 29,26 39,20 Q49,13 60,22 Q71,13 81,20 C91,26 93,46 90,72 Z"/>
+  <path class="hz${z('occlusale')}" d="M37,24 Q49,13 60,23 Q71,13 83,24 L84,33 Q71,24 60,33 Q49,24 36,33 Z"/>
+  <path class="t-pulp${z('polpa')}" d="M46,44 Q60,37 74,44 L74,78 Q71,94 75,140 L71,140 Q66,100 60,93 Q54,100 49,140 L45,140 Q49,94 46,78 Z"/>
+  <path class="hz${z('cervicale')}" d="M29,58 L36,58 L36,80 L31,80 Z"/>
+  <path class="hz${z('cervicale')}" d="M91,58 L84,58 L84,80 L89,80 Z"/>
+  <circle class="hz${z('apice')}" cx="45" cy="148" r="8"/><circle class="hz${z('apice')}" cx="75" cy="148" r="8"/>
+  <line class="cej" x1="24" y1="72" x2="96" y2="72"/>
+  </svg>`;
+}
+
+let cat="all", query="", sel=0, mode="explore";
+const $=s=>document.querySelector(s);
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/<[^>]+>/g,"");
+
+function renderChips(){
+  const all=[["all","All","--muted"],...Object.entries(CATS).map(([k,v])=>[k,v.n,v.c])];
+  $("#chips").innerHTML=all.map(([k,n,c])=>`<button class="chip" data-k="${k}" aria-pressed="${cat===k}" style="--c:var(${c})"><span class="dot"></span>${n}</button>`).join("");
+  $("#chips").querySelectorAll("button").forEach(b=>b.onclick=()=>{cat=b.dataset.k;renderChips();renderGrid()});
+}
+function visible(){
+  const q=norm(query);
+  return D.filter(d=>(cat==="all"||d.cat===cat)&&(!q||norm(d.n+" "+d.def+" "+d.pensa+" "+d.ril).includes(q)));
+}
+function renderGrid(){
+  const v=visible();
+  if(!v.length){$("#grid").innerHTML=`<div class="empty">No sign matches “${query.replace(/</g,"")}”. Try another term or choose “All”.</div>`;return}
+  let h="";
+  Object.entries(CATS).forEach(([k,c])=>{
+    const items=v.filter(d=>d.cat===k); if(!items.length) return;
+    h+=`<div class="group-h" style="--c:var(${c.c})"><h2>${c.n}</h2><span>${items.length} signs</span></div>`;
+    h+=items.map(d=>`<button class="card" data-id="${d.id}" aria-current="${d.id===sel}" style="--c:var(${c.c})">${tooth(d.z,"mini")}<div><h3>${d.n}</h3><p>${d.def}</p></div></button>`).join("");
+  });
+  $("#grid").innerHTML=h;
+  $("#grid").querySelectorAll(".card").forEach(b=>b.onclick=()=>{sel=+b.dataset.id;renderGrid();renderSheet();
+    if(window.matchMedia("(max-width:900px)").matches) $("#sheet").scrollIntoView({behavior:"smooth",block:"start"})});
+}
+function detail(d){
+  const c=CATS[d.cat];
+  return `<div style="--c:var(${c.c})"><div class="cat">${c.n}</div><h2>${d.n}</h2></div>
+  <div class="fig">${tooth(d.z,"big")}<div class="zone"><b>${ZONES[d.z]}</b>Typical site of the sign, highlighted on the diagram. The dashed line marks the cemento-enamel junction.</div></div>
+  <p class="def">${d.def}</p>
+  <div class="field"><h4>How to detect it</h4><p>${d.ril}</p></div>
+  <div class="field"><h4>Think of</h4><p>${d.pensa}</p></div>
+  ${d.alert?`<div class="alert"><b>Caution.</b> ${d.alert}</div>`:""}`;
+}
+function renderSheet(){$("#sheet").innerHTML=detail(D[sel]);}
+
+let deck=[],pos=0,shown=false;
+function shuffle(){deck=D.map(d=>d.id).sort(()=>Math.random()-.5);pos=0;shown=false}
+function renderReview(){
+  const d=D[deck[pos]], c=CATS[d.cat];
+  $("#review").innerHTML=`<div class="review" style="--c:var(${c.c})">
+    <div>${tooth(d.z,"big")}<div class="zone" style="margin-top:8px"><b>${ZONES[d.z]}</b></div></div>
+    <div style="min-width:0">
+      <div class="count">${pos+1} / ${deck.length} · ${c.n}</div>
+      <p class="q">${d.def}</p>
+      <p style="margin:0;color:var(--muted)">Which sign is this, and how would you detect it?</p>
+      ${shown?`<div class="ans" style="margin-top:14px"><h2>${d.n}</h2>
+        <div class="field"><h4>How to detect it</h4><p>${d.ril}</p></div>
+        <div class="field"><h4>Think of</h4><p>${d.pensa}</p></div>
+        ${d.alert?`<div class="alert"><b>Caution.</b> ${d.alert}</div>`:""}</div>`:""}
+      <div class="rbtns">
+        ${shown?"":`<button class="btn primary" id="r-show">Show answer</button>`}
+        <button class="btn ${shown?"primary":""}" id="r-next">${pos+1<deck.length?"Next sign":"Start again"}</button>
+        <button class="btn" id="r-mix">Shuffle</button>
+      </div>
+    </div></div>`;
+  const s=$("#r-show"); if(s) s.onclick=()=>{shown=true;renderReview()};
+  $("#r-next").onclick=()=>{ if(pos+1<deck.length){pos++;shown=false}else shuffle(); renderReview()};
+  $("#r-mix").onclick=()=>{shuffle();renderReview()};
+}
+function setMode(m){
+  mode=m; $("#m-explore").setAttribute("aria-pressed",m==="explore"); $("#m-review").setAttribute("aria-pressed",m==="review");
+  $("#explore").hidden=m!=="explore"; $("#review").hidden=m!=="review";
+  if(m==="review"){ if(!deck.length) shuffle(); renderReview(); }
+  try{localStorage.setItem("sdp-mode",m)}catch(e){}
+}
+$("#m-explore").onclick=()=>setMode("explore");
+$("#m-review").onclick=()=>setMode("review");
+$("#q").addEventListener("input",e=>{query=e.target.value;renderGrid()});
+renderChips();renderGrid();renderSheet();
+try{ if(location.hash==="#review"||localStorage.getItem("sdp-mode")==="review") setMode("review") }catch(e){}
+</script>
+
+</body></html>
